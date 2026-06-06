@@ -11,7 +11,7 @@ public class Utente implements Serializable
     private String nome;
     private String cognome;
     private String password;
-    private String ruolo; // USER o ADMIN
+    private String ruolo; //USER o ADMIN
     private String cellulare;
 
     // Costruttore vuoto

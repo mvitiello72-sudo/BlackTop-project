@@ -1,0 +1,230 @@
+package model.dao;
+
+import model.Indirizzo;
+import model.connection.ConnectionPool;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class IndirizzoDAO
+{
+	private static final String TABLE_NAME = "indirizzo";
+
+	//INSERT
+	public void doSave(Indirizzo i) throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+
+		String sql =
+				"INSERT INTO " + TABLE_NAME +
+				" (via_numciv, paese, citta, provincia, codice_postale, fk_utente) " +
+				"VALUES (?, ?, ?, ?, ?, ?)";
+
+		try
+		{
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, i.getViaNumciv());
+			ps.setString(2, i.getPaese());
+			ps.setString(3, i.getCitta());
+			ps.setString(4, i.getProvincia());
+			ps.setString(5, i.getCodicePostale());
+			ps.setInt(6, i.getFkUtente());
+
+			ps.executeUpdate();
+		}
+		finally
+		{
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			finally
+			{
+				ConnectionPool.releaseConnection(conn);
+			}
+		}
+	}
+
+	//SELECT BY ID
+	public Indirizzo doRetrieveByKey(int idIndirizzo) throws SQLException
+	{
+		Indirizzo i = null;
+
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id_indirizzo = ?";
+
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idIndirizzo);
+
+			rs = ps.executeQuery();
+
+			if(rs.next())
+			{
+				i = new Indirizzo();
+
+				i.setIdIndirizzo(rs.getInt("id_indirizzo"));
+				i.setViaNumciv(rs.getString("via_numciv"));
+				i.setPaese(rs.getString("paese"));
+				i.setCitta(rs.getString("citta"));
+				i.setProvincia(rs.getString("provincia"));
+				i.setCodicePostale(rs.getString("codice_postale"));
+				i.setFkUtente(rs.getInt("fk_utente"));
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}
+
+		return i;
+	}
+
+	//SELECT BY UTENTE
+	public List<Indirizzo> doRetrieveByUtente(int fkUtente) throws SQLException
+	{
+		List<Indirizzo> indirizzi = new ArrayList<>();
+
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE fk_utente = ?";
+
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, fkUtente);
+
+			rs = ps.executeQuery();
+
+			while(rs.next())
+			{
+				Indirizzo i = new Indirizzo();
+
+				i.setIdIndirizzo(rs.getInt("id_indirizzo"));
+				i.setViaNumciv(rs.getString("via_numciv"));
+				i.setPaese(rs.getString("paese"));
+				i.setCitta(rs.getString("citta"));
+				i.setProvincia(rs.getString("provincia"));
+				i.setCodicePostale(rs.getString("codice_postale"));
+				i.setFkUtente(rs.getInt("fk_utente"));
+
+				indirizzi.add(i);
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}
+
+		return indirizzi;
+	}
+
+	//UPDATE
+	public void doUpdate(Indirizzo i) throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+
+		String sql =
+				"UPDATE " + TABLE_NAME + " SET " +
+				"via_numciv=?, paese=?, citta=?, provincia=?, codice_postale=? " +
+				"WHERE id_indirizzo=?";
+
+		try
+		{
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, i.getViaNumciv());
+			ps.setString(2, i.getPaese());
+			ps.setString(3, i.getCitta());
+			ps.setString(4, i.getProvincia());
+			ps.setString(5, i.getCodicePostale());
+			ps.setInt(6, i.getIdIndirizzo());
+
+			ps.executeUpdate();
+		}
+		finally
+		{
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			finally
+			{
+				ConnectionPool.releaseConnection(conn);
+			}
+		}
+	}
+
+	//DELETE
+	public void doDelete(int idIndirizzo) throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+
+		String sql = "DELETE FROM " + TABLE_NAME + " WHERE id_indirizzo = ?";
+
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idIndirizzo);
+
+			ps.executeUpdate();
+		}
+		finally
+		{
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			finally
+			{
+				ConnectionPool.releaseConnection(conn);
+			}
+		}
+	}
+}
