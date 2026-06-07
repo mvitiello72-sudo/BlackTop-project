@@ -3,11 +3,13 @@
 <nav class="navbar">
 	
     <div class="nav-left">
-	        <a href="${pageContext.request.contextPath}/home"> <img src="${pageContext.request.contextPath}/img/logo_BlackTop.png" alt="BlackTop"></a>
+	        <a href="${pageContext.request.contextPath}/home"> 
+	        		<img src="${pageContext.request.contextPath}/img/logo_BlackTop.png" alt="BlackTop">
+	        </a>
 	</div>
 	
     <div class="nav-center">
-        <form action="${pageContext.request.contextPath}/Catalogo" method="get">
+        <form action="${pageContext.request.contextPath}/catalogo" method="get">
             <input type="text" name="cerca" placeholder="Cerca componenti..." value="${param.cerca}">
             <button>Cerca</button>
         </form>

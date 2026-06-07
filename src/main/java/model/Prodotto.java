@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Prodotto implements Serializable
 {
@@ -16,6 +18,8 @@ public class Prodotto implements Serializable
     private String taglia;   // XS, S, M, L, XL, XXL
     private boolean attivo;
     private int sconto;
+    
+    private List<Immagine> immagini = new ArrayList<>();
 
     // Costruttore vuoto 
     public Prodotto() { }
@@ -126,5 +130,15 @@ public class Prodotto implements Serializable
     public void setSconto(int sconto)
     {
         this.sconto = sconto;
+    }
+    
+    public List<Immagine> getImmagini()  //restituisce la lista delle immagini 
+    {
+        return this.immagini;
+    }
+
+    public void setImmagini(List<Immagine> immagini) 
+    {
+        this.immagini = immagini;
     }
 }
