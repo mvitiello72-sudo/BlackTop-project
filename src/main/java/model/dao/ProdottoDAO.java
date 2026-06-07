@@ -22,8 +22,8 @@ public class ProdottoDAO
 
 		String sql =
 				"INSERT INTO " + TABLE_NAME +
-				" (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, sconto) " +
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				" (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, sconto, categoria) " +
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try
 		{
@@ -38,6 +38,7 @@ public class ProdottoDAO
 			ps.setString(7, p.getTaglia());
 			ps.setBoolean(8, p.getAttivo());
 			ps.setInt(9, p.getSconto());
+			ps.setString(10, p.getCategoria());
         
 			ps.executeUpdate();
 		}
@@ -92,7 +93,7 @@ public class ProdottoDAO
 		PreparedStatement ps = null;
 		
 		String sql = "UPDATE "+TABLE_NAME+" SET " +
-                "nome=?, squadra=?, materiale=?, descrizione=?, prezzo=?, stock=?, taglia=?, attivo=?, sconto=? " +
+                "nome=?, squadra=?, materiale=?, descrizione=?, prezzo=?, stock=?, taglia=?, attivo=?, sconto=?, categoria=? " +
                 "WHERE id_prodotto=?";
 		
 		try
@@ -108,7 +109,8 @@ public class ProdottoDAO
 			ps.setString(7, p.getTaglia());
 			ps.setBoolean(8, p.getAttivo());
 			ps.setInt(9, p.getSconto());
-			ps.setInt(10, p.getIdProdotto());
+			ps.setString(10, p.getCategoria());
+			ps.setInt(11, p.getIdProdotto());
         
 			ps.executeUpdate();
 		}
@@ -161,6 +163,7 @@ public class ProdottoDAO
         				p.setTaglia(rs.getString("taglia"));
         				p.setAttivo(rs.getBoolean("attivo"));
         				p.setSconto(rs.getInt("sconto"));
+        				p.setCategoria(rs.getString("categoria"));
     				}
     				
     				if(rs.getString("percorso_immagine") != null) 
@@ -241,6 +244,7 @@ public class ProdottoDAO
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
                     p.setSconto(rs.getInt("sconto"));
+                    p.setCategoria(rs.getString("categoria"));
                     
                     // Salva il nuovo prodotto nella mappa usando l'ID come chiave
                     mappaProdotti.put(idProd, p);
@@ -280,6 +284,99 @@ public class ProdottoDAO
         }
 
         // Estrae i prodotti rimasti nella mappa e li restituisce sotto forma di ArrayList
+        return new ArrayList<>(mappaProdotti.values());
+    }
+    
+ // SELECT BY FILTER
+    public List<Prodotto> doRetrieveByFilter(String[] squadre, String categoria) throws SQLException
+    {
+        Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
+        Connection conn = ConnectionPool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        /*
+         * Utilizziamo WHERE 1=1 come "ancora" logica.
+         * Essendo 1=1 sempre vero, non altera il risultato, ma ci permette di concatenare 
+         * tutte le condizioni successive (categorie o squadre) semplicemente usando "AND", 
+         * evitando di dover gestire manualmente la distinzione tra WHERE e AND.
+         */
+        StringBuilder sql = new StringBuilder("SELECT p.*, i.id_immagine, i.percorso_immagine " +
+                "FROM " + TABLE_NAME + " p " +
+                "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto WHERE 1=1");
+
+        // Aggiunta dinamica dei filtri
+        if(categoria != null && !categoria.equals("tutte"))
+            sql.append(" AND p.categoria = ?");
+        
+        if(squadre != null && squadre.length > 0)
+        {
+            sql.append(" AND p.squadra IN (");
+            for(int i = 0; i < squadre.length; i++)
+            {
+            		if (i == 0)
+            			sql.append("?");
+            		else
+            			sql.append(", ?");    
+            }
+            sql.append(")");
+        }
+
+        try
+        {
+            ps = conn.prepareStatement(sql.toString());
+            
+            // Setta i parametri dinamici
+            int i = 1;
+            if(categoria != null && !categoria.equals("tutte"))
+            {
+                ps.setString(i++, categoria);
+            }
+            
+            if(squadre != null && squadre.length > 0)
+            {
+                for(String s : squadre)
+                {
+                    ps.setString(i++, s);
+                }
+            }
+
+            rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                int idProd = rs.getInt("id_prodotto");
+                Prodotto p = mappaProdotti.get(idProd);
+                if(p == null) {
+                    p = new Prodotto();
+                    p.setIdProdotto(idProd);
+                    p.setNome(rs.getString("nome"));
+                    p.setSquadra(rs.getString("squadra"));
+                    p.setMateriale(rs.getString("materiale"));
+                    p.setDescrizione(rs.getString("descrizione"));
+                    p.setPrezzo(rs.getDouble("prezzo"));
+                    p.setStock(rs.getInt("stock"));
+                    p.setTaglia(rs.getString("taglia"));
+                    p.setAttivo(rs.getBoolean("attivo"));
+                    p.setSconto(rs.getInt("sconto"));
+                    p.setCategoria(rs.getString("categoria"));
+                    
+                    mappaProdotti.put(idProd, p);
+                }
+                
+                if(rs.getString("percorso_immagine") != null)
+                {
+                    Immagine img = new Immagine();
+                    img.setIdImmagine(rs.getInt("id_immagine"));
+                    img.setPercorsoImmagine(rs.getString("percorso_immagine"));
+                    p.getImmagini().add(img);
+                }
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            ConnectionPool.releaseConnection(conn);
+        }
+
         return new ArrayList<>(mappaProdotti.values());
     }
 }

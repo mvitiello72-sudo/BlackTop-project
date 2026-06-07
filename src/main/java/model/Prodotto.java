@@ -18,6 +18,7 @@ public class Prodotto implements Serializable
     private String taglia;   // XS, S, M, L, XL, XXL
     private boolean attivo;
     private int sconto;
+    private String categoria;
     
     private List<Immagine> immagini = new ArrayList<>();
 
@@ -27,7 +28,7 @@ public class Prodotto implements Serializable
     // Costruttore completo
     public Prodotto(int idProdotto, String nome, String squadra, String materiale,
                     String descrizione, double prezzo, int stock,
-                    String taglia, boolean attivo, int sconto)
+                    String taglia, boolean attivo, int sconto, String categoria)
     {
         this.idProdotto = idProdotto;
         this.nome = nome;
@@ -39,6 +40,7 @@ public class Prodotto implements Serializable
         this.taglia = taglia;
         this.attivo = attivo;
         this.sconto = sconto;
+        this.categoria = categoria;
     }
 
     // Getter e Setter
@@ -140,5 +142,14 @@ public class Prodotto implements Serializable
     public void setImmagini(List<Immagine> immagini) 
     {
         this.immagini = immagini;
+    }
+    
+    public String getCategoria()
+    {
+        return this.categoria;
+    }
+    public void setCategoria(String categoria)
+    {
+        this.categoria = categoria;
     }
 }
