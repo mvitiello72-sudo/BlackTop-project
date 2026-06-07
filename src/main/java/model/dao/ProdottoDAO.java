@@ -36,7 +36,7 @@ public class ProdottoDAO
 			ps.setDouble(5, p.getPrezzo());
 			ps.setInt(6, p.getStock());
 			ps.setString(7, p.getTaglia());
-			ps.setBoolean(8, p.isAttivo());
+			ps.setBoolean(8, p.getAttivo());
 			ps.setInt(9, p.getSconto());
         
 			ps.executeUpdate();
@@ -106,7 +106,7 @@ public class ProdottoDAO
 			ps.setDouble(5, p.getPrezzo());
 			ps.setInt(6, p.getStock());
 			ps.setString(7, p.getTaglia());
-			ps.setBoolean(8, p.isAttivo());
+			ps.setBoolean(8, p.getAttivo());
 			ps.setInt(9, p.getSconto());
 			ps.setInt(10, p.getIdProdotto());
         

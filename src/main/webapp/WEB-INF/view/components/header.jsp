@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="jakarta.tags.core" %> <!-- importa la libreria JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <!-- importa la libreria JSTL -->
 
 <nav class="navbar">
 	

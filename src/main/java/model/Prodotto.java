@@ -114,7 +114,7 @@ public class Prodotto implements Serializable
         this.taglia = taglia;
     }
 
-    public boolean isAttivo()
+    public boolean getAttivo()
     {
         return this.attivo;
     }
