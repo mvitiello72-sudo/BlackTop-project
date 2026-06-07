@@ -1,0 +1,40 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> <!-- importa la libreria JSTL -->
+
+<nav class="navbar">
+	
+    <div class="nav-left">
+	        <a href="${pageContext.request.contextPath}/home"> <img src="${pageContext.request.contextPath}/img/logo_BlackTop.png" alt="BlackTop"></a>
+	</div>
+	
+    <div class="nav-center">
+        <form action="${pageContext.request.contextPath}/Catalogo" method="get">
+            <input type="text" name="cerca" placeholder="Cerca componenti..." value="${param.cerca}">
+            <button>Cerca</button>
+        </form>
+    </div>
+
+    <div class="nav-right">
+        <c:choose>
+            <c:when test="${not empty sessionScope.utente}">
+                <a class="nav-btn" href="${pageContext.request.contextPath}/profilo">
+                    ${sessionScope.utente.nome} <!-- Esce il nome dell'utente -->
+                </a>
+                <a class="nav-btn" href="${pageContext.request.contextPath}/logout">
+                    ESCI
+                </a>
+            </c:when>
+            
+            <c:otherwise>
+                <a class="nav-btn" href="${pageContext.request.contextPath}/indexlogin">
+                    ACCEDI
+                </a>
+            </c:otherwise>
+        </c:choose>
+
+        <a class="nav-btn" href="${pageContext.request.contextPath}/carrello">
+            CARRELLO
+        </a>
+
+    </div>
+
+</nav>
