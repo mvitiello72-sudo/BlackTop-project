@@ -4,7 +4,7 @@
 	
     <div class="nav-left">
 	        <a href="${pageContext.request.contextPath}/home"> 
-	        		<img src="${pageContext.request.contextPath}/img/logo_BlackTop.png" alt="BlackTop">
+	        		<img src="${pageContext.request.contextPath}/img/logo/logo_BlackTop.png" alt="BlackTop">
 	        </a>
 	</div>
 	

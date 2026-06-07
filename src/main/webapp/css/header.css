@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+.navbar {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);          
+    display: flex;
+    justify-content: space-between;      
+    align-items: center;                    
+    padding: 10px 40px;                 
+    position: sticky;             /* Rimane bloccato in alto quando l'utente scrolla la pagina */
+    top: 0;
+    z-index: 1000;                /* Impedisce ad altri elementi del sito di sovrapporsi alla barra */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+}
+
+/* --- 1. BLOCCO SINISTRA: --- */
+.nav-left img {
+    height: 100px;                        
+    width: auto;         
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.nav-left img:hover {
+    transform: scale(1.05);         
+}
+
+/* --- 2. BLOCCO CENTRALE --- */
+.nav-center form {
+    display: flex;
+    align-items: center;
+    width: 400px;                      
+}
+
+.nav-center input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px 0 0 4px;            
+    outline: none;                      
+    color: var(--color-text-main);
+}
+
+.nav-center button {
+    background-color: var(--color-secondary); 
+    color: var(--color-bg-main);      
+    border: none;
+    padding: 10px 20px;
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0 4px 4px 0;        
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.nav-center button:hover {
+    background-color: #d67d3e;            
+}
+
+/* --- 3. BLOCCO DESTRA --- */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;                              /* Crea uno spazio di 15px tra i bottoni */
+}
+
+.nav-btn {
+    color: var(--color-bg-main);         
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid transparent;          
+    text-transform: uppercase;
+}
+
+.nav-btn:hover {
+    color: var(--color-secondary);       
+    background-color: rgba(255, 255, 255, 0.05); 
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn[href*="carrello"] {
+    background-color: rgba(237, 145, 80, 0.1);
+    border: 1px solid var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.nav-btn[href*="carrello"]:hover {
+    background-color: var(--color-secondary); 
+    color: var(--color-primary);        
+}

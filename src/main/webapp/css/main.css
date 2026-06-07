@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/* Variabili globali */
+:root {
+    --color-primary: #212121;     /* Header, footer, elementi principali */
+    --color-secondary: #ED9150;   /* Logo, bottoni, prezzi */
+    --color-bg-main: #FFFFFF;     /* Sfondo principale della pagina */
+    --color-bg-card: #F5F5F5;      /* Card prodotti, sezioni alternate */
+    --color-text-main: #1C1C1C;   /* Corpo del testo principale */
+    --color-text-secondary: #6B6B6B;  /* Didascalie, note, scritte secondarie */
+    --color-border: #E5E5E5;      /* Linee separatorie e bordi */
+
+    /* Font e tipografia dello store */
+    --font-main: 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: 'Impact', 'Arial Black', sans-serif;
+}
+
+
+/* Azzera i margini e i padding predefiniti dei browser.
+   Imposta il 'border-box' per evitare che bordi e spazi interni alterino le dimensioni degli elementi.
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg-main); /* #FFFFFF */
+    color: var(--color-text-main);          /* #1C1C1C */
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Reset dei link con transizione fluida */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Reset liste */
+ul, ol {
+    list-style: none;
+}
+
+/* Immagini responsive */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Linea divisoria riutilizzabile */
+.divider {
+    height: 1px;
+    background-color: var(--color-border); /* #E5E5E5 */
+    border: none;
+}
