@@ -31,7 +31,7 @@
             </c:when>
             
             <c:otherwise>
-                <a class="nav-btn" href="${pageContext.request.contextPath}/indexlogin">
+                <a class="nav-btn" href="${pageContext.request.contextPath}/login">
                     ACCEDI
                 </a>
             </c:otherwise>

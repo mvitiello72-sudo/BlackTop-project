@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+.auth-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.auth-title {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+}
+
+/* Scatola per gli errori */
+.error-box {
+    background-color: #FFEBEE;
+    color: #C62828;
+    border: 1px solid #FFCDD2;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Affianca Nome e Cognome */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.form-group input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--color-primary);
+}
+
+/* Bottone di invio */
+.btn-auth {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-auth:hover {
+    background-color: var(--color-secondary);
+}
+
+/* Link di reindirizzamento al login */
+.auth-redirect {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.auth-redirect a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-redirect a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive per schermi piccoli */
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .auth-container {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+}

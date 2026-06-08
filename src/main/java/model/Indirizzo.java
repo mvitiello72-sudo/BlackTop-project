@@ -12,24 +12,12 @@ public class Indirizzo implements Serializable
     private String citta;
     private String provincia;
     private String codicePostale;
+    private boolean predefinito;
     
     private int fkUtente;
 
     // Costruttore vuoto
     public Indirizzo() { }
-
-    // Costruttore completo
-    public Indirizzo(int idIndirizzo, String viaNumciv, String paese, String citta,
-                     String provincia, String codicePostale, int fkUtente)
-    {
-        this.idIndirizzo = idIndirizzo;
-        this.viaNumciv = viaNumciv;
-        this.paese = paese;
-        this.citta = citta;
-        this.provincia = provincia;
-        this.codicePostale = codicePostale;
-        this.fkUtente = fkUtente;
-    }
 
     // Getter e Setter
     public int getIdIndirizzo() {
@@ -86,5 +74,13 @@ public class Indirizzo implements Serializable
 
     public void setFkUtente(int fkUtente) {
         this.fkUtente = fkUtente;
+    }
+    
+    public boolean getPredefinito() {
+        return predefinito;
+    }
+
+    public void setPredefinito(boolean predefinito) {
+        this.predefinito = predefinito;
     }
 }

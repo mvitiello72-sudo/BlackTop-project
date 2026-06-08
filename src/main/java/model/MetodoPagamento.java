@@ -13,25 +13,12 @@ public class MetodoPagamento implements Serializable
     private String intestatario;
     private Date scadenza;
     private String cvv;
+    private boolean predefinito;
 
     private int fkUtente;
 
     // Costruttore vuoto
     public MetodoPagamento() { }
-
-    // Costruttore completo
-    public MetodoPagamento(int idMetodo, String tipo, String numeroCarta,
-                           String intestatario, Date scadenza, String cvv,
-                           int fkUtente)
-    {
-        this.idMetodo = idMetodo;
-        this.tipo = tipo;
-        this.numeroCarta = numeroCarta;
-        this.intestatario = intestatario;
-        this.scadenza = scadenza;
-        this.cvv = cvv;
-        this.fkUtente = fkUtente;
-    }
 
     // Getter e Setter
     public int getIdMetodo() {
@@ -89,17 +76,13 @@ public class MetodoPagamento implements Serializable
     public void setFkUtente(int fkUtente) {
         this.fkUtente = fkUtente;
     }
-
-    @Override
-    public String toString() {
-        return "MetodoPagamento{" +
-                "idMetodo=" + idMetodo +
-                ", tipo='" + tipo + '\'' +
-                ", numeroCarta='" + numeroCarta + '\'' +
-                ", intestatario='" + intestatario + '\'' +
-                ", scadenza=" + scadenza +
-                ", cvv='" + cvv + '\'' +
-                ", fkUtente=" + fkUtente +
-                '}';
+    
+    public boolean getPredefinito() {
+        return predefinito;
     }
+
+    public void setPredefinito(boolean predefinito) {
+        this.predefinito = predefinito;
+    }
+
 }

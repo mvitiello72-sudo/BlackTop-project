@@ -11,16 +11,37 @@ public class MetodoPagamentoDAO
 {
     private static final String TABLE_NAME = "metodo_pagamento";
 
-    //INSERT
+    // METODO DI UTILITY: Imposta a false tutte le carte di un utente
+    public void resetPredefinitoPerUtente(int fkUtente, Connection conn) throws SQLException
+    {
+        PreparedStatement ps = null;
+        String sql = "UPDATE " + TABLE_NAME + " SET predefinito = FALSE WHERE fk_utente = ?";
+        try
+        {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, fkUtente);
+            ps.executeUpdate();
+        }
+        finally
+        {
+            if (ps != null) ps.close();
+        }
+    }
+
+    // INSERT
     public void doSave(MetodoPagamento m) throws SQLException
     {
         Connection conn = ConnectionPool.getConnection();
         PreparedStatement ps = null;
 
+        if (m.getPredefinito()) {
+            resetPredefinitoPerUtente(m.getFkUtente(), conn);
+        }
+
         String sql =
                 "INSERT INTO " + TABLE_NAME +
-                " (tipo, numero_carta, intestatario, scadenza, cvv, fk_utente) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                " (tipo, numero_carta, intestatario, scadenza, cvv, predefinito, fk_utente) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try
         {
@@ -30,8 +51,9 @@ public class MetodoPagamentoDAO
             ps.setString(2, m.getNumeroCarta());
             ps.setString(3, m.getIntestatario());
             ps.setDate(4, m.getScadenza());
-            ps.setString(5, m.getCvv());
-            ps.setInt(6, m.getFkUtente());
+            ps.setString(5, m.getCvv()); 
+            ps.setBoolean(6, m.getPredefinito());
+            ps.setInt(7, m.getFkUtente());
 
             ps.executeUpdate();
         }
@@ -49,7 +71,7 @@ public class MetodoPagamentoDAO
         }
     }
 
-    //SELECT BY ID
+    // SELECT BY ID
     public MetodoPagamento doRetrieveByKey(int idMetodo) throws SQLException
     {
         MetodoPagamento m = null;
@@ -58,9 +80,7 @@ public class MetodoPagamentoDAO
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql =
-                "SELECT * FROM " + TABLE_NAME +
-                " WHERE id_metodo = ?";
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id_metodo = ?";
 
         try
         {
@@ -79,6 +99,7 @@ public class MetodoPagamentoDAO
                 m.setIntestatario(rs.getString("intestatario"));
                 m.setScadenza(rs.getDate("scadenza"));
                 m.setCvv(rs.getString("cvv"));
+                m.setPredefinito(rs.getBoolean("predefinito"));
                 m.setFkUtente(rs.getInt("fk_utente"));
             }
         }
@@ -106,7 +127,7 @@ public class MetodoPagamentoDAO
         return m;
     }
 
-    //SELECT BY UTENTE
+    // SELECT BY UTENTE
     public List<MetodoPagamento> doRetrieveByUtente(int fkUtente) throws SQLException
     {
         List<MetodoPagamento> metodi = new ArrayList<>();
@@ -115,9 +136,7 @@ public class MetodoPagamentoDAO
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql =
-                "SELECT * FROM " + TABLE_NAME +
-                " WHERE fk_utente = ?";
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE fk_utente = ? ORDER BY predefinito DESC";
 
         try
         {
@@ -135,7 +154,8 @@ public class MetodoPagamentoDAO
                 m.setNumeroCarta(rs.getString("numero_carta"));
                 m.setIntestatario(rs.getString("intestatario"));
                 m.setScadenza(rs.getDate("scadenza"));
-                m.setCvv(rs.getString("cvv"));
+                m.setCvv(rs.getString("cvv")); 
+                m.setPredefinito(rs.getBoolean("predefinito"));
                 m.setFkUtente(rs.getInt("fk_utente"));
 
                 metodi.add(m);
@@ -164,16 +184,20 @@ public class MetodoPagamentoDAO
 
         return metodi;
     }
-    
-    //UPDATE
+
+    // UPDATE
     public void doUpdate(MetodoPagamento m) throws SQLException
     {
         Connection conn = ConnectionPool.getConnection();
         PreparedStatement ps = null;
 
+        if (m.getPredefinito()) {
+            resetPredefinitoPerUtente(m.getFkUtente(), conn);
+        }
+
         String sql =
-                "UPDATE " + TABLE_NAME +
-                " SET tipo=?, numero_carta=?, intestatario=?, scadenza=?, cvv=?, fk_utente=? " +
+                "UPDATE " + TABLE_NAME + " SET " +
+                "tipo=?, numero_carta=?, intestatario=?, scadenza=?, cvv=?, predefinito=? " +
                 "WHERE id_metodo=?";
 
         try
@@ -185,7 +209,7 @@ public class MetodoPagamentoDAO
             ps.setString(3, m.getIntestatario());
             ps.setDate(4, m.getScadenza());
             ps.setString(5, m.getCvv());
-            ps.setInt(6, m.getFkUtente());
+            ps.setBoolean(6, m.getPredefinito());
             ps.setInt(7, m.getIdMetodo());
 
             ps.executeUpdate();
@@ -204,15 +228,13 @@ public class MetodoPagamentoDAO
         }
     }
 
-    //DELETE
+    // DELETE
     public void doDelete(int idMetodo) throws SQLException
     {
         Connection conn = ConnectionPool.getConnection();
         PreparedStatement ps = null;
 
-        String sql =
-                "DELETE FROM " + TABLE_NAME +
-                " WHERE id_metodo = ?";
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE id_metodo = ?";
 
         try
         {
