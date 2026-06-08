@@ -1,0 +1,353 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   TITOLO E CONTENITORE PRINCIPALE
+   ========================================================================== */
+.cart-title {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+}
+
+.cart-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* colonna sinistra (Lista prodotti) prende più spazio */
+.cart-items-list {
+    flex: 1.8;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   SINGOLO ELEMENTO DEL CARRELLO
+   ========================================================================== */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    background-color: transparent;
+}
+
+/* Linea di separazione tra i prodotti richiesta */
+.cart-divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0;
+    width: 100%;
+}
+
+/* Immagine del prodotto */
+.item-img {
+    width: 90px;
+    height: 90px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Dettagli testuali (Squadra, Nome, Taglia) */
+.item-details {
+    flex: 2; /* Prende lo spazio centrale */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-team {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.item-details h3 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.item-details h3 a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.item-details h3 a:hover {
+    color: var(--color-secondary);
+}
+
+.item-size {
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+}
+
+/* Quantità con modificatore interattivo (+ e -) */
+.item-qty {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.item-qty .label {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
+.qty-modifier {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.qty-modifier form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-qty {
+    background-color: var(--color-bg-main);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-qty:hover:not([disabled]) {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+}
+
+.btn-qty[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.item-qty .qty-value {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    min-width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Prezzo totale della riga */
+.item-price {
+    flex: 1;
+    text-align: right;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+/* Bottone rimuovi testuale semplice */
+.item-remove {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-remove-text {
+    background: none;
+    border: none;
+    color: #D32F2F; /* Rosso per indicare l'eliminazione */
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-remove-text:hover {
+    background-color: rgba(211, 47, 47, 0.1); /* Sfondo rosso leggerissimo al passaggio */
+}
+
+/* ==========================================================================
+   COLONNA DESTRA: BOX RIEPILOGO ORDINE
+   ========================================================================= */
+.cart-summary {
+    flex: 1;
+    position: sticky;
+    top: 140px; /* Rimane bloccato a lato se la lista dei prodotti è molto lunga */
+}
+
+.summary-box {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.summary-box h2 {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+}
+
+.free-shipping {
+    color: #2E7D32; /* Verde per la spedizione gratuita */
+    font-weight: bold;
+}
+
+.summary-box hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 5px 0;
+}
+
+/* Riga del Totale Finale */
+.summary-row.total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+/* Pulsante Checkout richiesto */
+.btn-checkout {
+    display: block;
+    text-align: center;
+    background-color: var(--color-secondary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.btn-checkout:hover {
+    background-color: #d67d3e;
+}
+
+.btn-checkout:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   SCENARIO CARRELLO VUOTO
+   ========================================================================== */
+.empty-cart-box {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.empty-cart-box p {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.btn-continue-shopping {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-continue-shopping:hover {
+    background-color: var(--color-secondary);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .cart-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .cart-items-list, .cart-summary {
+        width: 100%;
+        flex: none;
+    }
+    
+    .cart-summary {
+        position: static; /* Rimuove il blocco sticky su schermi piccoli */
+    }
+}
+
+@media (max-width: 600px) {
+    .cart-item {
+        flex-wrap: wrap; /* Gli elementi vanno a capo sui telefoni stretti */
+        gap: 15px;
+        position: relative;
+        padding-bottom: 40px; /* Spazio per posizionare il tasto rimuovi */
+    }
+    
+    .item-details {
+        flex: 1;
+        min-width: 150px;
+    }
+    
+    .item-qty, .item-price {
+        flex: none;
+        width: auto;
+    }
+    
+    .item-remove {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+    }
+}

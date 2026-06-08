@@ -55,6 +55,8 @@
         </section>
         
     </main>
+    
+    
 
     <jsp:include page="/WEB-INF/view/components/footer.jsp" />
 

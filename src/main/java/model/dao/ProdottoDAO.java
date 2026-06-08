@@ -379,4 +379,84 @@ public class ProdottoDAO
 
         return new ArrayList<>(mappaProdotti.values());
     }
+    
+    //SELECT CORRELATI (Stessa squadra, escludendo il prodotto corrente)
+ 	public List<Prodotto> doRetrieveCorrelati(String squadra, int idProdotto) throws SQLException
+ 	{
+ 		Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
+ 		Connection conn = ConnectionPool.getConnection();
+ 		PreparedStatement ps = null;
+ 		ResultSet rs = null;
+
+ 		
+ 		String sql = "SELECT p.*, i.id_immagine, i.percorso_immagine " +
+ 		             "FROM " + TABLE_NAME + " p " +
+ 		             "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +
+ 		             "WHERE p.squadra = ? AND p.id_prodotto != ? AND p.attivo = true " +
+ 		             "LIMIT 10"; //prende massimo 10 prodotti
+
+ 		try
+ 		{
+ 			ps = conn.prepareStatement(sql);
+ 			ps.setString(1, squadra);
+ 			ps.setInt(2, idProdotto);
+
+ 			rs = ps.executeQuery();
+
+ 			while (rs.next())
+ 			{
+ 				int idProd = rs.getInt("id_prodotto");
+ 				Prodotto p = mappaProdotti.get(idProd);
+
+ 				if (p == null)
+ 				{
+ 					p = new Prodotto();
+ 					p.setIdProdotto(idProd);
+ 					p.setNome(rs.getString("nome"));
+ 					p.setSquadra(rs.getString("squadra"));
+ 					p.setMateriale(rs.getString("materiale"));
+ 					p.setDescrizione(rs.getString("descrizione"));
+ 					p.setPrezzo(rs.getDouble("prezzo"));
+ 					p.setStock(rs.getInt("stock"));
+ 					p.setTaglia(rs.getString("taglia"));
+ 					p.setAttivo(rs.getBoolean("attivo"));
+ 					p.setSconto(rs.getInt("sconto"));
+ 					p.setCategoria(rs.getString("categoria"));
+
+ 					mappaProdotti.put(idProd, p);
+ 				}
+
+ 				if (rs.getString("percorso_immagine") != null)
+ 				{
+ 					Immagine img = new Immagine();
+ 					img.setIdImmagine(rs.getInt("id_immagine"));
+ 					img.setPercorsoImmagine(rs.getString("percorso_immagine"));
+ 					img.setFkProdotto(idProd);
+
+ 					p.getImmagini().add(img);
+ 				}
+ 			}
+ 		}
+ 		finally
+ 		{
+ 			try
+ 			{
+ 				if (rs != null)
+ 					rs.close();
+ 			}
+ 			finally
+ 			{
+ 				try
+ 				{
+ 					if (ps != null)
+ 						ps.close();
+ 				}
+ 				finally
+ 				{
+ 					ConnectionPool.releaseConnection(conn);
+ 				}
+ 			}
+ 		}
+ 		return new ArrayList<>(mappaProdotti.values());
+ 	}
 }

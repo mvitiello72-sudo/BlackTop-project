@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+/* Layout principale */
+.catalogo-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sidebar Filtri */
+.filtri-sidebar {
+    flex: 0 0 250px; /* Larghezza fissa per la sidebar */
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    height: fit-content;
+    border: 1px solid #eee;
+}
+
+.filtro-gruppo {
+    margin-bottom: 2rem;
+}
+
+.filtro-gruppo h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.filtro-gruppo label {
+    display: block;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-applica {
+    width: 100%;
+    padding: 0.8rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Griglia Prodotti */
+.catalogo-prodotti {
+    flex: 1;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Card Prodotto */
+.product-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.product-card .price {
+    font-weight: bold;
+    color: #e44d26;
+}
+
+.btn-detail {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+}

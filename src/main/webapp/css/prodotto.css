@@ -1,0 +1,371 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   CONTENITORE PRINCIPALE
+   ========================================================================== */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 70px; /* Evita che il footer si attacchi se la pagina è vuota */
+}
+
+.prod-detail-container {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* ==========================================================================
+   SEZIONE SINISTRA: GALLERIA IMMAGINI
+   ========================================================================== */
+.prod-gallery {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.main-image {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.main-image img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Effetto zoom leggero sulla jersey principale */
+.main-image:hover img {
+    transform: scale(1.03);
+}
+
+.grid-img {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.grid-img img.grid {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background-color: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.grid-img img.grid:hover {
+    border-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   SEZIONE DESTRA: CASSELLA INFORMAZIONI E FORM (PRODOTTO SINGOLO GIGANTE)
+   ========================================================================== */
+.prod-info-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.prod-team {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.prod-title {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    line-height: 1.1;
+}
+
+.prod-price {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-secondary);
+}
+
+.prod-description {
+    border-top: 1px solid var(--color-border);
+    padding-top: 15px;
+}
+
+.prod-description h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+}
+
+.prod-description p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   FORM DI ACQUISTO (TAGLIA, QUANTITÀ, ERRORI)
+   ========================================================================== */
+#add-to-cart-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--color-bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-text-main);
+}
+
+/* Stile per Select e Input numerico */
+#taglia, #quantita {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#taglia:focus, #quantita:focus {
+    border-color: var(--color-primary);
+}
+
+/* Messaggio di Errore Inline (Obbligatorio Checklist) */
+.error-message {
+    color: #D32F2F;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/* Bottone Aggiungi al Carrello */
+.btn-add-cart {
+    background-color: var(--color-secondary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-add-cart:hover {
+    background-color: #d67d3e; 
+}
+
+.btn-add-cart:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   SCHERMATA ERRORE (PRODOTTO NON TROVATO)
+   ========================================================================== */
+.error-box {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.error-box h2 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.error-box p {
+    color: var(--color-text-secondary);
+    margin-bottom: 25px;
+}
+
+.btn-shop {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.btn-shop:hover {
+    background-color: var(--color-secondary);
+}
+
+/* ==========================================================================
+   NUOVA SEZIONE: POTREBBERO PIACERTI (CARD PRODOTTI IN GRIGLIA)
+   ========================================================================== */
+.featured-products {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.featured-products h2 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    color: var(--color-primary);
+}
+
+/* Griglia flessibile a 4 colonne che scala in base allo schermo */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* Card del singolo prodotto correlato */
+.product-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* Titolo compatto per la card */
+.product-card h3 {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    line-height: 1.2;
+    min-height: 44px; /* Mantiene allineate le card se i titoli hanno lunghezze diverse */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Squadra proporzionata per la card */
+.product-card .team {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Prezzo proporzionato per la card */
+.product-card .price {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-secondary);
+    margin-top: auto; /* Spinge il prezzo e il bottone sempre in fondo */
+}
+
+/* Bottone Dettaglio della card correlati */
+.product-card .btn-detail {
+    display: block;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
+.product-card .btn-detail:hover {
+    background-color: var(--color-secondary);
+}
+
+.no-products {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    grid-column: 1 / -1; /* Occupa tutta la riga se non ci sono elementi */
+}
+
+/* ==========================================================================
+   DESIGN RESPONSIVO (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .prod-detail-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .prod-gallery, .prod-info-box {
+        width: 100%;
+        flex: none;
+    }
+
+    .prod-title {
+        font-size: 2rem;
+    }
+    
+    .grid-img img.grid {
+        width: 65px;
+        height: 65px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+    }
+
+    .product-card {
+        padding: 12px;
+    }
+
+    .product-card img {
+        height: 150px;
+    }
+
+    .product-card h3 {
+        font-size: 1rem;
+    }
+}

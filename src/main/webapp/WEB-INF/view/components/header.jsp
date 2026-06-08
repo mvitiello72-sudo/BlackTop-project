@@ -16,6 +16,10 @@
     </div>
 
     <div class="nav-right">
+    		 <a class="nav-btn" href="${pageContext.request.contextPath}/catalogo">
+            CATALOGO
+        </a>
+        
         <c:choose>
             <c:when test="${not empty sessionScope.utente}">
                 <a class="nav-btn" href="${pageContext.request.contextPath}/profilo">
