@@ -1,4 +1,4 @@
-package control;
+package control.common;
 
 import model.Carrello;
 import model.Prodotto;
