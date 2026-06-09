@@ -28,9 +28,9 @@ public class AdminDashboardServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
+        Utente utenteLoggato = (Utente) session.getAttribute("utente");
         
         // CONTROLLO DI SICUREZZA
-        Utente utenteLoggato = (Utente) session.getAttribute("utente");
         if (utenteLoggato == null || !"ADMIN".equalsIgnoreCase(utenteLoggato.getRuolo()))
         {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Area riservata agli amministratori.");
