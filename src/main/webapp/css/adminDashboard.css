@@ -1,0 +1,419 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   CONTENITORE PRINCIPALE E HERO
+   ========================================================================== */
+.dashboard-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 60px 20px;
+}
+
+.dashboard-hero {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    padding: 50px 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-label {
+    display: inline-block;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.dashboard-hero h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.dashboard-hero p {
+    font-size: 16px;
+    color: var(--color-border);
+}
+
+/* ==========================================================================
+   CARDS DELLE STATISTICHE
+   ========================================================================== */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-secondary);
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   TAB BAR NAVIGATION
+   ========================================================================== */
+.tab-bar {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 30px;
+    gap: 5px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    padding: 12px 25px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: var(--color-primary);
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+}
+
+/* Linea arancione sotto il tab attivo */
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-secondary);
+}
+
+/* Gestione visibilità sezioni Tab */
+.tab-section {
+    display: none;
+}
+
+.tab-section.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   TOOLBARS, ALERTS E FILTRI
+   ========================================================================== */
+.section-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-toolbar h2 {
+    font-size: 26px;
+    color: var(--color-primary);
+}
+
+/* Alerts di successo/errore */
+.alert {
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.alert-success {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
+}
+
+.alert-error {
+    background-color: #FFEBEE;
+    color: #C62828;
+    border: 1px solid #FFCDD2;
+}
+
+/* Form dei Filtri per Ordini */
+.filtri-form {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.filtri-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.filtro-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+}
+
+.filtro-group label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+}
+
+.filtro-group input {
+    font-family: var(--font-main);
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filtro-group input:focus {
+    border-color: var(--color-secondary);
+}
+
+.filtro-btn-group {
+    flex-direction: row;
+    gap: 10px;
+    min-width: auto;
+}
+
+/* ==========================================================================
+   TABELLE ADMIN
+   ========================================================================== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Rende la tabella scrollabile su schermi piccoli */
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background-color: var(--color-bg-main);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-table th {
+    background-color: var(--color-bg-card);
+    font-family: var(--font-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--color-text-main);
+    padding: 15px 18px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.admin-table td {
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover td {
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+/* Stili specifici colonne */
+.td-id {
+    font-weight: bold;
+    color: var(--color-text-secondary);
+}
+
+.td-nome {
+    font-weight: 600;
+}
+
+.td-email {
+    color: var(--color-text-secondary);
+}
+
+.td-price {
+    font-family: var(--font-main);
+    font-weight: 700;
+}
+
+.empty-state {
+    text-align: center !important;
+    padding: 40px !important;
+    color: var(--color-text-secondary);
+    font-size: 16px;
+}
+
+.empty-state a {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-weight: bold;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+/* ==========================================================================
+   BOTTONI E AZIONI
+   ========================================================================== */
+/* Bottone Aggiungi / Filtra (Stile Principale) */
+.btn-add {
+    display: inline-block;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-add:hover {
+    background-color: #d67d3e;
+    transform: translateY(-1px);
+}
+
+/* Bottoni Azione in Linea (Modifica, Attiva, Reset...) */
+.td-azioni {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.form-inline {
+    display: inline;
+}
+
+.btn-action {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.btn-action:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+}
+
+/* Modifica specifica per bottone Reset nei filtri */
+.filtro-btn-group .btn-action {
+    padding: 10px 20px;
+    height: 100%;
+}
+
+/* ==========================================================================
+   BADGES (Etichette colorate)
+   ========================================================================== */
+.badge-cat, .badge-taglia, .badge-stock, .badge-ruolo, .badge-stato, .badge-sconto {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background-color: var(--color-bg-card);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+}
+
+/* Badge specifici */
+.badge-sconto {
+    background-color: #FFEBEE;
+    color: #C62828;
+    border-color: #FFCDD2;
+}
+
+.badge-ruolo {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    border: none;
+}
+
+/* Responsive design per schermi piccoli */
+@media (max-width: 768px) {
+    .section-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filtri-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filtro-btn-group {
+        margin-top: 10px;
+    }
+}

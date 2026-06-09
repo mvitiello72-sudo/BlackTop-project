@@ -459,4 +459,79 @@ public class ProdottoDAO
  		}
  		return new ArrayList<>(mappaProdotti.values());
  	}
+ 	
+ 	// COUNT PRODOTTI ATTIVI
+ 	public int countProdottiAttivi() throws SQLException
+ 	{
+ 		Connection conn = ConnectionPool.getConnection();
+ 		PreparedStatement ps = null;
+ 		ResultSet rs = null;
+ 		int totale = 0;
+ 		
+ 		String sql = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE attivo = true";
+ 		
+ 		try
+ 		{
+ 			ps = conn.prepareStatement(sql);
+ 			rs = ps.executeQuery();
+ 			
+ 			if (rs.next())
+ 			{
+ 				totale = rs.getInt(1); //Estrae il risultato della prima colonna (il COUNT)
+ 			}
+ 		}
+ 		finally
+ 		{
+ 			try
+ 			{
+ 				if (rs != null)
+ 					rs.close();
+ 			}
+ 			finally
+ 			{
+ 				try
+ 				{
+ 					if (ps != null)
+ 						ps.close();
+ 				}
+ 				finally
+ 				{
+ 					ConnectionPool.releaseConnection(conn);
+ 				}
+ 			}
+ 		}
+ 		
+ 		return totale;
+ 	}
+ 	
+ 	// UPDATE STATO ATTIVO 
+ 	public void updateAttivo(int idProdotto, boolean nuovoStato) throws SQLException
+ 	{
+ 		Connection conn = ConnectionPool.getConnection();
+ 		PreparedStatement ps = null;
+ 		
+ 		String sql = "UPDATE " + TABLE_NAME + " SET attivo = ? WHERE id_prodotto = ?";
+ 		
+ 		try
+ 		{
+ 			ps = conn.prepareStatement(sql);
+ 			
+ 			ps.setBoolean(1, nuovoStato);
+ 			ps.setInt(2, idProdotto);
+ 			
+ 			ps.executeUpdate();
+ 		}
+ 		finally
+ 		{
+ 			try
+ 			{
+ 				if (ps != null)
+ 					ps.close();
+ 			}
+ 			finally
+ 			{
+ 				ConnectionPool.releaseConnection(conn);
+ 			}
+ 		}
+ 	}
 }

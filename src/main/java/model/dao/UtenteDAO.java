@@ -281,4 +281,48 @@ public class UtenteDAO
 
 		return utenti;
 	}
+	
+	// COUNT UTENTI REGISTRATI
+	public int countUtentiRegistrati() throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int totale = 0;
+		
+		String sql = "SELECT COUNT(*) FROM " + TABLE_NAME;
+		
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+		
+			if (rs.next())
+			{
+				totale = rs.getInt(1); // Prende il primo valore, ovvero il count
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}			
+		return totale;
+	}
+	
 }

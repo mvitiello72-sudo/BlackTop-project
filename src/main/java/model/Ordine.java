@@ -14,6 +14,8 @@ public class Ordine implements Serializable
 
     private int fkUtente;
     private int fkIndirizzo;
+    
+    private Utente utente;
 
     // Costruttore vuoto
     public Ordine() { }
@@ -31,6 +33,14 @@ public class Ordine implements Serializable
     }
 
     // Getter e Setter
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
+    
     public int getIdOrdine() {
         return idOrdine;
     }

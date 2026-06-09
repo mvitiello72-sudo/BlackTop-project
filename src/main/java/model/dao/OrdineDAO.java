@@ -1,5 +1,7 @@
 package model.dao;
 
+import model.Utente;
+
 import model.Ordine;
 import model.connection.ConnectionPool;
 
@@ -271,4 +273,200 @@ public class OrdineDAO
 			}
 		}
 	}
+	
+	// COUNT ORDINI TOTALI
+	public int countOrdiniTotali() throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int totale = 0;
+		
+		String sql = "SELECT COUNT(*) FROM " + TABLE_NAME;
+		
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			if (rs.next())
+			{
+				totale = rs.getInt(1); // Estrae il conteggio numerico
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}
+		return totale;
+	}
+	
+	// SELECT CON UTENTE CONNESSO ALL'ORDINE
+		public List<Ordine> doRetrieveAllConUtenti() throws SQLException
+		{
+			List<Ordine> ordini = new ArrayList<>();
+
+			Connection conn = ConnectionPool.getConnection();
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			String sql = "SELECT o.*, u.nome, u.cognome, u.email " +
+			             "FROM " + TABLE_NAME + " o " +
+			             "JOIN utente u ON o.fk_utente = u.id_utente " +
+			             "ORDER BY o.data_ordine DESC";
+
+			try
+			{
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+
+				while (rs.next())
+				{
+					Ordine o = new Ordine();
+					o.setIdOrdine(rs.getInt("id_ordine"));
+					o.setDataOrdine(rs.getDate("data_ordine"));
+					o.setStato(rs.getString("stato"));
+					o.setTotale(rs.getDouble("totale"));
+					o.setFkUtente(rs.getInt("fk_utente"));
+					o.setFkIndirizzo(rs.getInt("fk_indirizzo"));
+					
+					Utente u = new Utente();
+					u.setIdUtente(rs.getInt("fk_utente"));
+					u.setNome(rs.getString("nome"));
+					u.setCognome(rs.getString("cognome"));
+					u.setEmail(rs.getString("email"));
+
+					o.setUtente(u);
+					ordini.add(o);
+				}
+			}
+			finally
+			{
+				try
+				{
+					if (rs != null)
+						rs.close();
+				}
+				finally
+				{
+					try
+					{
+						if (ps != null)
+							ps.close();
+					}
+					finally
+					{
+						ConnectionPool.releaseConnection(conn);
+					}
+				}
+			}
+
+			return ordini;
+		}
+
+		// SELECT BY FILTERS (Date ed Email esatta o parziale del Cliente)
+		public List<Ordine> doRetrieveByFilters(String dataInizio, String dataFine, String cliente) throws SQLException
+		{
+			List<Ordine> ordini = new ArrayList<>();
+
+			Connection conn = ConnectionPool.getConnection();
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+
+			StringBuilder sql = new StringBuilder(
+				"SELECT o.*, u.nome, u.cognome, u.email " +
+				"FROM " + TABLE_NAME + " o " +
+				"JOIN utente u ON o.fk_utente = u.id_utente " +
+				"WHERE 1=1"
+			);
+
+			if (dataInizio != null && !dataInizio.isEmpty()) {
+				sql.append(" AND o.data_ordine >= ?");
+			}
+			if (dataFine != null && !dataFine.isEmpty()) {
+				sql.append(" AND o.data_ordine <= ?");
+			}
+			if (cliente != null && !cliente.isEmpty()) {
+				sql.append(" AND u.email LIKE ?");
+			}
+
+			sql.append(" ORDER BY o.data_ordine DESC");
+
+			try
+			{
+				ps = conn.prepareStatement(sql.toString());
+				int i = 1;
+
+				if (dataInizio != null && !dataInizio.isEmpty()) {
+					ps.setDate(i++, java.sql.Date.valueOf(dataInizio));
+				}
+				if (dataFine != null && !dataFine.isEmpty()) {
+					ps.setDate(i++, java.sql.Date.valueOf(dataFine));
+				}
+				// Aggiunge i caratteri jolly (%) per cercare l'email anche in modo parziale
+				if (cliente != null && !cliente.isEmpty()) {
+					ps.setString(i++, "%" + cliente + "%");
+				}
+
+				rs = ps.executeQuery();
+
+				while (rs.next())
+				{
+					Ordine o = new Ordine();
+					o.setIdOrdine(rs.getInt("id_ordine"));
+					o.setDataOrdine(rs.getDate("data_ordine"));
+					o.setStato(rs.getString("stato"));
+					o.setTotale(rs.getDouble("totale"));
+					o.setFkUtente(rs.getInt("fk_utente"));
+					o.setFkIndirizzo(rs.getInt("fk_indirizzo"));
+
+					Utente u = new Utente();
+					u.setIdUtente(rs.getInt("fk_utente"));
+					u.setNome(rs.getString("nome"));
+					u.setCognome(rs.getString("cognome"));
+					u.setEmail(rs.getString("email"));
+
+					o.setUtente(u);
+					ordini.add(o);
+				}
+			}
+			finally
+			{
+				try
+				{
+					if (rs != null)
+						rs.close();
+				}
+				finally
+				{
+					try
+					{
+						if (ps != null)
+							ps.close();
+					}
+					finally
+					{
+						ConnectionPool.releaseConnection(conn);
+					}
+				}
+			}
+
+			return ordini;
+		}
 }

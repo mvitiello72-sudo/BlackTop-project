@@ -22,6 +22,11 @@
         
         <c:choose>
             <c:when test="${not empty sessionScope.utente}">
+            		<c:if test="${sessionScope.utente.ruolo == 'ADMIN'}">
+            			<a class="nav-btn" href="${pageContext.request.contextPath}/admindashboard">
+                			ADMIN
+            			</a>
+        			</c:if>
                 <a class="nav-btn" href="${pageContext.request.contextPath}/profilo">
                     ${sessionScope.utente.nome} <!-- Esce il nome dell'utente -->
                 </a>
