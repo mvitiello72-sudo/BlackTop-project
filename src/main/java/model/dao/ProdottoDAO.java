@@ -287,6 +287,84 @@ public class ProdottoDAO
         return new ArrayList<>(mappaProdotti.values());
     }
     
+    // SELECT ALL ATTIVI
+ 	public List<Prodotto> doRetrieveAllAttivi() throws SQLException
+ 	{
+ 		Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
+ 		
+ 		Connection conn = ConnectionPool.getConnection();
+ 		PreparedStatement ps = null;
+ 		ResultSet rs = null;
+ 		
+ 		String sql = "SELECT p.*, i.id_immagine, i.percorso_immagine " +
+ 		             "FROM " + TABLE_NAME + " p " +
+ 		             "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +
+ 		             "WHERE p.attivo = true " +
+ 		             "ORDER BY p.id_prodotto";
+ 		
+ 		try
+ 		{
+ 			ps = conn.prepareStatement(sql);
+ 			rs = ps.executeQuery();
+ 		
+ 			while(rs.next())
+ 			{
+ 				int idProd = rs.getInt("id_prodotto");
+ 				Prodotto p = mappaProdotti.get(idProd);
+ 				
+ 				if(p == null) 
+ 				{
+ 					p = new Prodotto();
+ 					p.setIdProdotto(idProd);
+ 					p.setNome(rs.getString("nome"));
+ 					p.setSquadra(rs.getString("squadra"));
+ 					p.setMateriale(rs.getString("materiale"));
+ 					p.setDescrizione(rs.getString("descrizione"));
+ 					p.setPrezzo(rs.getDouble("prezzo"));
+ 					p.setStock(rs.getInt("stock"));
+ 					p.setTaglia(rs.getString("taglia"));
+ 					p.setAttivo(rs.getBoolean("attivo"));
+ 					p.setSconto(rs.getInt("sconto"));
+ 					p.setCategoria(rs.getString("categoria"));
+ 					
+ 					mappaProdotti.put(idProd, p);
+ 				}
+ 				
+ 				if(rs.getString("percorso_immagine") != null) 
+ 				{
+ 					Immagine img = new Immagine();
+ 					img.setIdImmagine(rs.getInt("id_immagine"));
+ 					img.setPercorsoImmagine(rs.getString("percorso_immagine"));
+ 					img.setFkProdotto(idProd);
+ 					
+ 					p.getImmagini().add(img); 
+ 				}
+ 			}
+ 		}
+ 		finally
+ 		{
+ 			try
+ 			{
+ 				if (rs != null)
+ 					rs.close();
+ 			}
+ 			finally
+ 			{
+ 				try
+ 				{
+ 					if (ps != null)
+ 						ps.close();
+ 				}
+ 				finally
+ 				{
+ 					ConnectionPool.releaseConnection(conn);
+ 				}
+ 			}
+ 		}
+
+ 		return new ArrayList<>(mappaProdotti.values());
+ 	}
+    
  // SELECT BY FILTER
     public List<Prodotto> doRetrieveByFilter(String[] squadre, String categoria) throws SQLException
     {
@@ -295,23 +373,19 @@ public class ProdottoDAO
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        /*
-         * Utilizziamo WHERE 1=1 come "ancora" logica.
-         * Essendo 1=1 sempre vero, non altera il risultato, ma ci permette di concatenare 
-         * tutte le condizioni successive (categorie o squadre) semplicemente usando "AND", 
-         * evitando di dover gestire manualmente la distinzione tra WHERE e AND.
-         */
+        // Corretto: aggiunto lo spazio alla fine della stringa SQL base prima delle virgolette
         StringBuilder sql = new StringBuilder("SELECT p.*, i.id_immagine, i.percorso_immagine " +
                 "FROM " + TABLE_NAME + " p " +
-                "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto WHERE 1=1");
+                "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +
+                "WHERE 1=1 AND p.attivo = true ");
 
-        // Aggiunta dinamica dei filtri
+        // Aggiunta dinamica dei filtri (mantenendo gli spazi iniziali)
         if(categoria != null && !categoria.equals("tutte"))
-            sql.append(" AND p.categoria = ?");
+            sql.append("AND p.categoria = ? ");
         
         if(squadre != null && squadre.length > 0)
         {
-            sql.append(" AND p.squadra IN (");
+            sql.append("AND p.squadra IN (");
             for(int i = 0; i < squadre.length; i++)
             {
             		if (i == 0)
@@ -319,7 +393,7 @@ public class ProdottoDAO
             		else
             			sql.append(", ?");    
             }
-            sql.append(")");
+            sql.append(") ");
         }
 
         try
@@ -368,6 +442,7 @@ public class ProdottoDAO
                     Immagine img = new Immagine();
                     img.setIdImmagine(rs.getInt("id_immagine"));
                     img.setPercorsoImmagine(rs.getString("percorso_immagine"));
+                    img.setFkProdotto(idProd); // Aggiunto per consistenza con gli altri metodi
                     p.getImmagini().add(img);
                 }
             }

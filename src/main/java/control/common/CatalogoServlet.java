@@ -36,7 +36,7 @@ public class CatalogoServlet extends HttpServlet {
         		if(nessunaSquadra && nessunaCategoria)
         		{
         			//se non ci sono filtri, prende tutti i prodotti
-        			listaProdotti = prodottoDAO.doRetrieveAll();                        
+        			listaProdotti = prodottoDAO.doRetrieveAllAttivi();                        
         		}
         		else
         		{

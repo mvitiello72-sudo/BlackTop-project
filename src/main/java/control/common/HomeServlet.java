@@ -27,12 +27,12 @@ public class HomeServlet extends HttpServlet
 	{
 		try
 		{
-			List<Prodotto> tuttiProdotti = p.doRetrieveAll();			
+			List<Prodotto> tuttiProdotti = p.doRetrieveAllAttivi();			
 			
 			//Ora prendiamo solo acluni prodotti per metterli in evidenzia
 			List<Prodotto> prodottiEvidenza = tuttiProdotti.stream()
 	                .filter(p -> p.getAttivo())
-	                .limit(4)
+	                .limit(10)
 	                .collect(Collectors.toList());
 			
 			//Passiamo la lista alla jsp
