@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -60,13 +61,15 @@
                                             <input type="hidden" name="idProdotto" value="${item.prodotto.idProdotto}">
                                             <input type="hidden" name="taglia" value="${item.taglia}">
                                             <input type="hidden" name="quantita" value="${item.quantita + 1}">
-                                            <button type="submit" class="btn-qty">+</button>
+                                            <%-- Il bottone + si disabilita se raggiunge lo stock massimo --%>
+                                            <button type="submit" class="btn-qty" ${item.quantita >= item.prodotto.stock ? 'disabled' : ''}>+</button>
                                         </form>
                                     </div>
                                 </div>
                                 
                                 <div class="item-price">
-                                    <p>€ ${item.prezzoTotale}</p>
+                                    <%-- formattazione del prezzo --%>
+                                    <p>€ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${item.prezzoTotale}" /></p>
                                 </div>
                                 
                                 <div class="item-remove">
@@ -88,7 +91,7 @@
                             <h2>Riepilogo ordine</h2>
                             <div class="summary-row">
                                 <span>Totale articoli:</span>
-                                <span>€ ${sessionScope.carrello.totaleComplessivo}</span>
+                                <span>€ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.carrello.totaleComplessivo}" /></span>
                             </div>
                             <div class="summary-row">
                                 <span>Spedizione:</span>
@@ -97,7 +100,7 @@
                             <hr>
                             <div class="summary-row total">
                                 <span>Totale complessivo:</span>
-                                <span>€ ${sessionScope.carrello.totaleComplessivo}</span>
+                                <span>€ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.carrello.totaleComplessivo}" /></span>
                             </div>
                             
                             <a href="${pageContext.request.contextPath}/checkout" class="btn-checkout">
@@ -109,7 +112,6 @@
                 </div>
             </c:when>
             
-            <%-- SCENARIO DI RIPIEGO: Se il carrello è vuoto --%>
             <c:otherwise>
                 <div class="empty-cart-box">
                     <p>Il tuo carrello è attualmente vuoto.</p>

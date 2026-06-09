@@ -24,7 +24,6 @@ public class CarrelloServlet extends HttpServlet
         this.prodottoDAO = new ProdottoDAO();
     }
       
-    // 1. SCENARIO GET: L'utente vuole solo vedere la pagina del carrello
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
@@ -38,7 +37,6 @@ public class CarrelloServlet extends HttpServlet
         request.getRequestDispatcher("/WEB-INF/view/common/carrello.jsp").forward(request, response);
     }
 
- // 2. SCENARIO POST: Gestione Azioni (Aggiungi, Rimuovi, Modifica Quantità)
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
@@ -50,7 +48,6 @@ public class CarrelloServlet extends HttpServlet
             session.setAttribute("carrello", carrello);
         }
 
-        // Vediamo quale form ha scatenato la richiesta ("add", "remove" o "update")
         String action = request.getParameter("action");
 
         if (action != null) 
@@ -60,14 +57,18 @@ public class CarrelloServlet extends HttpServlet
                 if (action.equals("add")) 
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-                    String taglia = request.getParameter("taglia");
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
 
                     Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
                     
-                    if (p != null && taglia != null && !taglia.trim().isEmpty()) 
-                    {
-                        carrello.aggiungiProdotto(p, taglia, quantita);
+                    if (p != null) 
+                    {                
+                        String taglia = p.getTaglia();
+                        
+                        if (taglia != null && !taglia.trim().isEmpty()) 
+                        {
+                            carrello.aggiungiProdotto(p, taglia, quantita);
+                        }
                     }
                 } 
                 else if (action.equals("remove")) 
@@ -75,7 +76,6 @@ public class CarrelloServlet extends HttpServlet
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
                     String taglia = request.getParameter("taglia");
 
-                    // Rimuove l'accoppiata esatta prodotto-taglia
                     carrello.rimuoviProdotto(idProdotto, taglia);
                 }
                 else if (action.equals("update"))
@@ -84,7 +84,20 @@ public class CarrelloServlet extends HttpServlet
                     String taglia = request.getParameter("taglia");
                     int nuovaQuantita = Integer.parseInt(request.getParameter("quantita"));
 
-                    carrello.aggiornaQuantita(idProdotto, taglia, nuovaQuantita);
+                    // PROTEZIONE STOCK
+                    Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
+                    if (p != null) 
+                    {
+                        if (nuovaQuantita > p.getStock()) 
+                        {
+                            nuovaQuantita = p.getStock(); // Se l'utente forza l'HTML, lo blocchiamo al max disponibile
+                        }
+                        
+                        if (nuovaQuantita > 0) 
+                        {
+                            carrello.aggiornaQuantita(idProdotto, taglia, nuovaQuantita);
+                        }
+                    }
                 }
             } 
             catch (Exception e) 
@@ -93,7 +106,6 @@ public class CarrelloServlet extends HttpServlet
             }
         }
 
-        // Reindirizziamo l'utente alla servlet stessa ma in GET 
         response.sendRedirect(request.getContextPath() + "/carrello");
     }
 }
