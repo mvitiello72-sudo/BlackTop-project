@@ -1,5 +1,7 @@
 package model.dao;
 
+import model.Prodotto;
+
 import model.DettagliOrdine;
 import model.connection.ConnectionPool;
 
@@ -48,62 +50,66 @@ public class DettagliOrdineDAO
 		}
 	}
 
-	//SELECT BY ORDINE 
 	public List<DettagliOrdine> doRetrieveByOrdine(int fkOrdine) throws SQLException
 	{
-		List<DettagliOrdine> dettagli = new ArrayList<>();
+	    List<DettagliOrdine> dettagli = new ArrayList<>();
 
-		Connection conn = ConnectionPool.getConnection();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+	    Connection conn = ConnectionPool.getConnection();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 
-		String sql =
-				"SELECT * FROM " + TABLE_NAME +
-				" WHERE fk_ordine = ?";
+	    String sql =
+	            "SELECT d.fk_ordine, d.fk_prodotto, d.quantita, d.prezzo_snapshot, " +
+	            "p.id_prodotto, p.nome, p.squadra, p.taglia, p.prezzo " +
+	            "FROM dettagliOrdine d " +
+	            "JOIN prodotto p ON d.fk_prodotto = p.id_prodotto " +
+	            "WHERE d.fk_ordine = ?";
 
-		try
-		{
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, fkOrdine);
+	    try
+	    {
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, fkOrdine);
 
-			rs = ps.executeQuery();
+	        rs = ps.executeQuery();
 
-			while(rs.next())
-			{
-				DettagliOrdine d = new DettagliOrdine();
+	        while (rs.next())
+	        {
+	            DettagliOrdine d = new DettagliOrdine();
 
-				d.setFkOrdine(rs.getInt("fk_ordine"));
-				d.setFkProdotto(rs.getInt("fk_prodotto"));
-				d.setQuantita(rs.getInt("quantita"));
-				d.setPrezzoSnapshot(rs.getBigDecimal("prezzo_snapshot"));
+	            // dati riga ordine
+	            d.setFkOrdine(rs.getInt("fk_ordine"));
+	            d.setFkProdotto(rs.getInt("fk_prodotto"));
+	            d.setQuantita(rs.getInt("quantita"));
+	            d.setPrezzoSnapshot(rs.getBigDecimal("prezzo_snapshot"));
 
-				dettagli.add(d);
-			}
-		}
-		finally
-		{
-			try
-			{
-				if (rs != null)
-					rs.close();
-			}
-			finally
-			{
-				try
-				{
-					if (ps != null)
-						ps.close();
-				}
-				finally
-				{
-					ConnectionPool.releaseConnection(conn);
-				}
-			}
-		}
+	            // prodotto (JOIN)
+	            Prodotto p = new Prodotto();
+	            p.setIdProdotto(rs.getInt("id_prodotto"));
+	            p.setNome(rs.getString("nome"));
+	            p.setSquadra(rs.getString("squadra"));
+	            p.setTaglia(rs.getString("taglia"));
+	            p.setPrezzo(rs.getDouble("prezzo"));
 
-		return dettagli;
+	            d.setProdotto(p);
+
+	            dettagli.add(d);
+	        }
+	    }
+	    finally
+	    {
+	        try {
+	            if (rs != null) rs.close();
+	        } finally {
+	            try {
+	                if (ps != null) ps.close();
+	            } finally {
+	                ConnectionPool.releaseConnection(conn);
+	            }
+	        }
+	    }
+
+	    return dettagli;
 	}
-
 	//DELETE (opzionale, raro)
 	public void doDelete(int fkOrdine, int fkProdotto) throws SQLException
 	{

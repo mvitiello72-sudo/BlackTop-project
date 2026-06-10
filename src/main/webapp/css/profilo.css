@@ -1,0 +1,650 @@
+@charset "UTF-8";
+
+.profilo-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    gap: 40px;
+}
+
+/* Sidebar sinistra stile BlackTop */
+.profilo-sidebar {
+    flex: 1;
+    min-width: 280px;
+    background-color: var(--color-bg-card); /* Usa il tuo #F5F5F5 */
+    border: 1px solid var(--color-border);
+    padding: 30px 20px;
+    border-radius: 8px;
+    height: fit-content;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+/* Contenuto di destra */
+.profilo-content {
+    flex: 3;
+    background-color: var(--color-bg-main);
+}
+
+/* ==========================================================================
+   COMPONENTI DELLA SIDEBAR
+   ========================================================================== */
+.user-welcome {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.user-welcome h3 {
+    font-family: var(--font-heading); /* Font Impact d'impatto */
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.user-welcome p {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* Badge del Ruolo (USER/ADMIN) */
+.role-badge {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* Menu di navigazione a bottoni */
+.profilo-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-btn {
+    background-color: transparent;
+    border: 1px solid transparent;
+    text-align: left;
+    padding: 12px 16px;
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-text-main);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding-left: 22px; /* Leggero slittamento dinamico all'hover */
+}
+
+.menu-btn.active {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+}
+
+/* Tasto Disconnetti */
+.btn-logout {
+    margin-top: 15px;
+    padding: 12px 16px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+    color: #C1272D;
+    border: 2px solid #C1272D;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: #C1272D;
+    color: var(--color-bg-main);
+}
+
+/* ==========================================================================
+   PANNELLI DELLE SCHEDE (TAB) E TITOLI
+   ========================================================================== */
+.tab-panel {
+    display: none;
+    animation: profileFadeIn 0.3s ease-in-out;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tab-panel h2 {
+    font-size: 32px; /* Uniformato ai titoli della home */
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Linea arancione decorativa sotto il titolo (Identica alla Home) */
+.tab-panel h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-secondary); /* Il tuo arancione */
+}
+
+.tab-panel h3 {
+    font-size: 22px;
+    color: var(--color-primary);
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.section-divider {
+    height: 1px;
+    background-color: var(--color-border);
+    border: none;
+    margin: 40px 0;
+}
+
+/* ==========================================================================
+   FORM DI CONFIGURAZIONE PROFILO (STILE URBAN BLACKTOP)
+   ========================================================================== */
+.form-profilo {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+}
+
+.form-profilo input[type="text"],
+.form-profilo input[type="email"],
+.form-profilo input[type="password"],
+.form-profilo input[type="date"],
+.form-profilo select {
+    padding: 12px 15px;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-size: 15px;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    transition: border-color 0.2s ease;
+}
+
+.form-profilo input:focus,
+.form-profilo select:focus {
+    outline: none;
+    border-color: var(--color-primary); /* Il bordo diventa scuro */
+}
+
+.form-profilo input:disabled {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.checkbox-group label {
+    text-transform: none;
+    color: var(--color-text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Pulsanti dei Form (Stile .btn-shop della home) */
+.btn-salva, .btn-aggiungi {
+    background-color: var(--color-secondary); /* Arancione BlackTop */
+    color: var(--color-bg-main);
+    border: none;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-top: 10px;
+}
+
+.btn-salva:hover, .btn-aggiungi:hover {
+    background-color: #d67d3e;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   GRIGLIE E SEZIONI CARD (INDIRIZZI E STRUTTURE CARTE)
+   ========================================================================== */
+.indirizzi-grid, .carte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* Utility globale per non mandare a capo i form inline dentro le azioni */
+.form-inline {
+    display: inline-block;
+}
+
+/* Badge Elemento Predefinito (Usa il tuo colore arancione secondario) */
+.badge-default {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    font-size: 10px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---- CARD INDIRIZZI ---- */
+.address-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px; /* Incrementato leggermente per fare spazio ai due bottoni */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.address-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    border-color: rgba(237, 145, 80, 0.3);
+}
+
+.address-street {
+    font-size: 16px;
+    color: var(--color-text-main);
+    padding-right: 75px;
+}
+
+.address-card p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.address-country {
+    text-transform: uppercase;
+    font-size: 12px !important;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary) !important;
+}
+
+/* Container azioni Indirizzi aggiornato */
+.card-actions {
+    margin-top: 12px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 10px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #C1272D;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.btn-delete:hover {
+    color: #ff3333;
+    text-decoration: underline;
+}
+
+/* Nuovo bottone "Imposta Predefinito" per gli Indirizzi */
+.btn-set-default {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.btn-set-default:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+/* ---- CARD STRUTTURA METODO PAGAMENTO ---- */
+.card-item {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #3A3A3A 100%); /* Sfondo scuro premium */
+    color: var(--color-bg-main);
+    border-radius: 8px;
+    padding: 25px 20px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px; /* Incrementato per alloggiare la barra dei pulsanti inferiore */
+    transition: transform 0.3s ease;
+}
+
+.card-item:hover {
+    transform: translateY(-4px);
+}
+
+.card-header-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-type {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: var(--color-secondary); /* Il tipo di carta si accende di arancione */
+}
+
+.card-number {
+    font-size: 17px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    margin: 15px 0;
+}
+
+.card-holder {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-border);
+    margin: 0;
+}
+
+.card-scad {
+    font-size: 12px;
+    margin: 4px 0 0 0;
+    color: var(--color-text-secondary);
+}
+
+/* Container azioni Metodi di Pagamento (Risolve la sovrapposizione) */
+.card-actions-payment {
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Nuovo bottone "Rendi Predefinito" per i Metodi di Pagamento */
+.btn-set-default-card {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-bg-main);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-set-default-card:hover {
+    background-color: var(--color-bg-main);
+    color: var(--color-primary);
+    border-color: var(--color-bg-main);
+}
+
+/* Cambiato da position: absolute a static per integrarsi nel flusso flexbox */
+.card-item .btn-delete-card {
+    position: static; 
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: var(--color-bg-main);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.card-item .btn-delete-card:hover {
+    background-color: #C1272D;
+}
+
+/* ==========================================================================
+   ORDINI - CARD STILE BLACKTOP
+   ========================================================================== */
+
+.ordini-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card ordine principale */
+.ordine-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ordine-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    border-color: rgba(237, 145, 80, 0.3);
+}
+
+/* Header ordine (4 colonne info) */
+.ordine-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    align-items: center;
+}
+
+/* Label piccola sopra il valore */
+.ordine-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+/* Valore ordine */
+.ordine-value {
+    font-size: 14px;
+    color: var(--color-text-main);
+    font-weight: bold;
+}
+
+/* Totale ordine evidenziato */
+.ordine-value-prezzo {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+/* Status badge ordine */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+/* Stati ordine */
+.status-pending {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+.status-completato,
+.status-completed {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.status-cancellato,
+.status-canceled {
+    background-color: #C1272D;
+    color: #fff;
+}
+
+/* Body ordine */
+.ordine-body {
+    border-top: 1px solid var(--color-border);
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.ordine-body p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* Bottone dettaglio ordine */
+.btn-ordine-dettaglio {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-ordine-dettaglio:hover {
+    background-color: #d67d3e;
+    transform: translateY(-2px);
+}
+
+/* Stato vuoto ordini */
+.no-orders {
+    background-color: var(--color-bg-card);
+    border: 1px dashed var(--color-border);
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.no-orders p {
+    color: var(--color-text-secondary);
+    margin-bottom: 15px;
+}
+
+.btn-shop-now {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    padding: 10px 16px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-shop-now:hover {
+    background-color: #2a2a2a;
+}
+
+/* ==========================================================================
+   ANIMAZIONI E RESPONSIVE
+   ========================================================================== */
+@keyframes profileFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .profilo-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .profilo-sidebar {
+        width: 100%;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .card-actions-payment {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn-set-default-card, .card-item .btn-delete-card {
+        text-align: center;
+        width: 100%;
+    }
+}

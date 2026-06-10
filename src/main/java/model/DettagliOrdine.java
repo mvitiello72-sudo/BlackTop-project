@@ -11,21 +11,22 @@ public class DettagliOrdine implements Serializable
     private int fkProdotto;
     private int quantita;
     private BigDecimal prezzoSnapshot;
+    
+    private Prodotto prodotto;
 
     // Costruttore vuoto
     public DettagliOrdine() { }
 
-    // Costruttore completo
-    public DettagliOrdine(int fkOrdine, int fkProdotto,
-                           int quantita, BigDecimal prezzoSnapshot)
-    {
-        this.fkOrdine = fkOrdine;
-        this.fkProdotto = fkProdotto;
-        this.quantita = quantita;
-        this.prezzoSnapshot = prezzoSnapshot;
+    // Getter e Setter
+    
+    public Prodotto getProdotto() {
+        return prodotto;
     }
 
-    // Getter e Setter
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
+    }
+    
     public int getFkOrdine() {
         return fkOrdine;
     }

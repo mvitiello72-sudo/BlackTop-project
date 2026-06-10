@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+/* ======================================================================
+   CONTAINER PRINCIPALE
+   ====================================================================== */
+.ordine-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* ======================================================================
+   HEADER ORDINE
+   ====================================================================== */
+.ordine-header {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.ordine-header h1 {
+    font-size: 28px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.ordine-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-secondary);
+}
+
+.ordine-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.ordine-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ordine-info span {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+}
+
+.ordine-info strong {
+    font-size: 15px;
+    color: var(--color-text-main);
+}
+
+/* ======================================================================
+   STATI ORDINE
+   ====================================================================== */
+.status-in_preparazione {
+    color: #f0ad4e;
+    font-weight: bold;
+}
+
+.status-spedito {
+    color: #3498db;
+    font-weight: bold;
+}
+
+.status-consegnato {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.status-rimborsato {
+    color: #C1272D;
+    font-weight: bold;
+}
+
+/* ======================================================================
+   PRODOTTI
+   ====================================================================== */
+.ordine-prodotti {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ordine-prodotti h2 {
+    font-size: 22px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* CARD PRODOTTO */
+.prodotto-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prodotto-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.prodotto-info h3 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.prodotto-info p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 4px 0;
+}
+
+/* PREZZI */
+.prodotto-prezzo {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.prodotto-prezzo p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.prodotto-prezzo strong {
+    color: var(--color-primary);
+}
+
+/* ======================================================================
+   AZIONI
+   ====================================================================== */
+.ordine-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.btn-back {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    padding: 12px 18px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
+}
+
+/* ======================================================================
+   RESPONSIVE
+   ====================================================================== */
+@media (max-width: 768px) {
+
+    .ordine-info {
+        grid-template-columns: 1fr;
+    }
+
+    .prodotto-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .prodotto-prezzo {
+        text-align: left;
+    }
+}

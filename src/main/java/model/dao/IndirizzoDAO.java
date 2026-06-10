@@ -11,7 +11,7 @@ public class IndirizzoDAO
 {
 	private static final String TABLE_NAME = "indirizzo";
 
-	// 1. METODO DI UTILITY: Imposta a false tutti gli indirizzi di un utente 
+	//Imposta a false tutti gli indirizzi di un utente 
 	public void resetPredefinitoPerUtente(int fkUtente, Connection conn) throws SQLException
 	{
 		PreparedStatement ps = null;
@@ -27,6 +27,37 @@ public class IndirizzoDAO
 			if (ps != null) ps.close();
 		}
 	}
+	
+	// CAMBIA STATO PREDEFINITO
+		public void cambiaStatoPredefinito(int idUtente, int idIndirizzo) throws SQLException
+		{
+			Connection conn = ConnectionPool.getConnection();
+			PreparedStatement ps = null;
+
+			String sql = "UPDATE " + TABLE_NAME + " SET predefinito = TRUE WHERE id_indirizzo = ?";
+
+			try
+			{
+				resetPredefinitoPerUtente(idUtente, conn);
+
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, idIndirizzo);
+
+				ps.executeUpdate();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}
 
 	// INSERT
 	public void doSave(Indirizzo i) throws SQLException

@@ -11,7 +11,7 @@ public class MetodoPagamentoDAO
 {
     private static final String TABLE_NAME = "metodo_pagamento";
 
-    // METODO DI UTILITY: Imposta a false tutte le carte di un utente
+    //Imposta a false tutte le carte di un utente
     public void resetPredefinitoPerUtente(int fkUtente, Connection conn) throws SQLException
     {
         PreparedStatement ps = null;
@@ -25,6 +25,39 @@ public class MetodoPagamentoDAO
         finally
         {
             if (ps != null) ps.close();
+        }
+    }
+    
+    // CAMBIA STATO PREDEFINITO
+    public void cambiaStatoPredefinito(int idUtente, int idMetodo) throws SQLException
+    {
+        Connection conn = ConnectionPool.getConnection();
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE " + TABLE_NAME + " SET predefinito = TRUE WHERE id_metodo = ?";
+
+        try
+        {
+            // 1. Disattiva il flag predefinito su tutte le altre carte dell'utente usando la connessione corrente
+            resetPredefinitoPerUtente(idUtente, conn);
+
+            // 2. Attiva il flag predefinito sulla carta selezionata
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idMetodo);
+
+            ps.executeUpdate();
+        }
+        finally
+        {
+            try
+            {
+                if (ps != null)
+                    ps.close();
+            }
+            finally
+            {
+                ConnectionPool.releaseConnection(conn);
+            }
         }
     }
 
