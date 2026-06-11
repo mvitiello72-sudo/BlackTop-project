@@ -21,7 +21,7 @@ import model.dao.OrdineDAO;
 import model.dao.IndirizzoDAO;   
 import model.dao.MetodoPagamentoDAO;
 
-@WebServlet("/checkout")
+@WebServlet("/common/checkout")
 public class CheckoutServlet extends HttpServlet 
 {
     private static final long serialVersionUID = 1L;
@@ -44,12 +44,6 @@ public class CheckoutServlet extends HttpServlet
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
         Carrello carrello = (Carrello) session.getAttribute("carrello");
-
-        if (utenteLoggato == null) 
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         //se il carrello è vuoto non ha senso fare il checkout
         if (carrello == null || carrello.getElementi().isEmpty()) 
@@ -98,7 +92,7 @@ public class CheckoutServlet extends HttpServlet
         // Controllo robusto: se manca la selezione, rimanda indietro con un messaggio d'errore
         if (idIndirizzoStr == null || idIndirizzoStr.trim().isEmpty() || idMetodoStr == null || idMetodoStr.trim().isEmpty()) {
             session.setAttribute("messaggioErrore", "Seleziona un indirizzo e un metodo di pagamento validi prima di acquistare.");
-            response.sendRedirect(request.getContextPath() + "/checkout");
+            response.sendRedirect(request.getContextPath() + "/common/checkout");
             return;
         }
 
@@ -129,7 +123,7 @@ public class CheckoutServlet extends HttpServlet
         } 
         catch (NumberFormatException e) {
             System.err.println("ID corrotti nel Checkout: " + e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/checkout");
+            response.sendRedirect(request.getContextPath() + "/common/checkout");
         } 
         catch (SQLException e) {
             // Questo ti stampa l'errore preciso del database nella console del server!

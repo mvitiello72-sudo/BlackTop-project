@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.dao.IndirizzoDAO;
 
-@WebServlet("/rimuoviIndirizzo")
+@WebServlet("/common/rimuoviIndirizzo")
 public class RimuoviIndirizzoServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -28,19 +28,12 @@ public class RimuoviIndirizzoServlet extends HttpServlet
     // Blocchiamo richieste dirette in GET per sicurezza
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        Utente utenteLoggato = (Utente) session.getAttribute("utente");
-
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         String idIndirizzoStr = request.getParameter("idIndirizzo");
 
@@ -63,6 +56,6 @@ public class RimuoviIndirizzoServlet extends HttpServlet
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

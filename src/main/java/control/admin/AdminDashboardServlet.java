@@ -16,7 +16,7 @@ import model.dao.ProdottoDAO;
 import model.dao.UtenteDAO;
 import model.dao.OrdineDAO; 
 
-@WebServlet("/admindashboard")
+@WebServlet("/admin/admindashboard")
 public class AdminDashboardServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -28,14 +28,6 @@ public class AdminDashboardServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        Utente utenteLoggato = (Utente) session.getAttribute("utente");
-        
-        // CONTROLLO DI SICUREZZA
-        if (utenteLoggato == null || !"ADMIN".equalsIgnoreCase(utenteLoggato.getRuolo()))
-        {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Area riservata agli amministratori.");
-            return;
-        }
         
         // GESTIONE MESSAGGI DI FEEDBACK
         String successMessage = (String) session.getAttribute("successMessage");

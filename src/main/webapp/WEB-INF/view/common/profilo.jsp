@@ -38,7 +38,7 @@
             
             <div id="dati-personali" class="tab-panel active">
                 <h2>Informazioni Account</h2>
-                <form action="${pageContext.request.contextPath}/aggiornaProfilo" method="POST" class="form-profilo">
+                <form action="${pageContext.request.contextPath}/common/aggiornaProfilo" method="POST" class="form-profilo">
                     <div class="form-group">
                         <label for="nome">Nome</label>
                         <input type="text" id="nome" name="nome" value="${sessionScope.utente.nome}" required>
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="ordine-body">
                                         <p>Hai bisogno di assistenza o vuoi i dettagli completi?</p>
-                                        <a href="${pageContext.request.contextPath}/dettaglioOrdine?id=${ord.idOrdine}" class="btn-ordine-dettaglio">Visualizza Dettagli</a>
+                                        <a href="${pageContext.request.contextPath}/common/dettaglioOrdine?id=${ord.idOrdine}" class="btn-ordine-dettaglio">Visualizza Dettagli</a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -118,12 +118,12 @@
                             
                             <div class="card-actions">
                                 <c:if test="${not ind.predefinito}">
-                                    <form action="${pageContext.request.contextPath}/impostaIndirizzoPredefinito" method="POST" class="form-inline">
+                                    <form action="${pageContext.request.contextPath}/common/impostaIndirizzoPredefinito" method="POST" class="form-inline">
                                         <input type="hidden" name="idIndirizzo" value="${ind.idIndirizzo}">
                                         <button type="submit" class="btn-set-default">Imposta predefinito</button>
                                     </form>
                                 </c:if>
-                                <form action="${pageContext.request.contextPath}/rimuoviIndirizzo" method="POST" class="form-inline">
+                                <form action="${pageContext.request.contextPath}/common/rimuoviIndirizzo" method="POST" class="form-inline">
                                     <input type="hidden" name="idIndirizzo" value="${ind.idIndirizzo}">
                                     <button type="submit" class="btn-delete">Elimina</button>
                                 </form>
@@ -135,7 +135,7 @@
                 <hr class="section-divider">
                 
                 <h3>Aggiungi un nuovo indirizzo</h3>
-                <form action="${pageContext.request.contextPath}/aggiungiIndirizzo" method="POST" class="form-profilo">
+                <form action="${pageContext.request.contextPath}/common/aggiungiIndirizzo" method="POST" class="form-profilo">
                     <div class="form-group">
                         <label>Via e Numero Civico</label>
                         <input type="text" name="via_numciv" placeholder="Es. Via Roma 15" required>
@@ -184,12 +184,12 @@
                             
                             <div class="card-actions-payment">
                                 <c:if test="${not carta.predefinito}">
-                                    <form action="${pageContext.request.contextPath}/impostaPagamentoPredefinito" method="POST" class="form-inline">
+                                    <form action="${pageContext.request.contextPath}/common/impostaPagamentoPredefinito" method="POST" class="form-inline">
                                         <input type="hidden" name="idMetodo" value="${carta.idMetodo}">
                                         <button type="submit" class="btn-set-default-card">Rendi Predefinito</button>
                                     </form>
                                 </c:if>
-                                <form action="${pageContext.request.contextPath}/rimuoviPagamento" method="POST" class="form-inline">
+                                <form action="${pageContext.request.contextPath}/common/rimuoviPagamento" method="POST" class="form-inline">
                                     <input type="hidden" name="idMetodo" value="${carta.idMetodo}">
                                     <button type="submit" class="btn-delete-card">Rimuovi</button>
                                 </form>
@@ -198,7 +198,7 @@
                 </div> <hr class="section-divider">
                 
                 <h3>Aggiungi un nuovo metodo di pagamento</h3>
-                <form action="${pageContext.request.contextPath}/aggiungiPagamento" method="POST" class="form-profilo">
+                <form action="${pageContext.request.contextPath}/common/aggiungiPagamento" method="POST" class="form-profilo">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Tipo di Carta</label>

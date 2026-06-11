@@ -98,7 +98,7 @@
     <!-- AZIONI -->
     <section class="ordine-actions">
 
-        <a href="${pageContext.request.contextPath}/profilo#ordini"
+        <a href="${pageContext.request.contextPath}/common/profilo#ordini"
            class="btn-back">
             ← Torna ai tuoi ordini
         </a>

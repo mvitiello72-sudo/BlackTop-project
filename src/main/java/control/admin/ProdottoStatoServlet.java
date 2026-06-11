@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.dao.ProdottoDAO;
 
-@WebServlet("/prodottoStato")
+@WebServlet("/admin/prodottoStato")
 public class ProdottoStatoServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -21,14 +21,6 @@ public class ProdottoStatoServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 		HttpSession session = request.getSession();
-        
-        // CONTROLLO DI SICUREZZA
-        Utente utenteLoggato = (Utente) session.getAttribute("utente");
-        if (utenteLoggato == null || !"ADMIN".equalsIgnoreCase(utenteLoggato.getRuolo()))
-        {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Area riservata agli amministratori.");
-            return;
-        }
 
         String idParam = request.getParameter("id");
         String action = request.getParameter("action");
@@ -45,6 +37,6 @@ public class ProdottoStatoServlet extends HttpServlet
             session.setAttribute("errorMessage", "Errore durante la modifica dello stato: " + e.getMessage());
         }
 
-        response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");    
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard?tab=prodotti");    
     }
 }

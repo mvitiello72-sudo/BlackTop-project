@@ -31,7 +31,7 @@
 
             <div class="actions-group">
                 <a href="${pageContext.request.contextPath}/catalogo" class="btn-success-page btn-primary-success">Continua lo Shopping</a>
-                <a href="${pageContext.request.contextPath}/profilo" class="btn-success-page btn-secondary-success">Vai ai miei ordini</a>
+                <a href="${pageContext.request.contextPath}/common/profilo" class="btn-success-page btn-secondary-success">Vai ai miei ordini</a>
             </div>
         </div>
     </main>

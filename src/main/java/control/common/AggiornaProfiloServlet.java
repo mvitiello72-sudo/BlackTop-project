@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.dao.UtenteDAO;
 
-@WebServlet("/aggiornaProfilo")
+@WebServlet("/common/aggiornaProfilo")
 public class AggiornaProfiloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -24,24 +24,10 @@ public class AggiornaProfiloServlet extends HttpServlet {
         this.utenteDAO = new UtenteDAO();
     }
 
-    // Blocchiamo l'accesso diretto in GET (es. se qualcuno scrive l'URL nel browser)
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        response.sendRedirect(request.getContextPath() + "/profilo");
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
-
-        //se l'utente non è loggato
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String cellulare = request.getParameter("cellulare");
@@ -80,6 +66,6 @@ public class AggiornaProfiloServlet extends HttpServlet {
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

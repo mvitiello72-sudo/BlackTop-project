@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
 import model.Immagine;
 import model.dao.ImmagineDAO;
 
-@WebServlet("/aggiungiProdotto")
+@WebServlet("/admin/aggiungiProdotto")
 @MultipartConfig( // FONDAMENTALE per gestire file upload
  fileSizeThreshold = 1024 * 1024 * 2,
  maxFileSize = 1024 * 1024 * 10,
@@ -119,7 +119,7 @@ public class AggiungiProdottoServlet extends HttpServlet
                 immagineDAO.doSave(img);
             }
             session.setAttribute("successMessage", "Prodotto aggiunto con successo al catalogo!");
-            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+            response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
         }
         catch (NumberFormatException e)
         {

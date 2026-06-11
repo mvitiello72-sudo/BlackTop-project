@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.dao.MetodoPagamentoDAO;
 
-@WebServlet("/impostaPagamentoPredefinito")
+@WebServlet("/common/impostaPagamentoPredefinito")
 public class ImpostaMetodoPagamentoPredefinitoServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -27,19 +27,13 @@ public class ImpostaMetodoPagamentoPredefinitoServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
-
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         String idPagamentoStr = request.getParameter("idMetodo");
 
@@ -64,6 +58,6 @@ public class ImpostaMetodoPagamentoPredefinitoServlet extends HttpServlet
         }
 
         // 4. Rimbalzo sulla ProfiloServlet per rinfrescare la pagina con le modifiche visibili
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

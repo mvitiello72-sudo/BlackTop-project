@@ -19,7 +19,7 @@ import model.Immagine;
 import model.dao.ProdottoDAO;
 import model.dao.ImmagineDAO;
 
-@WebServlet("/modificaProdotto")
+@WebServlet("/common/modificaProdotto")
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
     maxFileSize = 1024 * 1024 * 10,       // 10MB massimo per singolo file
@@ -38,18 +38,11 @@ public class ModificaProdottoServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        Utente utente = (Utente) session.getAttribute("utente");
-
-        if (utente == null || !"ADMIN".equals(utente.getRuolo()))
-        {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso non autorizzato.");
-            return;
-        }
 
         String idParam = request.getParameter("id");
         if (idParam == null || idParam.trim().isEmpty())
         {
-            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+            response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
             return;
         }
 
@@ -64,7 +57,7 @@ public class ModificaProdottoServlet extends HttpServlet
                 request.getRequestDispatcher("/WEB-INF/view/admin/modificaProdotto.jsp").forward(request, response);
             } else {
                 session.setAttribute("errorMessage", "Prodotto non trovato.");
-                response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+                response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
             }
         } catch (SQLException e)
         {
@@ -76,13 +69,6 @@ public class ModificaProdottoServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         HttpSession session = request.getSession();
-        Utente utente = (Utente) session.getAttribute("utente");
-
-        if (utente == null || !"ADMIN".equals(utente.getRuolo()))
-        {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
@@ -117,7 +103,7 @@ public class ModificaProdottoServlet extends HttpServlet
                 e.printStackTrace();
                 session.setAttribute("errorMessage", "Errore durante la rimozione dell'immagine.");
             }
-            response.sendRedirect(request.getContextPath() + "/modificaProdotto?id=" + idProdotto);
+            response.sendRedirect(request.getContextPath() + "/admin/modificaProdotto?id=" + idProdotto);
             return;
         }
 
@@ -197,7 +183,7 @@ public class ModificaProdottoServlet extends HttpServlet
             }
 
             session.setAttribute("successMessage", "Prodotto aggiornato con successo!");
-            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+            response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
 
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Errore nel formato dei dati numerici.");
@@ -216,7 +202,7 @@ public class ModificaProdottoServlet extends HttpServlet
             request.setAttribute("prodotto", prodotto);
             request.getRequestDispatcher("/WEB-INF/view/admin/modificaProdotto.jsp").forward(request, response);
         } catch (Exception ex) {
-            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+            response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
         }
     }
 }

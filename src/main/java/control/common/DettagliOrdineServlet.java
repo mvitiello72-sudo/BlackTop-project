@@ -20,7 +20,7 @@ import model.dao.OrdineDAO;
 import model.dao.DettagliOrdineDAO;
 import model.dao.ProdottoDAO;
 
-@WebServlet("/dettaglioOrdine")
+@WebServlet("/common/dettaglioOrdine")
 public class DettagliOrdineServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -40,15 +40,9 @@ public class DettagliOrdineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
 
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         String idParam = request.getParameter("id");
 
@@ -98,7 +92,7 @@ public class DettagliOrdineServlet extends HttpServlet {
                     .forward(request, response);
 
         } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/profilo");
+            response.sendRedirect(request.getContextPath() + "/common/profilo");
         } catch (SQLException e) {
             throw new ServletException("Errore nel recupero dettaglio ordine", e);
         }

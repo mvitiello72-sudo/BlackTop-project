@@ -20,7 +20,7 @@ import model.dao.IndirizzoDAO;
 import model.dao.MetodoPagamentoDAO;
 import model.dao.OrdineDAO;
 
-@WebServlet("/profilo")
+@WebServlet("/common/profilo")
 public class ProfiloServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -42,12 +42,6 @@ public class ProfiloServlet extends HttpServlet
     {
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
-
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         try
         {

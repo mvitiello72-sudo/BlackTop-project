@@ -13,7 +13,7 @@ import model.Utente;
 import model.Indirizzo;
 import model.dao.IndirizzoDAO;
 
-@WebServlet("/aggiungiIndirizzo")
+@WebServlet("/common/aggiungiIndirizzo")
 public class AggiungiIndirizzoServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -28,19 +28,13 @@ public class AggiungiIndirizzoServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession();
 		Utente utenteLoggato = (Utente) session.getAttribute("utente");
-		
-		if(utenteLoggato == null)
-		{
-	        response.sendRedirect(request.getContextPath() + "/login");
-	        return; 
-		}
 		
 		String viaNumciv = request.getParameter("via_numciv");
 		String citta = request.getParameter("citta");
@@ -78,6 +72,6 @@ public class AggiungiIndirizzoServlet extends HttpServlet
 				return;
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/profilo");
+		response.sendRedirect(request.getContextPath() + "/common/profilo");
 	}
 }

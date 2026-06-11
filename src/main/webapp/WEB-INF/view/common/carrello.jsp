@@ -103,7 +103,7 @@
                                 <span>€ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.carrello.totaleComplessivo}" /></span>
                             </div>
                             
-                            <a href="${pageContext.request.contextPath}/checkout" class="btn-checkout">
+                            <a href="${pageContext.request.contextPath}/common/checkout" class="btn-checkout">
                                 Procedi al Checkout
                             </a>
                         </div>

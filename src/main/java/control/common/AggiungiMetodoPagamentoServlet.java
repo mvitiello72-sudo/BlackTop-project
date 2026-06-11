@@ -14,7 +14,7 @@ import model.Utente;
 import model.MetodoPagamento;
 import model.dao.MetodoPagamentoDAO;
 
-@WebServlet("/aggiungiPagamento")
+@WebServlet("/common/aggiungiPagamento")
 public class AggiungiMetodoPagamentoServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -37,12 +37,6 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
     {
         HttpSession session = request.getSession();
         Utente utenteLoggato = (Utente) session.getAttribute("utente");
-
-        if (utenteLoggato == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         String tipo = request.getParameter("tipo");
         String intestatario = request.getParameter("intestatario");
