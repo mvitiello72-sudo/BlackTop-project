@@ -1,0 +1,315 @@
+@charset "UTF-8";
+
+/* Container principale del Checkout */
+.checkout-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Titolo della pagina (H1) */
+.checkout-title {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    color: var(--color-text-main);
+    margin-bottom: 30px;
+    border-bottom: 4px solid var(--color-text-main);
+    padding-bottom: 10px;
+}
+
+/* Form principale diviso in due colonne con Grid */
+.checkout-container {
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* --- COLONNA DI SINISTRA: SEZIONI SELEZIONE --- */
+.checkout-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Le card bianche che contengono Indirizzi e Pagamenti */
+.checkout-card {
+    background-color: var(--color-bg-main);
+    border: 1px solid var(--color-border);
+    padding: 30px;
+    border-radius: 2px;
+}
+
+.checkout-card h2 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--color-text-main);
+}
+
+/* Gruppo che contiene le opzioni radio */
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Etichetta cliccabile che fa da contenitore alla riga */
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: var(--color-bg-card); /* Grigio chiaro #F5F5F5 */
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-label:hover {
+    border-color: var(--color-text-main);
+}
+
+/* Quando il radio button è selezionato, evidenzia il bordo */
+.option-label:has(input[type="radio"]:checked) {
+    border-color: var(--color-secondary); /* Arancione del brand */
+    background-color: var(--color-bg-main);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Input radio customizzato o standard (stilizzato dal browser) */
+.option-label input[type="radio"] {
+    accent-color: var(--color-secondary); /* Colora l'interno del pallino di arancione */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Contenitore dei testi dentro l'opzione */
+.option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+/* Riga del Titolo dell'opzione (via o numero carta) */
+.option-title {
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Sottotitolo (CAP, città, intestatario, ecc...) */
+.option-sub {
+    font-family: var(--font-main);
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+/* Piccola etichetta ovale "Predefinito" */
+.badge-checkout {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+}
+
+/* Link di gestione posizionati a fondo card */
+.link-modifica-profilo {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.link-modifica-profilo:hover {
+    color: var(--color-secondary);
+}
+
+
+/* --- COLONNA DI DESTRA: RIEPILOGO SHOPPING --- */
+.checkout-summary-panel {
+    position: relative;
+}
+
+/* Mantiene il riepilogo fisso a schermo durante lo scroll della pagina */
+.sticky-summary {
+    position: sticky;
+    top: 100px; /* Si blocca sotto l'header */
+    background-color: var(--color-bg-card); /* Sfondo grigio alternato */
+    border: 1px solid var(--color-border);
+    padding: 30px;
+    border-radius: 2px;
+}
+
+.sticky-summary h2 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: var(--color-text-main);
+    border-bottom: 2px solid var(--color-text-main);
+    padding-bottom: 5px;
+}
+
+/* Box con l'anteprima rapida dei prodotti nel carrello */
+.checkout-items-preview {
+    max-height: 240px; /* Evita che diventi lunghissimo se ci sono molti prodotti */
+    overflow-y: auto;  /* Aggiunge la barra di scorrimento interna se serve */
+    margin-bottom: 20px;
+    padding-right: 5px;
+}
+
+/* Singola riga del prodotto */
+.preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.preview-item:last-child {
+    border-bottom: none;
+}
+
+.preview-info h4 {
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: none; /* Mantiene il nome originale del prodotto */
+    color: var(--color-text-main);
+    margin-bottom: 20px;
+}
+
+.preview-info p {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+/* Prezzo del singolo prodotto */
+.preview-price {
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--color-text-main);
+    white-space: nowrap;
+}
+
+/* Linee divisorie interne al riepilogo */
+.summary-hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 15px 0;
+}
+
+/* Blocco dei dettagli economici */
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/* Singola riga (Articoli, Spedizione, Totale) */
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.summary-line span:last-child {
+    color: var(--color-text-main);
+    font-weight: 500;
+}
+
+/* Testo "Gratuita" verde o arancione */
+.free-text {
+    color: #2ec4b6 !important; /* Colore verde brillante per risaltare */
+    font-weight: bold !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Riga del Totale finale */
+.total-line {
+    font-size: 18px;
+    color: var(--color-text-main) !important;
+}
+
+.total-line span {
+    font-family: var(--font-heading) !important;
+    font-size: 22px;
+    color: var(--color-secondary) !important; /* Prezzo finale evidenziato in orange */
+}
+
+/* BOTTONE ACQUISTA ORA */
+.btn-place-order {
+    width: 100%;
+    background-color: var(--color-primary); /* Nero #212121 */
+    color: var(--color-bg-main);            /* Bianco #FFFFFF */
+    border: 1px solid var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.btn-place-order:hover {
+    background-color: var(--color-secondary); /* Diventa arancione al passaggio */
+    border-color: var(--color-secondary);
+}
+
+/* Dicitura di sicurezza a fondo pannello */
+.secure-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-top: 15px;
+}
+
+
+/* --- RESPONSIVE LAYOUT (SMARTPHONE E TABLET) --- */
+@media (max-width: 992px) {
+    .checkout-container {
+        grid-template-columns: 1fr; /* La colonna del riepilogo scende sotto */
+        gap: 30px;
+    }
+    
+    .sticky-summary {
+        position: static; /* Rimuove lo sticky visto che ora è a colonna singola */
+    }
+}
+
+@media (max-width: 576px) {
+    .checkout-title {
+        font-size: 28px;
+    }
+    
+    .checkout-card {
+        padding: 20px;
+    }
+    
+    .option-label {
+        padding: 12px 15px;
+    }
+}

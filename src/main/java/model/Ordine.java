@@ -14,23 +14,12 @@ public class Ordine implements Serializable
 
     private int fkUtente;
     private int fkIndirizzo;
+    private int fkPagamento;
     
     private Utente utente;
 
     // Costruttore vuoto
     public Ordine() { }
-
-    // Costruttore completo
-    public Ordine(int idOrdine, Date dataOrdine, String stato,
-                   double totale, int fkUtente, int fkIndirizzo)
-    {
-        this.idOrdine = idOrdine;
-        this.dataOrdine = dataOrdine;
-        this.stato = stato;
-        this.totale = totale;
-        this.fkUtente = fkUtente;
-        this.fkIndirizzo = fkIndirizzo;
-    }
 
     // Getter e Setter
     public Utente getUtente() {
@@ -87,5 +76,13 @@ public class Ordine implements Serializable
 
     public void setFkIndirizzo(int fkIndirizzo) {
         this.fkIndirizzo = fkIndirizzo;
+    }
+    
+    public int getFkPagamento() {
+        return fkPagamento;
+    }
+
+    public void setFkPagamento(int fkPagamento) {
+        this.fkPagamento = fkPagamento;
     }
 }

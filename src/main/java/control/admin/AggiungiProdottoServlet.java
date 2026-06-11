@@ -39,6 +39,13 @@ public class AggiungiProdottoServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
+        Utente utente = (Utente) session.getAttribute("utente");
+        
+        if (utente == null || !"ADMIN".equals(utente.getRuolo()))
+        {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Non hai i permessi per eseguire questa operazione.");
+            return;
+        }
         
         // Imposta la codifica dei caratteri corretta per evitare problemi con accenti
         request.setCharacterEncoding("UTF-8");

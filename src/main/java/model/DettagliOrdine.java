@@ -10,7 +10,7 @@ public class DettagliOrdine implements Serializable
     private int fkOrdine;
     private int fkProdotto;
     private int quantita;
-    private BigDecimal prezzoSnapshot;
+    private double prezzoSnapshot;
     
     private Prodotto prodotto;
 
@@ -51,11 +51,11 @@ public class DettagliOrdine implements Serializable
         this.quantita = quantita;
     }
 
-    public BigDecimal getPrezzoSnapshot() {
+    public double getPrezzoSnapshot() {
         return prezzoSnapshot;
     }
 
-    public void setPrezzoSnapshot(BigDecimal prezzoSnapshot) {
+    public void setPrezzoSnapshot(double prezzoSnapshot) {
         this.prezzoSnapshot = prezzoSnapshot;
     }
 }

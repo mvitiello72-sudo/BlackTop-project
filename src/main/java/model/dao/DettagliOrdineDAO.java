@@ -32,7 +32,7 @@ public class DettagliOrdineDAO
 			ps.setInt(1, d.getFkOrdine());
 			ps.setInt(2, d.getFkProdotto());
 			ps.setInt(3, d.getQuantita());
-			ps.setBigDecimal(4, d.getPrezzoSnapshot());
+			ps.setDouble(4, d.getPrezzoSnapshot());
 
 			ps.executeUpdate();
 		}
@@ -80,7 +80,7 @@ public class DettagliOrdineDAO
 	            d.setFkOrdine(rs.getInt("fk_ordine"));
 	            d.setFkProdotto(rs.getInt("fk_prodotto"));
 	            d.setQuantita(rs.getInt("quantita"));
-	            d.setPrezzoSnapshot(rs.getBigDecimal("prezzo_snapshot"));
+	            d.setPrezzoSnapshot(rs.getDouble("prezzo_snapshot"));
 
 	            // prodotto (JOIN)
 	            Prodotto p = new Prodotto();

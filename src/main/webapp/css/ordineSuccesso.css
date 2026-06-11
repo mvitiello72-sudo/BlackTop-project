@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.success-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 50px 40px;
+    text-align: center;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);  
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.success-icon {
+    font-size: 64px;
+    color: var(--color-secondary);
+    margin-bottom: 25px;
+    line-height: 1;
+}
+
+.success-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--color-text-main); 
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.success-text {
+    font-family: var(--font-main);
+    color: var(--color-text-secondary); 
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.order-number {
+    display: inline-block;
+    background-color: var(--color-bg-main); 
+    color: var(--color-text-main);       
+    padding: 12px 24px;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 2px;
+    margin: 5px 0 30px 0;
+    border: 1px dashed var(--color-border);
+    letter-spacing: 0.5px;
+}
+
+.actions-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-success-page {
+    display: inline-block;
+    padding: 14px 28px;
+    font-family: var(--font-heading); 
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-success {
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);          
+    border: 1px solid var(--color-primary);
+}
+
+.btn-primary-success:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-bg-main);
+}
+
+.btn-secondary-success {
+    background-color: transparent;
+    color: var(--color-text-main); 
+    border: 1px solid var(--color-primary); 
+}
+
+.btn-secondary-success:hover {
+    background-color: var(--color-primary); 
+    color: var(--color-bg-main);
+}
+
+@media (max-width: 600px) {
+    .success-container {
+        margin: 40px 20px;
+        padding: 30px 20px;
+    }
+    
+    .success-title {
+        font-size: 26px;
+    }
+    
+    .actions-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-success-page {
+        width: 100%; 
+    }
+}
