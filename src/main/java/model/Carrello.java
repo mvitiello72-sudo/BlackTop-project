@@ -20,38 +20,39 @@ public class Carrello implements Serializable
         return elementi;
     }
 
-    public void aggiungiProdotto(Prodotto p, String taglia, int quantita)
-    {
-        for (ElementoCarrello item : elementi)
-        {
-        		//se aggiunge un prodotto già esistente, e con la stessa taglia, aumenta solo la quantità
-            if (item.getProdotto().getIdProdotto() == p.getIdProdotto() && item.getTaglia().equals(taglia))
-            {
-                item.setQuantita(item.getQuantita() + quantita);
-                return;
-            }
-        }      
-        elementi.add(new ElementoCarrello(p, taglia, quantita));
-    }
-
     	//rimuove un prodotto specifico con quella determinata taglia
     public void rimuoviProdotto(int idProdotto, String taglia)
     {
         elementi.removeIf(item -> item.getProdotto().getIdProdotto() == idProdotto && item.getTaglia().equals(taglia));
     }
     
-    public void aggiornaQuantita(int idProdotto, String taglia, int nuovaQuantita) 
+    public void aggiungiProdotto(Prodotto p, String taglia, int quantita)
+    {
+        for (ElementoCarrello item : elementi)
+        {
+            // Se aggiunge un prodotto già esistente, e con la stessa taglia
+            if (item.getProdotto().getIdProdotto() == p.getIdProdotto() && item.getTaglia().equals(taglia))
+            {
+                item.setQuantita(item.getQuantita() + quantita);
+                item.setProdotto(p); // i dati e le immagini nuove dal DB
+                return;
+            }
+        }      
+        elementi.add(new ElementoCarrello(p, taglia, quantita));
+    }
+
+    public void aggiornaQuantita(Prodotto p, String taglia, int nuovaQuantita)
     {
         for (ElementoCarrello item : elementi) 
         {
-            if (item.getProdotto().getIdProdotto() == idProdotto && item.getTaglia().equals(taglia)) 
+            if (item.getProdotto().getIdProdotto() == p.getIdProdotto() && item.getTaglia().equals(taglia)) 
             {
-                // Controllo di sicurezza: modifichiamo solo se la quantità è valida (maggiore di zero)
                 if (nuovaQuantita > 0) 
                 {
                     item.setQuantita(nuovaQuantita);
+                    item.setProdotto(p);
                 }
-                return; // Trovato e aggiornato, usciamo dal metodo
+                return; 
             }
         }
     }

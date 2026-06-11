@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* ==========================================================================
-   STRUTTURA CONTENITORE (Coordinata con .dashboard-main)
+   STRUTTURA CONTENITORE
    ========================================================================== */
 .main-content {
     max-width: 700px;
@@ -10,7 +10,6 @@
     font-family: var(--font-main);
 }
 
-/* Titolo della pagina (Usa Impact ed è uppercase grazie al main.css) */
 .main-content h2 {
     font-size: 32px;
     color: var(--color-primary);
@@ -20,10 +19,10 @@
 }
 
 /* ==========================================================================
-   FORM E GRUPPI DI INPUT (Stile ereditato dai filtri della dashboard)
+   FORM E GRUPPI DI INPUT
    ========================================================================== */
 form {
-    background-color: var(--color-bg-card); /* Sfondo grigio chiaro #F5F5F5 */
+    background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 6px;
     padding: 30px;
@@ -32,13 +31,11 @@ form {
     gap: 20px;
 }
 
-/* Gruppo Etichetta + Campo */
 form > div {
     display: flex;
     flex-direction: column;
 }
 
-/* Label dei campi (Stile identico ai filtri dashboard) */
 form label {
     font-size: 12px;
     font-weight: bold;
@@ -48,16 +45,17 @@ form label {
     letter-spacing: 0.5px;
 }
 
-/* Campi di testo, numerici e aree di testo */
+/* Stile comune per input, select e textarea */
 form input[type="text"],
 form input[type="number"],
+form select,
 form textarea {
     font-family: var(--font-main);
     font-size: 14px;
     padding: 12px;
     border: 1px solid var(--color-border);
     border-radius: 4px;
-    background-color: var(--color-bg-main); /* Sfondo bianco */
+    background-color: var(--color-bg-main);
     color: var(--color-text-main);
     outline: none;
     transition: border-color 0.2s ease;
@@ -65,51 +63,45 @@ form textarea {
     box-sizing: border-box;
 }
 
-/* Focus sui campi: si accende di arancione BlackTop */
-form input[type="text"]:focus,
-form input[type="number"]:focus,
+/* Stile specifico per l'input file */
+form input[type="file"] {
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+form input:focus,
+form select:focus,
 form textarea:focus {
     border-color: var(--color-secondary);
 }
 
-/* Testo descrittivo espandibile solo in verticale */
 form textarea {
     resize: vertical;
     min-height: 110px;
 }
 
 /* ==========================================================================
-   CHECKBOX (STATO ATTIVO)
+   CHECKBOX E BOTTONI
    ========================================================================== */
-/* Sovrascrive la colonna flex per allineare checkbox e testo sulla stessa riga */
+/* Allineamento checkbox */
 form > div:has(input[type="checkbox"]) {
     flex-direction: row;
     align-items: center;
     gap: 10px;
     padding: 5px 0;
-    cursor: pointer;
 }
 
 form input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--color-secondary); /* Checkmark arancione */
+    accent-color: var(--color-secondary);
     cursor: pointer;
 }
 
-/* Rende la label del checkbox in linea e non distanziata */
-form div:has(input[type="checkbox"]) label {
-    margin-bottom: 0;
-    cursor: pointer;
-}
-
-/* ==========================================================================
-   BOTTONI E LINK DI ANNULLAMENTO
-   ========================================================================== */
-/* Bottone Salva (Identico a .btn-add della dashboard) */
-form .btn-add {
-    display: inline-block;
-    background-color: var(--color-secondary); /* Arancione #ED9150 */
+/* Bottone Salva */
+.btn-add {
+    background-color: var(--color-secondary);
     color: var(--color-bg-main);
     padding: 14px 20px;
     font-size: 14px;
@@ -118,18 +110,17 @@ form .btn-add {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    white-space: nowrap;
     transition: background-color 0.2s, transform 0.2s;
     letter-spacing: 1px;
     margin-top: 10px;
 }
 
-form .btn-add:hover {
-    background-color: #d67d3e; /* Scurimento calcolato dall'admin dashboard */
+.btn-add:hover {
+    background-color: #d67d3e;
     transform: translateY(-1px);
 }
 
-/* Link "Annulla e Torna indietro" */
+/* Link Annulla */
 form a {
     display: block;
     text-align: center;
@@ -137,9 +128,8 @@ form a {
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 5px;
-    transition: color 0.2s ease;
+    margin-top: 15px;
+    text-decoration: none;
 }
 
 form a:hover {
@@ -147,19 +137,7 @@ form a:hover {
     text-decoration: underline;
 }
 
-/* ==========================================================================
-   RESPONSIVE DESIGN
-   ========================================================================== */
 @media (max-width: 768px) {
-    .main-content {
-        padding: 20px 15px;
-    }
-
-    form {
-        padding: 20px;
-    }
-
-    .main-content h2 {
-        font-size: 26px;
-    }
+    .main-content { padding: 20px 15px; }
+    form { padding: 20px; }
 }

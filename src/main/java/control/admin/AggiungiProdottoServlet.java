@@ -13,12 +13,26 @@ import model.Prodotto;
 import model.Utente;
 import model.dao.ProdottoDAO;
 
+import java.io.File;
+import java.nio.file.Paths;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+import model.Immagine;
+import model.dao.ImmagineDAO;
+
 @WebServlet("/aggiungiProdotto")
+@MultipartConfig( // FONDAMENTALE per gestire file upload
+ fileSizeThreshold = 1024 * 1024 * 2,
+ maxFileSize = 1024 * 1024 * 10,
+ maxRequestSize = 1024 * 1024 * 50
+)
 public class AggiungiProdottoServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
     
     private final ProdottoDAO prodottoDAO = new ProdottoDAO();
+    
+    private final ImmagineDAO immagineDAO = new ImmagineDAO();
 
     // 1. Mostra il form di inserimento prodotto
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -84,13 +98,28 @@ public class AggiungiProdottoServlet extends HttpServlet
             p.setAttivo(attivo);
             p.setSconto(sconto);
             p.setCategoria(categoria);
-
-            prodottoDAO.doSave(p);
-
-            session.setAttribute("successMessage", "Prodotto aggiunto con successo al catalogo!");
             
-            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
+            prodottoDAO.doSave(p); 
+            int idProdotto = p.getIdProdotto();
 
+            // 2. Gestione Immagine
+            Part filePart = request.getPart("nuovaImmagine");
+            if (filePart != null && filePart.getSize() > 0) {
+                String appPath = request.getServletContext().getRealPath("");
+                String savePath = appPath + File.separator + "img" + File.separator + "prodotti";
+                File fileSaveDir = new File(savePath);
+                if (!fileSaveDir.exists()) fileSaveDir.mkdirs();
+
+                String fileName = idProdotto + "_" + System.currentTimeMillis() + "_" + Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                filePart.write(savePath + File.separator + fileName);
+
+                Immagine img = new Immagine();
+                img.setPercorsoImmagine("img/prodotti/" + fileName);
+                img.setFkProdotto(idProdotto);
+                immagineDAO.doSave(img);
+            }
+            session.setAttribute("successMessage", "Prodotto aggiunto con successo al catalogo!");
+            response.sendRedirect(request.getContextPath() + "/admindashboard?tab=prodotti");
         }
         catch (NumberFormatException e)
         {

@@ -14,46 +14,41 @@ public class ProdottoDAO
 {
 	private static final String TABLE_NAME = "prodotto"; //nome della tabella nel DB
 	
-	//INSERT
-	public void doSave(Prodotto p) throws SQLException
-	{
-		Connection conn = ConnectionPool.getConnection();
-		PreparedStatement ps = null;
-
-		String sql =
-				"INSERT INTO " + TABLE_NAME +
-				" (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, sconto, categoria) " +
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
-		try
-		{
-			ps = conn.prepareStatement(sql);
-		
-			ps.setString(1, p.getNome());
-			ps.setString(2, p.getSquadra());
-			ps.setString(3, p.getMateriale());
-			ps.setString(4, p.getDescrizione());
-			ps.setDouble(5, p.getPrezzo());
-			ps.setInt(6, p.getStock());
-			ps.setString(7, p.getTaglia());
-			ps.setBoolean(8, p.getAttivo());
-			ps.setInt(9, p.getSconto());
-			ps.setString(10, p.getCategoria());
-        
-			ps.executeUpdate();
-		}
-		finally
-		{
-			try
-			{
-				if (ps != null)
-					ps.close();
-			}
-			finally
-			{
-				ConnectionPool.releaseConnection(conn);
-			}
-		}
+	public void doSave(Prodotto p) throws SQLException {
+	    Connection conn = ConnectionPool.getConnection();
+	    PreparedStatement ps = null;
+	    
+	    // Aggiungi RETURN_GENERATED_KEYS
+	    String sql = "INSERT INTO " + TABLE_NAME + 
+	                 " (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, sconto, categoria) " + 
+	                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    
+	    try {
+	        ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS); // <--- AGGIUNTA
+	        
+	        ps.setString(1, p.getNome());
+	        ps.setString(2, p.getSquadra());
+	        ps.setString(3, p.getMateriale());
+	        ps.setString(4, p.getDescrizione());
+	        ps.setDouble(5, p.getPrezzo());
+	        ps.setInt(6, p.getStock());
+	        ps.setString(7, p.getTaglia());
+	        ps.setBoolean(8, p.getAttivo());
+	        ps.setInt(9, p.getSconto());
+	        ps.setString(10, p.getCategoria());
+	        
+	        ps.executeUpdate();
+	        
+	        // RECUPERA L'ID GENERATO
+	        try (java.sql.ResultSet generatedKeys = ps.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                p.setIdProdotto(generatedKeys.getInt(1)); // AGGIORNA L'OGGETTO
+	            }
+	        }
+	    } finally {
+	        if (ps != null) ps.close();
+	        ConnectionPool.releaseConnection(conn);
+	    }
 	}
 	
 	//DELETE

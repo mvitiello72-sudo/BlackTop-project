@@ -30,7 +30,7 @@
                             <div class="cart-item">
                                 
                                 <div class="item-img">
-                                    <img src="${pageContext.request.contextPath}/img/prodotti/${item.prodotto.immagini[0].percorsoImmagine}" alt="${item.prodotto.nome}">
+									<img src="${pageContext.request.contextPath}/${item.prodotto.immagini[0].percorsoImmagine}" alt="${item.prodotto.nome}">
                                 </div>
                                 
                                 <div class="item-details">

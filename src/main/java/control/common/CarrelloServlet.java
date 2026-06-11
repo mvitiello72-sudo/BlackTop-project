@@ -58,12 +58,17 @@ public class CarrelloServlet extends HttpServlet
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
+                    // Recupera la taglia selezionata dall'utente nel form del prodotto
+                    String taglia = request.getParameter("taglia"); 
 
                     Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
                     
                     if (p != null) 
-                    {                
-                        String taglia = p.getTaglia();
+                    {        
+                        // Se la taglia non è passata dal form, usa quella di default del DB
+                        if (taglia == null || taglia.trim().isEmpty()) {
+                            taglia = p.getTaglia();
+                        }
                         
                         if (taglia != null && !taglia.trim().isEmpty()) 
                         {
@@ -84,18 +89,18 @@ public class CarrelloServlet extends HttpServlet
                     String taglia = request.getParameter("taglia");
                     int nuovaQuantita = Integer.parseInt(request.getParameter("quantita"));
 
-                    // PROTEZIONE STOCK
                     Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
                     if (p != null) 
                     {
                         if (nuovaQuantita > p.getStock()) 
                         {
-                            nuovaQuantita = p.getStock(); // Se l'utente forza l'HTML, lo blocchiamo al max disponibile
+                            nuovaQuantita = p.getStock(); // Protezione stock massimo
                         }
                         
                         if (nuovaQuantita > 0) 
                         {
-                            carrello.aggiornaQuantita(idProdotto, taglia, nuovaQuantita);
+                            // Invia l'oggetto Prodotto 'p' intero per aggiornare i dati in tempo reale
+                            carrello.aggiornaQuantita(p, taglia, nuovaQuantita); 
                         }
                     }
                 }
@@ -103,6 +108,7 @@ public class CarrelloServlet extends HttpServlet
             catch (Exception e) 
             {
                 System.err.println("Errore nell'elaborazione del carrello: " + e.getMessage());
+                e.printStackTrace(); // Ti permette di vedere l'errore esatto nella console di Tomcat
             }
         }
 
