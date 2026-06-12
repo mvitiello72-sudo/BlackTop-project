@@ -20,7 +20,7 @@
     <main class="form-container-main">
         <section class="form-section">
             <div class="form-header">
-                <span class="back-link"><a href="${pageContext.request.contextPath}/admindashboard?tab=prodotti">← Torna alla Dashboard</a></span>
+                <span class="back-link"><a href="${pageContext.request.contextPath}/admin/admindashboard?tab=prodotti">← Torna alla Dashboard</a></span>
                 <h1>Modifica Prodotto #${prodotto.idProdotto}</h1>
                 <p>Aggiorna le informazioni relative al prodotto selezionato.</p>
             </div>
@@ -35,7 +35,7 @@
                 <% request.removeAttribute("errorMessage"); %>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/modificaProdotto" method="post" enctype="multipart/form-data" class="admin-form">
+            <form action="${pageContext.request.contextPath}/admin/modificaProdotto" method="post" enctype="multipart/form-data" class="admin-form">
                 <input type="hidden" name="id" value="${prodotto.idProdotto}">
 
                 <div class="photo-management-section">
@@ -136,7 +136,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn-submit">Salva Modifiche</button>
-                    <a href="${pageContext.request.contextPath}/admindashboard?tab=prodotti" class="btn-cancel">Annulla</a>
+                    <a href="${pageContext.request.contextPath}/admin/admindashboard?tab=prodotti" class="btn-cancel">Annulla</a>
                 </div>
             </form>
         </section>

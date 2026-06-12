@@ -52,7 +52,7 @@ public class CheckoutServlet extends HttpServlet
             return;
         }
 
-        try 
+        try 	
         {
             // Recuperiamo gli indirizzi e le carte dell'utente dal database
             List<Indirizzo> indirizzi = indirizzoDAO.doRetrieveByUtente(utenteLoggato.getIdUtente());

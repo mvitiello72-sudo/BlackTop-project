@@ -37,6 +37,6 @@ public class ProdottoStatoServlet extends HttpServlet
             session.setAttribute("errorMessage", "Errore durante la modifica dello stato: " + e.getMessage());
         }
 
-        response.sendRedirect(request.getContextPath() + "/admin/dashboard?tab=prodotti");    
+        response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");    
     }
 }

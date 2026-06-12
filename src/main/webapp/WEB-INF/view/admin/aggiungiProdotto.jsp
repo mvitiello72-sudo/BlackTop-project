@@ -16,7 +16,7 @@
     
     <main class="main-content">
         <h2>Aggiungi un Nuovo Prodotto</h2>
-        <form action="${pageContext.request.contextPath}/aggiungiProdotto" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/admin/aggiungiProdotto" method="post" enctype="multipart/form-data">
             <div><label>Nome *</label><input type="text" name="nome" required></div>
             <div><label>Squadra *</label><input type="text" name="squadra" required></div>
             <div><label>Categoria *</label>

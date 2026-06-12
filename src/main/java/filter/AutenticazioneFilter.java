@@ -32,7 +32,7 @@ public class AutenticazioneFilter extends HttpFilter
 	    
 	    // Controllo che il token sia in sessione
 	    HttpSession session = request.getSession(false);
-	    Utente utente = (session != null) ? (Utente) session.getAttribute("user") : null;
+	    Utente utente = (session != null) ? (Utente) session.getAttribute("utente") : null;
 	    String role = (utente != null) ? utente.getRuolo() : null;
 	    
 	    // Controllo autenticazione e autorizzazione

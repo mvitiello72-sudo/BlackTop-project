@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.dao.MetodoPagamentoDAO;
 
-@WebServlet("/rimuoviPagamento")
+@WebServlet("/common/rimuoviPagamento")
 public class RimuoviMetodoPagamentoServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class RimuoviMetodoPagamentoServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -61,6 +61,6 @@ public class RimuoviMetodoPagamentoServlet extends HttpServlet
                 return;
             }
         }
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

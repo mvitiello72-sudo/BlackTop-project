@@ -19,7 +19,7 @@
     <main class="checkout-main">
         <h1 class="checkout-title">Completamento Ordine</h1>
 
-        <form action="${pageContext.request.contextPath}/checkout" method="POST" class="checkout-container">
+        <form action="${pageContext.request.contextPath}/common/checkout" method="POST" class="checkout-container">
             
             <div class="checkout-sections">
                 

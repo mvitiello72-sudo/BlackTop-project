@@ -23,14 +23,14 @@
         <c:choose>
             <c:when test="${not empty sessionScope.utente}">
             		<c:if test="${sessionScope.utente.ruolo == 'ADMIN'}">
-            			<a class="nav-btn" href="${pageContext.request.contextPath}/admindashboard">
+            			<a class="nav-btn" href="${pageContext.request.contextPath}/admin/admindashboard">
                 			ADMIN
             			</a>
         			</c:if>
-                <a class="nav-btn" href="${pageContext.request.contextPath}/profilo">
+                <a class="nav-btn" href="${pageContext.request.contextPath}/common/profilo">
                     ${sessionScope.utente.nome} <!-- Esce il nome dell'utente -->
                 </a>
-                <a class="nav-btn" href="${pageContext.request.contextPath}/logout">
+                <a class="nav-btn" href="${pageContext.request.contextPath}/common/logout">
                     ESCI
                 </a>
             </c:when>

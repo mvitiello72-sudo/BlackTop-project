@@ -30,7 +30,7 @@
                 <button class="menu-btn" onclick="switchTab('indirizzi')">Indirizzi salvati</button>
                 <button class="menu-btn" onclick="switchTab('pagamenti')">Metodi di pagamento</button>
                 <button class="menu-btn" onclick="switchTab('ordini')"> I miei ordini </button>
-                <a href="${pageContext.request.contextPath}/logout" class="btn-logout">Disconnetti</a>
+                <a href="${pageContext.request.contextPath}/common/logout" class="btn-logout">Disconnetti</a>
             </nav>
         </aside>
 

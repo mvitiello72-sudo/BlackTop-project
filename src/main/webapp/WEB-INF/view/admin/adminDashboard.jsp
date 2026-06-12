@@ -55,7 +55,7 @@
 
             <div class="section-toolbar">
                 <h2>Catalogo Prodotti</h2>
-                <a href="${pageContext.request.contextPath}/aggiungiProdotto" class="btn-add">+ Aggiungi Prodotto</a>
+                <a href="${pageContext.request.contextPath}/admin/aggiungiProdotto" class="btn-add">+ Aggiungi Prodotto</a>
             </div>
 
             <c:if test="${not empty successMessage}">
@@ -107,13 +107,13 @@
                                         <td class="td-azioni">
 
                                             <!-- Modifica -->
-                                            <a href="${pageContext.request.contextPath}/modificaProdotto?id=${p.idProdotto}"
+                                            <a href="${pageContext.request.contextPath}/admin/modificaProdotto?id=${p.idProdotto}"
                                                class="btn-action">Modifica</a>
 
                                             <!-- Attiva / Disattiva -->
                                             <c:choose>
                                                 <c:when test="${p.attivo}">
-                                                    <form action="${pageContext.request.contextPath}/prodottoStato"
+                                                    <form action="${pageContext.request.contextPath}/admin/prodottoStato"
                                                           method="post" class="form-inline"
                                                           onsubmit="return confirm('Disattivare il prodotto ${p.nome}?')">
                                                         <input type="hidden" name="id" value="${p.idProdotto}">
@@ -122,7 +122,7 @@
                                                     </form>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <form action="${pageContext.request.contextPath}/prodottoStato"
+                                                    <form action="${pageContext.request.contextPath}/admin/prodottoStato"
                                                           method="post" class="form-inline">
                                                         <input type="hidden" name="id" value="${p.idProdotto}">
                                                         <input type="hidden" name="action" value="attiva">
@@ -138,7 +138,7 @@
                                 <tr>
                                     <td colspan="10" class="empty-state">
                                         Nessun prodotto trovato.
-                                        <a href="${pageContext.request.contextPath}/aggiungiProdotto">Aggiungi un prodotto</a>
+                                        <a href="${pageContext.request.contextPath}/admin/aggiungiProdotto">Aggiungi un prodotto</a>
                                     </td>
                                 </tr>
                             </c:otherwise>
@@ -181,7 +181,7 @@
                                         <td class="td-azioni">
                                             <c:choose>
                                                 <c:when test="${u.ruolo == 'USER'}">
-                                                    <form action="${pageContext.request.contextPath}/utenteRuolo"
+                                                    <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
                                                           method="post" class="form-inline"
                                                           onsubmit="return confirm('Rendere ${u.nome} ${u.cognome} un ADMIN?')">
                                                         <input type="hidden" name="id" value="${u.idUtente}">
@@ -190,7 +190,7 @@
                                                     </form>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <form action="${pageContext.request.contextPath}/utenteRuolo"
+                                                    <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
                                                           method="post" class="form-inline"
                                                           onsubmit="return confirm('Rimuovere i privilegi admin a ${u.nome} ${u.cognome}?')">
                                                         <input type="hidden" name="id" value="${u.idUtente}">
@@ -222,7 +222,7 @@
             </div>
 
             <!-- Filtri -->
-            <form action="${pageContext.request.contextPath}/admindashboard" method="get" class="filtri-form">
+            <form action="${pageContext.request.contextPath}/admin/admindashboard" method="get" class="filtri-form">
                 <input type="hidden" name="tab" value="ordini">
                 <div class="filtri-row">
                     <div class="filtro-group">
@@ -239,7 +239,7 @@
 					</div>
                     <div class="filtro-group filtro-btn-group">
                         <button type="submit" class="btn-add">Filtra</button>
-                        <a href="${pageContext.request.contextPath}/admindashboard?tab=ordini" class="btn-action">Reset</a>
+                        <a href="${pageContext.request.contextPath}/admin/admindashboard?tab=ordini" class="btn-action">Reset</a>
                     </div>
                 </div>
             </form>

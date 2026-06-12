@@ -30,7 +30,7 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
     // Blocchiamo l'accesso diretto in GET, rimandando al profilo
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -80,6 +80,6 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
                 return;
             }
         }
-        response.sendRedirect(request.getContextPath() + "/profilo");
+        response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

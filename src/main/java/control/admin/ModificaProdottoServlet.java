@@ -19,7 +19,7 @@ import model.Immagine;
 import model.dao.ProdottoDAO;
 import model.dao.ImmagineDAO;
 
-@WebServlet("/common/modificaProdotto")
+@WebServlet("/admin/modificaProdotto")
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
     maxFileSize = 1024 * 1024 * 10,       // 10MB massimo per singolo file
