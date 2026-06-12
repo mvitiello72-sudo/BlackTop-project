@@ -287,22 +287,27 @@ public class OrdineDAO
 	}
 
 	// UPDATE STATO ORDINE
-	public void updateStato(int idOrdine, String stato) throws SQLException
+	public boolean updateStato(int idOrdine, String stato) throws SQLException
 	{
 		Connection conn = ConnectionPool.getConnection();
 		PreparedStatement ps = null;
+		int righeModificate = 0;
+		
 		String sql = "UPDATE " + TABLE_NAME + " SET stato=? WHERE id_ordine=?";
 		try
 		{
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, stato);
 			ps.setInt(2, idOrdine);
-			ps.executeUpdate();
+			
+			righeModificate = ps.executeUpdate();
 		}
 		finally
 		{
 			try { if (ps != null) ps.close(); } finally { ConnectionPool.releaseConnection(conn); }
 		}
+		
+		return righeModificate > 0;
 	}
 
 	// DELETE

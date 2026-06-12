@@ -334,4 +334,33 @@ public class UtenteDAO
 		return totale;
 	}
 	
+	public boolean updateRuolo(int id, String nuovo) throws SQLException
+	{
+	    Connection conn = ConnectionPool.getConnection();
+	    PreparedStatement ps = null;
+	    int righeModificate = 0;
+
+	    String sql = "UPDATE utente SET ruolo = ? WHERE id_utente = ?";
+
+	    try 
+	    {	        
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, nuovo);
+	        ps.setInt(2, id);
+	        righeModificate = ps.executeUpdate();
+	    } 
+	    finally 
+	    {
+	        if (ps != null) {
+	            try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        }
+	        if (conn != null) {
+	            try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        }
+	    }
+
+	    // Ritorna true se almeno una riga è stata modificata nel DB, false altrimenti
+	    return righeModificate > 0;
+	}
+	
 }

@@ -43,14 +43,13 @@
             </div>
         </section>
 
-        <!-- TAB BAR -->
         <div class="tab-bar">
             <button class="tab-btn active" onclick="switchTab('prodotti', this)">Prodotti</button>
             <button class="tab-btn" onclick="switchTab('utenti', this)">Utenti</button>
             <button class="tab-btn" onclick="switchTab('ordini', this)">Ordini</button>
         </div>
 
-        <!-- ===== TAB PRODOTTI ===== -->
+        <%-- ==================== TAB PRODOTTI ==================== --%>
         <section id="tab-prodotti" class="tab-section active">
 
             <div class="section-toolbar">
@@ -105,12 +104,9 @@
                                             <span class="badge-stato">${p.attivo ? 'Attivo' : 'Disattivato'}</span>
                                         </td>
                                         <td class="td-azioni">
-
-                                            <!-- Modifica -->
                                             <a href="${pageContext.request.contextPath}/admin/modificaProdotto?id=${p.idProdotto}"
                                                class="btn-action">Modifica</a>
 
-                                            <!-- Attiva / Disattiva -->
                                             <c:choose>
                                                 <c:when test="${p.attivo}">
                                                     <form action="${pageContext.request.contextPath}/admin/prodottoStato"
@@ -148,11 +144,19 @@
             </div>
         </section>
 
-        <!-- ===== TAB UTENTI ===== -->
+		<%-- ==================== TAB UTENTI ==================== --%>
         <section id="tab-utenti" class="tab-section">
             <div class="section-toolbar">
                 <h2>Utenti Registrati</h2>
             </div>
+
+            <%-- AGGIUNTI QUI: Feedback visivo per le azioni sugli utenti --%>
+            <c:if test="${not empty successMessage}">
+                <div class="alert alert-success">${successMessage}</div>
+            </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-error">${errorMessage}</div>
+            </c:if>
 
             <div class="table-wrapper">
                 <table class="admin-table">
@@ -180,23 +184,33 @@
                                         <td><span class="badge-ruolo">${u.ruolo}</span></td>
                                         <td class="td-azioni">
                                             <c:choose>
-                                                <c:when test="${u.ruolo == 'USER'}">
-                                                    <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
-                                                          method="post" class="form-inline"
-                                                          onsubmit="return confirm('Rendere ${u.nome} ${u.cognome} un ADMIN?')">
-                                                        <input type="hidden" name="id" value="${u.idUtente}">
-                                                        <input type="hidden" name="action" value="promuovi">
-                                                        <button type="submit" class="btn-action">Promuovi ad Admin</button>
-                                                    </form>
+                                                <c:when test="${u.idUtente == sessionScope.utente.idUtente}">
+                                                    <span class="badge-tuo-profilo" style="color: #888; font-style: italic; font-size: 0.95em;">
+                                                        Tu (Sessione attiva)
+                                                    </span>
                                                 </c:when>
+                                                
                                                 <c:otherwise>
-                                                    <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
-                                                          method="post" class="form-inline"
-                                                          onsubmit="return confirm('Rimuovere i privilegi admin a ${u.nome} ${u.cognome}?')">
-                                                        <input type="hidden" name="id" value="${u.idUtente}">
-                                                        <input type="hidden" name="action" value="declassa">
-                                                        <button type="submit" class="btn-action">Rimuovi Admin</button>
-                                                    </form>
+                                                    <c:choose>
+                                                        <c:when test="${u.ruolo == 'USER'}">
+                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
+                                                                  method="post" class="form-inline"
+                                                                  onsubmit="return confirm('Rendere ${u.nome} ${u.cognome} un ADMIN?')">
+                                                                <input type="hidden" name="id" value="${u.idUtente}">
+                                                                <input type="hidden" name="action" value="promuovi">
+                                                                <button type="submit" class="btn-action">Promuovi ad Admin</button>
+                                                            </form>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
+                                                                  method="post" class="form-inline"
+                                                                  onsubmit="return confirm('Rimuovere i privilegi admin a ${u.nome} ${u.cognome}?')">
+                                                                <input type="hidden" name="id" value="${u.idUtente}">
+                                                                <input type="hidden" name="action" value="declassa">
+                                                                <button type="submit" class="btn-action">Rimuovi Admin</button>
+                                                            </form>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
@@ -214,14 +228,19 @@
             </div>
         </section>
 
-        <!-- ===== TAB ORDINI ===== -->
+		<%-- ==================== TAB ORDINI ==================== --%>
         <section id="tab-ordini" class="tab-section">
-
             <div class="section-toolbar">
                 <h2>Ordini</h2>
             </div>
 
-            <!-- Filtri -->
+            <c:if test="${not empty successMessage}">
+                <div class="alert alert-success">${successMessage}</div>
+            </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-error">${errorMessage}</div>
+            </c:if>
+
             <form action="${pageContext.request.contextPath}/admin/admindashboard" method="get" class="filtri-form">
                 <input type="hidden" name="tab" value="ordini">
                 <div class="filtri-row">
@@ -234,9 +253,9 @@
                         <input type="date" id="dataFine" name="dataFine" value="${param.dataFine}">
                     </div>
                     <div class="filtro-group">
-    						<label for="cliente">Email Cliente</label>
-    						<input type="text" id="cliente" name="cliente" value="${param.cliente}" placeholder="es. marco@email.com">
-					</div>
+                            <label for="cliente">Email Cliente</label>
+                            <input type="text" id="cliente" name="cliente" value="${param.cliente}" placeholder="es. marco@email.com">
+                    </div>
                     <div class="filtro-group filtro-btn-group">
                         <button type="submit" class="btn-add">Filtra</button>
                         <a href="${pageContext.request.contextPath}/admin/admindashboard?tab=ordini" class="btn-action">Reset</a>
@@ -244,7 +263,7 @@
                 </div>
             </form>
 
-            <div class="table-wrapper">
+			<div class="table-wrapper">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -254,6 +273,7 @@
                             <th>Data Ordine</th>
                             <th>Totale</th>
                             <th>Stato</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -266,13 +286,36 @@
                                         <td class="td-email">${o.utente.email}</td>
                                         <td>${o.dataOrdine}</td>
                                         <td class="td-price">€ <fmt:formatNumber value="${o.totale}" pattern="#,##0.00"/></td>
-                                        <td><span class="badge-stato">${o.stato}</span></td>
+                                        <td>
+                                            <span class="badge-stato stato">${o.stato}</span>
+                                        </td>
+                                        <td class="td-azioni">
+                                            <c:choose>
+                                                <c:when test="${o.stato == 'IN_PREPARAZIONE'}">
+                                                    <form action="${pageContext.request.contextPath}/admin/ordineStato" method="post" class="form-inline">
+                                                        <input type="hidden" name="id" value="${o.idOrdine}">
+                                                        <input type="hidden" name="nuovoStato" value="SPEDITO">
+                                                        <button type="submit" class="btn-action btn-spedisci">Segna come Spedito</button>
+                                                    </form>
+                                                </c:when>
+                                                <c:when test="${o.stato == 'SPEDITO'}">
+                                                    <form action="${pageContext.request.contextPath}/admin/ordineStato" method="post" class="form-inline">
+                                                        <input type="hidden" name="id" value="${o.idOrdine}">
+                                                        <input type="hidden" name="nuovoStato" value="CONSEGNATO">
+                                                        <button type="submit" class="btn-action btn-consegna">Segna come Consegnato</button>
+                                                    </form>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span>Consegnato</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </c:when>
                             <c:otherwise>
                                 <tr>
-                                    <td colspan="6" class="empty-state">Nessun ordine trovato.</td>
+                                    <td colspan="7" class="empty-state">Nessun ordine trovato.</td>
                                 </tr>
                             </c:otherwise>
                         </c:choose>
@@ -293,7 +336,6 @@
             btn.classList.add('active');
         }
 
-        // Se la pagina torna con ?tab=ordini (dopo il filtro), apre automaticamente quel tab
         window.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams(window.location.search);
             const tab = params.get('tab');
