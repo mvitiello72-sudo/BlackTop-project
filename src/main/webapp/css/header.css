@@ -94,3 +94,62 @@
     background-color: var(--color-secondary); 
     color: var(--color-primary);        
 }
+
+/* ==========================================================================
+   TENDINA DEI SUGGERIMENTI DELLA RICERCA (SEARCH AUTOCOMPLETE)
+   ========================================================================== */
+
+.search-suggestions {
+    position: absolute;       /* Si sgancia dal flusso e fluttua sotto la barra */
+    top: 100%;                /* Si posiziona esattamente sotto il form */
+    left: 0;
+    width: 400px;             /* Ha la stessa identica larghezza del form */
+    background-color: #ffffff;/* Sfondo bianco pulito per far leggere bene il testo */
+    border-radius: 0 0 8px 8px;/* Arrotonda solo gli angoli in basso */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Ombra profonda per l'effetto "sospeso" */
+    z-index: 9999;            /* Passa sopra a qualsiasi altro elemento o card della pagina */
+    max-height: 300px;        /* Se ci sono troppi risultati mette il limite di altezza */
+    overflow-y: auto;         /* Mostra una barra di scorrimento interna se supera i 300px */
+    margin-top: 2px;          /* Un minimo di stacco millimetrico dall'input */
+}
+
+/* Rimuove i pallini e i margini nativi della lista <ul> */
+.search-suggestions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile della singola riga di suggerimento (Ogni <li>) */
+.search-suggestions li {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333333;           /* Testo grigio scuro molto leggibile */
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0; /* Linea sottile di separazione tra prodotti */
+    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;      /* Impedisce al testo lungo di andare a capo spezzando la riga */
+    overflow: hidden;
+    text-overflow: ellipsis;  /* Se il nome è lunghissimo mette i tre puntini (...) alla fine */
+}
+
+/* Rimuove la linea di separazione solo dall'ultimo elemento della lista */
+.search-suggestions li:last-child {
+    border-bottom: none;
+    border-radius: 0 0 8px 8px; /* Smussa gli angoli dell'ultimo elemento per seguire la tendina */
+}
+
+/* EFFETTO HOVER: Quando l'utente passa sopra una riga con il mouse */
+.search-suggestions li:hover {
+    background-color: #f7f9fa;       /* Cambia lo sfondo in un grigio chiarissimo */
+    color: var(--color-secondary);   /* Il testo si illumina con il tuo colore secondario arancione */
+}
+
+/* Stile del grassetto per evidenziare la squadra della canotta */
+.search-suggestions li strong {
+    color: var(--color-primary);     /* La squadra prende il colore primario scuro del brand */
+    font-weight: 700;
+    text-transform: uppercase;       /* Nome squadra tutto in maiuscolo stile NBA */
+    font-size: 12px;                 /* Leggermente più piccolino per creare gerarchia visiva */
+    letter-spacing: 0.5px;
+}

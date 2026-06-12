@@ -25,33 +25,46 @@ public class CatalogoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException
     {
-    		List<Prodotto> listaProdotti;
-    		String[] squadre = request.getParameterValues("squadra");
-    	    String categoria = request.getParameter("categoria");  
-    	           
+        List<Prodotto> listaProdotti;
+        
+        //parametro della barra di ricerca
+        String queryCerca = request.getParameter("cerca");
+        
+        String[] squadre = request.getParameterValues("squadra");
+        String categoria = request.getParameter("categoria");  
+               
         try
         {
-        		boolean nessunaSquadra = (squadre == null || squadre.length == 0);
-            boolean nessunaCategoria = (categoria == null || categoria.equals("tutte"));
-        		if(nessunaSquadra && nessunaCategoria)
-        		{
-        			//se non ci sono filtri, prende tutti i prodotti
-        			listaProdotti = prodottoDAO.doRetrieveAllAttivi();                        
-        		}
-        		else
-        		{
-        			listaProdotti = prodottoDAO.doRetrieveByFilter(squadre, categoria);
-        		}
-        		
-        		request.setAttribute("listaProdotti", listaProdotti);
-        		
+            //Se l'utente ha cercato qualcosa nella barra di ricerca
+            if (queryCerca != null && !queryCerca.trim().isEmpty()) 
+            {
+                listaProdotti = prodottoDAO.doRetrieveByNome(queryCerca.trim());
+            }
+            else 
+            {
+                //gestione dei filtri
+                boolean nessunaSquadra = (squadre == null || squadre.length == 0);
+                boolean nessunaCategoria = (categoria == null || categoria.equals("tutte"));
+                
+                if(nessunaSquadra && nessunaCategoria)
+                {
+                    // se non ci sono filtri e non si è cercato nulla, prende tutti i prodotti
+                    listaProdotti = prodottoDAO.doRetrieveAllAttivi();                        
+                }
+                else
+                {
+                    listaProdotti = prodottoDAO.doRetrieveByFilter(squadre, categoria);
+                }
+            }
+            
+            // Passa la lista (filtrata, cercata o totale) alla JSP
+            request.setAttribute("listaProdotti", listaProdotti);
+            
             // Inoltra la richiesta alla pagina JSP
             request.getRequestDispatcher("/WEB-INF/view/common/catalogo.jsp").forward(request, response);
             
         } catch (Exception e) {
             log("Errore nel recupero dei prodotti per il catalogo", e);
-            
-            // Risposta di errore al client se qualcosa va storto col DB
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
                                "Si è verificato un errore nel caricamento del catalogo.");
         }

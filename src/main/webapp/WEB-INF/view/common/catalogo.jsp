@@ -60,8 +60,7 @@
                     <h3>Categoria</h3>
                     <label><input type="radio" name="categoria" value="tutte" checked> Tutte le Jersey</label>
                     <label><input type="radio" name="categoria" value="icon"> Icon Edition</label>
-                    <label><input type="radio" name="categoria" value="statement"> Attuali </label>
-                    <label><input type="radio" name="categoria" value="classic"> Classic / Vintage</label>
+                    <label><input type="radio" name="categoria" value="attuali"> Attuali </label>
                 </div>
 
                 <button type="submit" class="btn-applica">Applica Filtri</button>

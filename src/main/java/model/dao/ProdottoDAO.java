@@ -604,4 +604,42 @@ public class ProdottoDAO
  			}
  		}
  	}
+ 	
+ 	public List<Prodotto> doRetrieveByNome(String ricerca) throws SQLException {
+ 	    List<Prodotto> prodotti = new ArrayList<>();
+ 	    Connection conn = ConnectionPool.getConnection();
+ 	    PreparedStatement ps = null;
+ 	    ResultSet rs = null;
+
+ 	    // Seleziona i prodotti attivi il cui nome o squadra corrisponde alla ricerca
+ 	    String sql = "SELECT * FROM prodotto WHERE attivo = 1 AND (nome LIKE ? OR squadra LIKE ?) LIMIT 5";
+
+ 	    try
+ 	    {
+ 	        ps = conn.prepareStatement(sql);
+ 	        String param = "%" + ricerca + "%";
+ 	        ps.setString(1, param);
+ 	        ps.setString(2, param);
+ 	        rs = ps.executeQuery();
+
+ 	        while (rs.next()) {
+ 	            Prodotto p = new Prodotto();
+ 	            p.setIdProdotto(rs.getInt("id_prodotto"));
+ 	            p.setNome(rs.getString("nome"));
+ 	            p.setSquadra(rs.getString("squadra"));
+ 	            p.setMateriale(rs.getString("materiale"));
+ 	            p.setDescrizione(rs.getString("descrizione"));
+ 	            p.setPrezzo(rs.getDouble("prezzo"));
+ 	            p.setStock(rs.getInt("stock"));
+ 	            p.setTaglia(rs.getString("taglia"));
+ 	            p.setAttivo(rs.getBoolean("attivo"));
+ 	            p.setSconto(rs.getInt("sconto"));
+ 	            p.setCategoria(rs.getString("categoria"));
+ 	            prodotti.add(p);
+ 	        }
+ 	    } finally {
+ 	        try { if (rs != null) rs.close(); } finally { try { if (ps != null) ps.close(); } finally { ConnectionPool.releaseConnection(conn); } }
+ 	    }
+ 	    return prodotti;
+ 	}
 }
