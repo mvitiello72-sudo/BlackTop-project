@@ -60,7 +60,7 @@ public class RegistrazioneServlet extends HttpServlet
 
         try 
         {
-            // CONTROLLO DUPLICATI: Verifichiamo se esiste già un utente con questa email
+            //Verifichiamo se esiste già un utente con questa email
             Utente utenteEsistente = utenteDAO.doRetrieveByEmail(email);
             
             if (utenteEsistente != null) 
@@ -75,16 +75,19 @@ public class RegistrazioneServlet extends HttpServlet
             nuovoUtente.setNome(nome);
             nuovoUtente.setCognome(cognome);
             nuovoUtente.setEmail(email);
-            nuovoUtente.setPassword(password); // Se implementerai l'hash (es. BCrypt), andrà fatto qui
+            
+            // Passiamo la password al bean, UtenteDAO.doSave() effettua la cifratura
+            nuovoUtente.setPassword(password); 
+            
             nuovoUtente.setRuolo("USER");
             nuovoUtente.setCellulare(cellulare);
-
-            //salviamo l'utente sul db
+            
             utenteDAO.doSave(nuovoUtente);
 
+            //Recuperiamo l'utente appena salvato 
             Utente utenteLoggato = utenteDAO.doRetrieveByEmail(email);
 
-            // LOGIN AUTOMATICO: Creiamo la sessione e ci iniettiamo dentro l'utente registrato
+            //login
             HttpSession session = request.getSession();
             session.setAttribute("utente", utenteLoggato);
 

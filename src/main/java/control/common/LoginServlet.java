@@ -2,6 +2,7 @@ package control.common;
 
 import model.Utente;
 import model.dao.UtenteDAO;
+import model.utils.PasswordUtils; // 1. IMPORTA LA CLASSE DI UTILITY
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,7 +43,7 @@ public class LoginServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = request.getParameter("password"); // Password in chiaro dal form
 
         if (email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()) 
         {
@@ -55,7 +56,11 @@ public class LoginServlet extends HttpServlet
         {
             Utente utente = utenteDAO.doRetrieveByEmail(email);
             
-            if (utente != null && utente.getPassword().equals(password)) 
+            // 2. CIFRIAMO LA PASSWORD DEL FORM PRIMA DEL CONFRONTO
+            String passwordFormCifrata = PasswordUtils.toDigest(password);
+            
+            // 3. CONFRONTIAMO I DUE HASH
+            if (utente != null && utente.getPassword().equals(passwordFormCifrata)) 
             {
                 // Credenziali corrette: creiamo o recuperiamo la sessione corrente
                 HttpSession session = request.getSession();

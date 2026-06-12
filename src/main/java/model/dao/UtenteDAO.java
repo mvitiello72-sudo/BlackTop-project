@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.Utente;
+import model.utils.PasswordUtils;
 import model.connection.ConnectionPool;
 
 import java.sql.*;
@@ -12,81 +13,89 @@ public class UtenteDAO
 	private static final String TABLE_NAME = "utente";
 
 	//INSERT
-	public void doSave(Utente u) throws SQLException
-	{
-		Connection conn = ConnectionPool.getConnection();
-		PreparedStatement ps = null;
-
-		String sql =
-				"INSERT INTO " + TABLE_NAME +
-				" (email, nome, cognome, password, ruolo, cellulare) " +
-				"VALUES (?, ?, ?, ?, ?, ?)";
-
-		try
+		public void doSave(Utente u) throws SQLException
 		{
-			ps = conn.prepareStatement(sql);
+			Connection conn = ConnectionPool.getConnection();
+			PreparedStatement ps = null;
 
-			ps.setString(1, u.getEmail());
-			ps.setString(2, u.getNome());
-			ps.setString(3, u.getCognome());
-			ps.setString(4, u.getPassword());
-			ps.setString(5, u.getRuolo());
-			ps.setString(6, u.getCellulare());
+			String sql =
+					"INSERT INTO " + TABLE_NAME +
+					" (email, nome, cognome, password, ruolo, cellulare) " +
+					"VALUES (?, ?, ?, ?, ?, ?)";
 
-			ps.executeUpdate();
-		}
-		finally
-		{
 			try
 			{
-				if (ps != null)
-					ps.close();
+				ps = conn.prepareStatement(sql);
+
+				ps.setString(1, u.getEmail());
+				ps.setString(2, u.getNome());
+				ps.setString(3, u.getCognome());
+				
+				// Cifriamo la password in SHA-512 prima di salvarla sul DB
+				String passwordCifrata = PasswordUtils.toDigest(u.getPassword());
+				ps.setString(4, passwordCifrata);
+				
+				ps.setString(5, u.getRuolo());
+				ps.setString(6, u.getCellulare());
+
+				ps.executeUpdate();
 			}
 			finally
 			{
-				ConnectionPool.releaseConnection(conn);
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
 			}
 		}
-	}
 	
-	//UPDATE
-	public void doUpdate(Utente u) throws SQLException
-	{
-		Connection conn = ConnectionPool.getConnection();
-		PreparedStatement ps = null;
-
-		String sql =
-				"UPDATE " + TABLE_NAME +
-				" SET email=?, nome=?, cognome=?, password=?, ruolo=?, cellulare=? " +
-				"WHERE id_utente=?";
-
-		try
+		//UPDATE
+		public void doUpdate(Utente u) throws SQLException
 		{
-			ps = conn.prepareStatement(sql);
+			Connection conn = ConnectionPool.getConnection();
+			PreparedStatement ps = null;
 
-			ps.setString(1, u.getEmail());
-			ps.setString(2, u.getNome());
-			ps.setString(3, u.getCognome());
-			ps.setString(4, u.getPassword());
-			ps.setString(5, u.getRuolo());
-			ps.setString(6, u.getCellulare());
-			ps.setInt(7, u.getIdUtente());
+			String sql =
+					"UPDATE " + TABLE_NAME +
+					" SET email=?, nome=?, cognome=?, password=?, ruolo=?, cellulare=? " +
+					"WHERE id_utente=?";
 
-			ps.executeUpdate();
-		}
-		finally
-		{
 			try
 			{
-				if (ps != null)
-					ps.close();
+				ps = conn.prepareStatement(sql);
+
+				ps.setString(1, u.getEmail());
+				ps.setString(2, u.getNome());
+				ps.setString(3, u.getCognome());
+				
+				// Cifriamo la password prima di aggiornare il record sul DB
+				String passwordCifrata = PasswordUtils.toDigest(u.getPassword());
+				ps.setString(4, passwordCifrata);
+				
+				ps.setString(5, u.getRuolo());
+				ps.setString(6, u.getCellulare());
+				ps.setInt(7, u.getIdUtente());
+
+				ps.executeUpdate();
 			}
 			finally
 			{
-				ConnectionPool.releaseConnection(conn);
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
 			}
 		}
-	}
 
 	//DELETE
 	public void doDelete(int id) throws SQLException
