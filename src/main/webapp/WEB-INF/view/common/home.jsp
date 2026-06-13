@@ -36,7 +36,7 @@
                     			<div class="product-card"> 
                     			  
                     				<!-- Prende solo l'immagine copertina -->
-                                <img src="${pageContext.request.contextPath}/img/prodotti/${prodotto.immagini[0].percorsoImmagine}" alt="${prodotto.nome}">         
+                                <img src="${pageContext.request.contextPath}/${prodotto.immagini[0].percorsoImmagine}" alt="${prodotto.nome}">         
                                 
                                 <h3>${prodotto.nome}</h3>
                                 <p class="team">${prodotto.squadra}</p>
