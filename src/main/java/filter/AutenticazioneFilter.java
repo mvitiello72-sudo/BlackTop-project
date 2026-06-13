@@ -22,10 +22,12 @@ public class AutenticazioneFilter extends HttpFilter
 
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-	        throws IOException, ServletException {
+	        throws IOException, ServletException
+	{
 	    String path = request.getServletPath();
 	    	// Se l'URL non è protetto, lascia passare
-	    if (!path.startsWith("/admin/") && !path.startsWith("/common/")) {
+	    if (!path.startsWith("/admin/") && !path.startsWith("/common/"))
+	    {
 	    		chain.doFilter(request, response);
 	        return; // Per evitare che il codice che segue venga eseguito
 	    }
@@ -37,7 +39,8 @@ public class AutenticazioneFilter extends HttpFilter
 	    
 	    // Controllo autenticazione e autorizzazione
 	    boolean autorizzato = false;
-	    if (role != null) {
+	    if (role != null)
+	    {
 	    		if (path.startsWith("/admin/")) {
 	            autorizzato = role.equals("ADMIN");
 	        } else if (path.startsWith("/common/")) {
