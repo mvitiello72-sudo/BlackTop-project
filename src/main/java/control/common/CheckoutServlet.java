@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import model.Utente;
 import model.Carrello;
 import model.Indirizzo;
+import model.Fattura;
+import model.dao.FatturaDAO;
 import model.MetodoPagamento;
 import model.Ordine;
 import model.dao.OrdineDAO;
@@ -113,7 +115,24 @@ public class CheckoutServlet extends HttpServlet
 
             int idOrdineGenerato = ordineDAO.salvaOrdineCompleto(ordine, carrello);
 
-            if (idOrdineGenerato > 0) {
+            if (idOrdineGenerato > 0)
+            {
+            		try
+            		{
+                    FatturaDAO fatturaDAO = new FatturaDAO();
+                    Fattura nuovaFattura = new Fattura();   
+                    
+                    nuovaFattura.setDataEmissione(Date.valueOf(LocalDate.now()));
+                    nuovaFattura.setTotaleFattura(carrello.getTotaleComplessivo());
+                    nuovaFattura.setFkOrdine(idOrdineGenerato);
+                    
+                    fatturaDAO.doSave(nuovaFattura);
+                }
+            		catch (SQLException e)
+            		{
+                    System.err.println("Errore inserimento fattura: " + e.getMessage());
+                }
+            		
                 session.removeAttribute("carrello");
                 request.setAttribute("idOrdineSuccesso", idOrdineGenerato);
                 request.getRequestDispatcher("/WEB-INF/view/common/ordineSuccesso.jsp").forward(request, response);

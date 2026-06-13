@@ -16,16 +16,6 @@ public class Fattura implements Serializable
     // Costruttore vuoto
     public Fattura() { }
 
-    // Costruttore completo
-    public Fattura(int idFattura, Date dataEmissione,
-                    double totaleFattura, int fkOrdine)
-    {
-        this.idFattura = idFattura;
-        this.dataEmissione = dataEmissione;
-        this.totaleFattura = totaleFattura;
-        this.fkOrdine = fkOrdine;
-    }
-
     // Getter e Setter
     public int getIdFattura() {
         return idFattura;

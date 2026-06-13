@@ -93,9 +93,15 @@
                                             <span class="status-badge status-${ord.stato.toLowerCase()}">${ord.stato}</span>
                                         </div>
                                     </div>
-                                    <div class="ordine-body">
-                                        <p>Hai bisogno di assistenza o vuoi i dettagli completi?</p>
-                                        <a href="${pageContext.request.contextPath}/common/dettaglioOrdine?id=${ord.idOrdine}" class="btn-ordine-dettaglio">Visualizza Dettagli</a>
+									
+									<div class="ordine-body">
+            								<a href="${pageContext.request.contextPath}/common/fattura?id=${ord.idOrdine}" class="btn-ordine-fattura" target="_blank">
+                								📄 Scarica Fattura PDF
+            								</a>
+        								                           
+                                        <a href="${pageContext.request.contextPath}/common/dettaglioOrdine?id=${ord.idOrdine}" class="btn-ordine-dettaglio">
+                                        		Visualizza Dettagli
+                                        	</a>
                                     </div>
                                 </div>
                             </c:forEach>
