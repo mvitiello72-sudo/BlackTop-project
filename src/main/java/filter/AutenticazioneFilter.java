@@ -47,10 +47,25 @@ public class AutenticazioneFilter extends HttpFilter
 	            autorizzato = role.equals("ADMIN") || role.equals("USER");
 	        }
 	    }
-	    if (autorizzato) {
+	    
+	    if (autorizzato)
+	    {
 	        chain.doFilter(request, response);
-	    } else {
-	        response.sendRedirect(request.getContextPath() + "/login");
+	    }
+	    else
+	    {
+	    		// L'utente NON è autorizzato. Distinguiamo due casi:
+	        if (utente == null)
+	        {
+	            // CASO 1: L'utente non è loggato affatto -> Vai al Login
+	            response.sendRedirect(request.getContextPath() + "/login");
+	        }
+	        else 
+	        {
+	            // CASO 2: L'utente È LOGGATO (es. ruolo USER) ma prova a entrare in /admin/
+	            // Lanciamo il codice 403
+	            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	        }
 	    }
 	}
 }

@@ -38,7 +38,7 @@
                             </label>
                         </c:forEach>
                     </div>
-                    <a href="${pageContext.request.contextPath}/profilo" class="link-modifica-profilo">Gestisci indirizzi nel profilo</a>
+                    <a href="${pageContext.request.contextPath}/common/profilo" class="link-modifica-profilo">Gestisci indirizzi nel profilo</a>
                 </div>
 
                 <div class="checkout-card">
@@ -57,7 +57,7 @@
                             </label>
                         </c:forEach>
                     </div>
-                    <a href="${pageContext.request.contextPath}/profilo" class="link-modifica-profilo">Gestisci metodi di pagamento nel profilo</a>
+                    <a href="${pageContext.request.contextPath}/common/profilo" class="link-modifica-profilo">Gestisci metodi di pagamento nel profilo</a>
                 </div>
             </div>
 

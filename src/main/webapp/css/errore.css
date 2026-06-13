@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* Container principale condiviso da tutti gli errori */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Centra verticalmente lo sfondo */
+    padding: 20px;
+    text-align: center;
+    background-color: var(--color-bg-main);
+}
+
+/* Stile base per il titolo dell'errore (Font Impact/Arial Black dello store) */
+.error-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--color-primary); /* Colore scuro di default (es. per il 404) */
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Variante Arancione per l'errore 500 (Errore del server) */
+.error-title.server-error {
+    color: var(--color-secondary); 
+}
+
+/* Variante Rossa per l'errore 403 (Accesso Negato) */
+.error-title.access-denied {
+    color: #DC3545; /* Rosso di sicurezza/allerta */
+}
+
+/* Descrizione principale del testo */
+.error-message {
+    font-size: 1.2rem;
+    color: var(--color-text-main);
+    max-width: 600px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Didascalia secondaria in grigio */
+.error-submessage {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin-bottom: 35px;
+}
+
+/* Il bottone urban/minimal dello store BlackTop */
+.btn-error {
+    display: inline-block;
+    font-family: var(--font-heading);
+    background-color: var(--color-primary);
+    color: var(--color-bg-main);
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid var(--color-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover del bottone che richiama l'arancione BlackTop */
+.btn-error:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    transform: translateY(-2px);
+}
