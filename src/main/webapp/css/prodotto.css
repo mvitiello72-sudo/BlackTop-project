@@ -163,7 +163,7 @@
     border-color: var(--color-primary);
 }
 
-/* Messaggio di Errore Inline (Obbligatorio Checklist) */
+/* Messaggio di Errore Inline */
 .error-message {
     color: #D32F2F;
     font-size: 0.85rem;
@@ -192,6 +192,109 @@
 
 .btn-add-cart:active {
     transform: scale(0.98);
+}
+
+/* ==========================================================================
+   MODALE CONFERMA AGGIUNTA CARRELLO
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: none; /* Nasconde il modale di base */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Diventa visibile solo quando la Servlet inietta la classe dal tag c:if */
+.modal-overlay.visible {
+    display: flex;
+}
+
+.modal-box {
+    background-color: var(--color-bg-main, #ffffff);
+    padding: 35px 30px;
+    max-width: 400px;
+    width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.modal-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #d4edda;
+    color: #28a745;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+}
+
+.modal-box h2 {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+    color: var(--color-primary);
+}
+
+.modal-box p {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0 0 25px 0;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Bottone per andare alla pagina del carrello */
+.btn-modal-cart {
+    display: block;
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    padding: 12px;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-modal-cart:hover {
+    background-color: #d67d3e;
+}
+
+/* Bottone per chiudere il popup e restare sul prodotto */
+.btn-modal-close {
+    background: none;
+    border: 1px solid var(--color-border, #cccccc);
+    color: var(--color-text-secondary);
+    padding: 11px;
+    font-family: var(--font-main);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-modal-close:hover {
+    background-color: var(--color-bg-card, #f5f5f5);
 }
 
 /* ==========================================================================

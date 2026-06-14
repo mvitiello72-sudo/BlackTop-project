@@ -5,7 +5,6 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    
     <title>
         <c:choose>
             <c:when test="${not empty prodotto}">
@@ -26,6 +25,21 @@
 <body>
 
     <jsp:include page="/WEB-INF/view/components/header.jsp" />
+    
+    <c:if test="${not empty sessionScope.prodottoAggiunto}">
+        <div id="modal-overlay" class="modal-overlay visible">
+            <div class="modal-box">
+                <div class="modal-icon">✓</div>
+                <h2>Prodotto aggiunto!</h2>
+                <p>Il prodotto è stato inserito correttamente nel tuo carrello.</p>
+                <div class="modal-actions">
+                    <a href="${pageContext.request.contextPath}/carrello" class="btn-modal-cart">Vai al Carrello</a>
+                    <button type="button" class="btn-modal-close" onclick="chiudiModale()">Continua lo Shopping</button>
+                </div>
+            </div>
+        </div>
+        <% session.removeAttribute("prodottoAggiunto"); %>
+    </c:if>
     
     <main class="main-content">
         <c:choose>
@@ -64,7 +78,7 @@
                                 <label for="taglia">Seleziona Taglia:</label>
                                 <select name="taglia" id="taglia" required onchange="aggiornaIdProdotto(this)">
                                     <c:forEach var="variante" items="${variantiTaglia}">
-                                        <option value="${variante.idProdotto}" ${variante.idProdotto == prodotto.idProdotto ? 'selected' : ''}>
+                                        <option value="${variante.taglia}" ${variante.idProdotto == prodotto.idProdotto ? 'selected' : ''}>
                                             ${variante.taglia} (Disponibili: ${variante.stock})
                                         </option>
                                     </c:forEach>
@@ -120,8 +134,7 @@
     <jsp:include page="/WEB-INF/view/components/footer.jsp" />
     
     <script>
-        function changeImage(src)
-        {
+        function changeImage(src) {
             document.getElementById('current-image').src = src;
         }
         
@@ -129,44 +142,44 @@
             const nuovoId = selectElement.value;
             window.location.href = "${pageContext.request.contextPath}/prodotto?id=" + nuovoId;
         }
+
+        // Questa funzione serve solo a nascondere il box se l'utente sceglie di continuare a guardare la maglia
+        function chiudiModale() {
+            const overlay = document.getElementById("modal-overlay");
+            if(overlay) {
+                overlay.classList.remove("visible");
+            }
+        }
         
         document.addEventListener("DOMContentLoaded", function() {
             const formCart = document.getElementById("add-to-cart-form");
-            
-            // Se il prodotto non esiste (caso c:otherwise), il form non c'è
-            if (!formCart)
-            		return;
+            if (!formCart) return;
 
             const quantitaInput = document.getElementById("quantita");
             const errorQuantita = document.getElementById("error-quantita");
 
+            // Qui rimane ESCLUSIVAMENTE la tua validazione testuale originaria prima di far partire il form
             formCart.addEventListener("submit", function(event) {
                 let formValido = true;
-                
-                // Reset dell'errore quando di preme submit 
                 errorQuantita.innerText = "";
 
-                // Recuperiamo il valore inserito e lo stock massimo disponibile per questo prodotto specifico
-                const qtaValue = parseInt(quantitaInput.value, 10); //il 10 indica il sistema decimale
-                const maxStock = parseInt(quantitaInput.getAttribute("max"), 10);
+                if (quantitaInput.validity.badInput || quantitaInput.value.trim() === "") {
+                    errorQuantita.innerText = "Inserisci una quantità valida.";
+                    formValido = false;
+                } else {
+                    const qtaValue = parseInt(quantitaInput.value, 10);
+                    const maxStock = parseInt(quantitaInput.getAttribute("max"), 10);
 
-                //Se non è un numero, è minore di 1 o vuoto
-                if (isNaN(qtaValue) || qtaValue < 1)
-                {
-                    errorQuantita.innerText = "Inserisci una quantità valida (minimo 1).";
-                    formValido = false;
-                }
-                
-                //Se supera lo stock disponibile a sistema
-                else if (qtaValue > maxStock)
-                {
-                    errorQuantita.innerText = "Quantità non disponibile. Massimo ordinabile: " + maxStock + ".";
-                    formValido = false;
+                    if (isNaN(qtaValue) || qtaValue < 1) {
+                        errorQuantita.innerText = "Inserisci una quantità valida (minimo 1).";
+                        formValido = false;
+                    } else if (qtaValue > maxStock) {
+                        errorQuantita.innerText = "Quantità non disponibile. Massimo ordinabile: " + maxStock + ".";
+                        formValido = false;
+                    }
                 }
 
-                // Blocco dell'invio e focus sul campo se ci sono problemi
-                if (!formValido)
-                {
+                if (!formValido) {
                     event.preventDefault();
                     quantitaInput.focus();
                 }

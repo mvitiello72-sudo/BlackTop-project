@@ -73,7 +73,8 @@
                                 </div>
                                 
                                 <div class="item-remove">
-                                    <form action="${pageContext.request.contextPath}/carrello" method="POST">
+                                    <form action="${pageContext.request.contextPath}/carrello" method="POST" 
+                                          onsubmit="return confirm('Sei sicuro di voler rimuovere questo articolo dal carrello?')">
                                         <input type="hidden" name="action" value="remove">
                                         <input type="hidden" name="idProdotto" value="${item.prodotto.idProdotto}">
                                         <input type="hidden" name="taglia" value="${item.taglia}">

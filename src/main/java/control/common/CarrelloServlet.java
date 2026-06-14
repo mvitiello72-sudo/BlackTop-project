@@ -49,6 +49,10 @@ public class CarrelloServlet extends HttpServlet
         }
 
         String action = request.getParameter("action");
+        
+        // Questa variabile ci serve per capire a quale pagina reindirizzare alla fine del metodo
+        boolean isAggiuntaProdotto = false;
+        int idProdottoDestinazione = -1;
 
         if (action != null) 
         {
@@ -58,14 +62,12 @@ public class CarrelloServlet extends HttpServlet
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
-                    // Recupera la taglia selezionata dall'utente nel form del prodotto
                     String taglia = request.getParameter("taglia"); 
 
                     Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
                     
                     if (p != null) 
                     {        
-                        // Se la taglia non è passata dal form, usa quella di default del DB
                         if (taglia == null || taglia.trim().isEmpty()) {
                             taglia = p.getTaglia();
                         }
@@ -73,6 +75,13 @@ public class CarrelloServlet extends HttpServlet
                         if (taglia != null && !taglia.trim().isEmpty()) 
                         {
                             carrello.aggiungiProdotto(p, taglia, quantita);
+                        
+                            // 1. Salviamo il flag di successo nella sessione
+                            session.setAttribute("prodottoAggiunto", true);
+                            
+                            // 2. Segnaliamo che l'azione era un'aggiunta e memorizziamo l'ID del prodotto
+                            isAggiuntaProdotto = true;
+                            idProdottoDestinazione = idProdotto;
                         }
                     }
                 } 
@@ -94,12 +103,11 @@ public class CarrelloServlet extends HttpServlet
                     {
                         if (nuovaQuantita > p.getStock()) 
                         {
-                            nuovaQuantita = p.getStock(); // Protezione stock massimo
+                            nuovaQuantita = p.getStock(); 
                         }
                         
                         if (nuovaQuantita > 0) 
                         {
-                            // Invia l'oggetto Prodotto 'p' intero per aggiornare i dati in tempo reale
                             carrello.aggiornaQuantita(p, taglia, nuovaQuantita); 
                         }
                     }
@@ -108,10 +116,19 @@ public class CarrelloServlet extends HttpServlet
             catch (Exception e) 
             {
                 System.err.println("Errore nell'elaborazione del carrello: " + e.getMessage());
-                e.printStackTrace(); // Ti permette di vedere l'errore esatto nella console di Tomcat
+                e.printStackTrace(); 
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/carrello");
+        // Se abbiamo appena aggiunto un prodotto, rimaniamo sulla pagina del dettaglio prodotto
+        if (isAggiuntaProdotto && idProdottoDestinazione != -1) 
+        {
+            response.sendRedirect(request.getContextPath() + "/prodotto?id=" + idProdottoDestinazione);
+        } 
+        else 
+        {
+            // Per le altre azioni (rimozione o aggiornamento dentro la pagina carrello), andiamo al carrello come prima
+            response.sendRedirect(request.getContextPath() + "/carrello");
+        }
     }
 }
