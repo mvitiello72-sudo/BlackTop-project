@@ -56,7 +56,7 @@
                             <p>${prodotto.descrizione}</p>
                         </div>
 
-                        <form action="${pageContext.request.contextPath}/carrello" method="POST" id="add-to-cart-form">
+                        <form action="${pageContext.request.contextPath}/carrello" method="POST" id="add-to-cart-form" novalidate>
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="idProdotto" id="idProdotto" value="${prodotto.idProdotto}">
                             
@@ -120,7 +120,8 @@
     <jsp:include page="/WEB-INF/view/components/footer.jsp" />
     
     <script>
-        function changeImage(src) {
+        function changeImage(src)
+        {
             document.getElementById('current-image').src = src;
         }
         
@@ -128,6 +129,49 @@
             const nuovoId = selectElement.value;
             window.location.href = "${pageContext.request.contextPath}/prodotto?id=" + nuovoId;
         }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const formCart = document.getElementById("add-to-cart-form");
+            
+            // Se il prodotto non esiste (caso c:otherwise), il form non c'è
+            if (!formCart)
+            		return;
+
+            const quantitaInput = document.getElementById("quantita");
+            const errorQuantita = document.getElementById("error-quantita");
+
+            formCart.addEventListener("submit", function(event) {
+                let formValido = true;
+                
+                // Reset dell'errore quando di preme submit 
+                errorQuantita.innerText = "";
+
+                // Recuperiamo il valore inserito e lo stock massimo disponibile per questo prodotto specifico
+                const qtaValue = parseInt(quantitaInput.value, 10); //il 10 indica il sistema decimale
+                const maxStock = parseInt(quantitaInput.getAttribute("max"), 10);
+
+                //Se non è un numero, è minore di 1 o vuoto
+                if (isNaN(qtaValue) || qtaValue < 1)
+                {
+                    errorQuantita.innerText = "Inserisci una quantità valida (minimo 1).";
+                    formValido = false;
+                }
+                
+                //Se supera lo stock disponibile a sistema
+                else if (qtaValue > maxStock)
+                {
+                    errorQuantita.innerText = "Quantità non disponibile. Massimo ordinabile: " + maxStock + ".";
+                    formValido = false;
+                }
+
+                // Blocco dell'invio e focus sul campo se ci sono problemi
+                if (!formValido)
+                {
+                    event.preventDefault();
+                    quantitaInput.focus();
+                }
+            });
+        });
     </script>
 </body>
 </html>

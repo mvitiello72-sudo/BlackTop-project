@@ -318,6 +318,15 @@
     border-left: 5px solid #dc3545;
 }
 
+.error-message {
+    color: #C62828;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; /* Fa andare il testo a capo sotto l'input */
+    text-align: left;
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */

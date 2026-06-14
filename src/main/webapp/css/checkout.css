@@ -7,6 +7,18 @@
     padding: 0 20px;
 }
 
+.error-message {
+    color: #C62828;          /* Il tuo rosso scuro */
+    font-size: 0.85rem;      /* Leggermente più grande per leggerlo meglio */
+    font-weight: 600;
+    margin-top: 12px;        /* Spinge via il link sopra e dà respiro all'errore */
+    margin-bottom: 5px;      /* Distanza dal fondo della card */
+    display: block;          /* Forza l'andata a capo */
+    text-align: left;
+    padding: 5px 0;          /* Crea una piccola area di rispetto attorno al testo */
+    letter-spacing: 0.3px;   /* Rende il testo dell'errore più nitido */
+}
+
 /* Titolo della pagina (H1) */
 .checkout-title {
     font-family: var(--font-heading);

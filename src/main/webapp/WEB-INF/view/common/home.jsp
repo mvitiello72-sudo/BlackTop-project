@@ -35,7 +35,7 @@
                     		<c:forEach var="prodotto" items="${prodottiEvidenza}"> <!-- Per ogni prodotto in prodottiEvidenza -->
                     			<div class="product-card"> 
                     			  
-                    				<!-- Prende solo l'immagine copertina -->
+                    				<!-- Prende solo la prima immagine -->
                                 <img src="${pageContext.request.contextPath}/${prodotto.immagini[0].percorsoImmagine}" alt="${prodotto.nome}">         
                                 
                                 <h3>${prodotto.nome}</h3>

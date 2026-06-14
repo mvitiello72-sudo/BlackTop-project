@@ -109,9 +109,7 @@
 
                                             <c:choose>
                                                 <c:when test="${p.attivo}">
-                                                    <form action="${pageContext.request.contextPath}/admin/prodottoStato"
-                                                          method="post" class="form-inline"
-                                                          onsubmit="return confirm('Disattivare il prodotto ${p.nome}?')">
+                                                    <form action="${pageContext.request.contextPath}/admin/prodottoStato" method="post" class="form-inline">
                                                         <input type="hidden" name="id" value="${p.idProdotto}">
                                                         <input type="hidden" name="action" value="disattiva">
                                                         <button type="submit" class="btn-action">Disattiva</button>
@@ -150,7 +148,6 @@
                 <h2>Utenti Registrati</h2>
             </div>
 
-            <%-- AGGIUNTI QUI: Feedback visivo per le azioni sugli utenti --%>
             <c:if test="${not empty successMessage}">
                 <div class="alert alert-success">${successMessage}</div>
             </c:if>
@@ -193,18 +190,14 @@
                                                 <c:otherwise>
                                                     <c:choose>
                                                         <c:when test="${u.ruolo == 'USER'}">
-                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
-                                                                  method="post" class="form-inline"
-                                                                  onsubmit="return confirm('Rendere ${u.nome} ${u.cognome} un ADMIN?')">
+                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo" method="post" class="form-inline">
                                                                 <input type="hidden" name="id" value="${u.idUtente}">
                                                                 <input type="hidden" name="action" value="promuovi">
                                                                 <button type="submit" class="btn-action">Promuovi ad Admin</button>
                                                             </form>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo"
-                                                                  method="post" class="form-inline"
-                                                                  onsubmit="return confirm('Rimuovere i privilegi admin a ${u.nome} ${u.cognome}?')">
+                                                            <form action="${pageContext.request.contextPath}/admin/utenteRuolo" method="post" class="form-inline" >
                                                                 <input type="hidden" name="id" value="${u.idUtente}">
                                                                 <input type="hidden" name="action" value="declassa">
                                                                 <button type="submit" class="btn-action">Rimuovi Admin</button>
@@ -343,6 +336,75 @@
                 const btn = document.querySelector('.tab-btn[onclick*="' + tab + '"]');
                 if (btn) switchTab(tab, btn);
             }
+        });
+        
+
+        document.addEventListener("DOMContentLoaded", function() {
+        	
+            // Intercettiamo tutti i form che modificano lo stato del prodotto
+            const formsStato = document.querySelectorAll('form[action*="prodottoStato"]');
+            
+            formsStato.forEach(form => {
+                form.addEventListener("submit", function(event) {
+                    const azione = form.querySelector('input[name="action"]').value;
+                    
+                    let messaggio = "";
+
+                    if (azione === "disattiva")
+                    {
+                        messaggio = "Sei sicuro di voler disattivare questo prodotto? Non sarà più visibile nel catalogo.";
+                    }
+                    else
+                    {
+                        messaggio = "Vuoi attivare questo prodotto e renderlo visibile agli utenti?";
+                    }
+                    
+                    if (!confirm(messaggio))
+                    {
+                        event.preventDefault(); // Blocca l'invio del form se clicca 'Annulla'
+                    }
+                });
+            });
+            
+        	 	// Intercettiamo i form degli utenti
+			const formsUtente = document.querySelectorAll('form[action*="utenteRuolo"]');
+
+   			formsUtente.forEach(form => {
+        			form.addEventListener("submit", function(event) {
+            			const azioneUtente = form.querySelector('input[name="action"]').value;
+            
+           			let messaggio = "";
+
+            			if (azioneUtente === "promuovi")
+            			{
+                			messaggio = "Sei sicuro di voler promuovere questo utente ad Amministratore? Avrà pieno controllo sul sito.";
+            			}
+            			else
+            			{
+                			messaggio = "Sei sicuro di voler declassare questo amministratore a semplice Utente? Perderà tutti i privilegi d'accesso.";
+            			}
+
+            			if (!confirm(messaggio))
+            			{
+                			event.preventDefault(); // Blocca l'invio del form se si clicca 'Annulla'
+            			}
+        			});
+    			});
+   			
+            // Intercettiamo i form degli ordini
+            const formsOrdine = document.querySelectorAll('form[action*="ordineStato"]');
+            
+            formsOrdine.forEach(form => {
+                form.addEventListener("submit", function(event) {
+                    const nuovoStato = form.querySelector('input[name="nuovoStato"]').value;
+                    const messaggio = "Confermi di voler cambiare lo stato dell'ordine in: " + nuovoStato + "?";
+                    
+                    if (!confirm(messaggio))
+                    {
+                        event.preventDefault(); // Blocca l'invio del form se clicca 'Annulla'
+                    }
+                });
+            });
         });
     </script>
 

@@ -137,7 +137,31 @@ form a:hover {
     text-decoration: underline;
 }
 
+/* ==========================================================================
+   GESTIONE ERRORI VALIDAZIONE JAVASCRIPT
+   ========================================================================== */
+.error-message {
+    color: #C62828;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; /* Fa andare il testo a capo sotto l'input */
+    text-align: left;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
 @media (max-width: 768px) {
-    .main-content { padding: 20px 15px; }
-    form { padding: 20px; }
+    .main-content { 
+        padding: 20px 15px; 
+    }
+    
+    form { 
+        padding: 20px; 
+    }
+    
+    .main-content h2 {
+        font-size: 26px;
+    }
 }

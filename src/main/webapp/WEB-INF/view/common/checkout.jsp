@@ -19,7 +19,7 @@
     <main class="checkout-main">
         <h1 class="checkout-title">Completamento Ordine</h1>
 
-        <form action="${pageContext.request.contextPath}/common/checkout" method="POST" class="checkout-container">
+        <form action="${pageContext.request.contextPath}/common/checkout" method="POST" class="checkout-container" novalidate>
             
             <div class="checkout-sections">
                 
@@ -39,6 +39,7 @@
                         </c:forEach>
                     </div>
                     <a href="${pageContext.request.contextPath}/common/profilo" class="link-modifica-profilo">Gestisci indirizzi nel profilo</a>
+                    <span id="indirizzo-error" class="error-message"></span>
                 </div>
 
                 <div class="checkout-card">
@@ -58,6 +59,7 @@
                         </c:forEach>
                     </div>
                     <a href="${pageContext.request.contextPath}/common/profilo" class="link-modifica-profilo">Gestisci metodi di pagamento nel profilo</a>
+                    <span id="pagamento-error" class="error-message"></span>
                 </div>
             </div>
 
@@ -106,6 +108,48 @@
     </main>
 
     <jsp:include page="/WEB-INF/view/components/footer.jsp" />
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formCheckout = document.querySelector(".checkout-container");
+            
+            if (!formCheckout)
+            		return;
+
+            formCheckout.addEventListener("submit", function(event) {
+                let formValido = true;
+
+                const errorIndirizzo = document.getElementById("indirizzo-error");
+                const errorPagamento = document.getElementById("pagamento-error");
+                
+                // Reset dei messaggi di errore precedenti
+                errorIndirizzo.innerText = "";
+                errorPagamento.innerText = "";
+
+                // Controllo se è stato selezionato un Indirizzo
+                const indirizzoSelezionato = document.querySelector('input[name="idIndirizzoSelezionato"]:checked');
+                if (!indirizzoSelezionato)
+                {
+                    errorIndirizzo.innerText = "Attenzione: devi selezionare o inserire un indirizzo di spedizione per continuare.";
+                    formValido = false;
+                }
+
+                // Controllo se è stato selezionato un Metodo di Pagamento
+                const pagamentoSelezionato = document.querySelector('input[name="idMetodoSelezionato"]:checked');
+                if (!pagamentoSelezionato)
+                {
+                    errorPagamento.innerText = "Attenzione: devi selezionare o inserire un metodo di pagamento per completare l'ordine.";
+                    formValido = false;
+                }
+
+                // Se manca qualcosa, blocchiamo l'invio
+                if (!formValido)
+                {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
