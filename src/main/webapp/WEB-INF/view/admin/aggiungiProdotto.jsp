@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aggiungi Prodotto - BlackTop</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
@@ -71,7 +72,7 @@
                 <textarea name="descrizione" placeholder="Inserisci una descrizione dettagliata del prodotto..."></textarea>
             </div>
             
-            <button type="submit" class="btn-add">Salva Prodotto</button>
+            <button type="submit" class="btn-form-submit">Salva Prodotto</button>
         </form>
     </main>
 

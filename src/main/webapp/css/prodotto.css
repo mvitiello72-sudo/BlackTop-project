@@ -7,7 +7,7 @@
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
-    min-height: 70px; /* Evita che il footer si attacchi se la pagina è vuota */
+    min-height: 70px; 
 }
 
 .prod-detail-container {
@@ -44,7 +44,6 @@
     transition: transform 0.3s ease;
 }
 
-/* Effetto zoom leggero sulla jersey principale */
 .main-image:hover img {
     transform: scale(1.03);
 }
@@ -74,7 +73,7 @@
 }
 
 /* ==========================================================================
-   SEZIONE DESTRA: CASSELLA INFORMAZIONI E FORM (PRODOTTO SINGOLO GIGANTE)
+   SEZIONE DESTRA: CASSELLA INFORMAZIONI E FORM
    ========================================================================== */
 .prod-info-box {
     flex: 1;
@@ -145,7 +144,6 @@
     color: var(--color-text-main);
 }
 
-/* Stile per Select e Input numerico */
 #taglia, #quantita {
     width: 100%;
     padding: 12px;
@@ -163,7 +161,6 @@
     border-color: var(--color-primary);
 }
 
-/* Messaggio di Errore Inline */
 .error-message {
     color: #D32F2F;
     font-size: 0.85rem;
@@ -171,7 +168,6 @@
     margin-top: 2px;
 }
 
-/* Bottone Aggiungi al Carrello */
 .btn-add-cart {
     background-color: var(--color-secondary);
     color: #FFFFFF;
@@ -205,12 +201,11 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 9999;
-    display: none; /* Nasconde il modale di base */
+    display: none; 
     justify-content: center;
     align-items: center;
 }
 
-/* Diventa visibile solo quando la Servlet inietta la classe dal tag c:if */
 .modal-overlay.visible {
     display: flex;
 }
@@ -258,7 +253,6 @@
     gap: 12px;
 }
 
-/* Bottone per andare alla pagina del carrello */
 .btn-modal-cart {
     display: block;
     background-color: var(--color-secondary);
@@ -278,7 +272,6 @@
     background-color: #d67d3e;
 }
 
-/* Bottone per chiudere il popup e restare sul prodotto */
 .btn-modal-close {
     background: none;
     border: 1px solid var(--color-border, #cccccc);
@@ -333,7 +326,7 @@
 }
 
 /* ==========================================================================
-   NUOVA SEZIONE: POTREBBERO PIACERTI (CARD PRODOTTI IN GRIGLIA)
+   NUOVA SEZIONE: POTREBBERO PIACERTI
    ========================================================================== */
 .featured-products {
     margin-top: 40px;
@@ -346,7 +339,6 @@
     color: var(--color-primary);
 }
 
-/* Griglia flessibile a 4 colonne che scala in base allo schermo */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -354,7 +346,6 @@
     width: 100%;
 }
 
-/* Card del singolo prodotto correlato */
 .product-card {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -379,19 +370,17 @@
     margin: 0 auto;
 }
 
-/* Titolo compatto per la card */
 .product-card h3 {
     font-size: 1.2rem;
     color: var(--color-primary);
     line-height: 1.2;
-    min-height: 44px; /* Mantiene allineate le card se i titoli hanno lunghezze diverse */
+    min-height: 44px; 
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Squadra proporzionata per la card */
 .product-card .team {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
@@ -400,15 +389,13 @@
     letter-spacing: 1px;
 }
 
-/* Prezzo proporzionato per la card */
 .product-card .price {
     font-family: var(--font-heading);
     font-size: 1.4rem;
     color: var(--color-secondary);
-    margin-top: auto; /* Spinge il prezzo e il bottone sempre in fondo */
+    margin-top: auto; 
 }
 
-/* Bottone Dettaglio della card correlati */
 .product-card .btn-detail {
     display: block;
     background-color: var(--color-primary);
@@ -429,13 +416,21 @@
 .no-products {
     color: var(--color-text-secondary);
     font-style: italic;
-    grid-column: 1 / -1; /* Occupa tutta la riga se non ci sono elementi */
+    grid-column: 1 / -1; 
 }
 
-/* ==========================================================================
-   DESIGN RESPONSIVO (MEDIA QUERIES)
-   ========================================================================== */
-@media (max-width: 768px) {
+
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .main-content {
+        margin: 20px auto; /* Riduciamo lo stacco superiore ed inferiore */
+    }
+
+    /* Incolonniamo galleria e blocco informazioni */
     .prod-detail-container {
         flex-direction: column;
         gap: 30px;
@@ -443,32 +438,71 @@
 
     .prod-gallery, .prod-info-box {
         width: 100%;
-        flex: none;
+        flex: none; /* Annulla i rapporti proporzionali del desktop */
     }
 
+    /* Adattamento testi principali */
     .prod-title {
-        font-size: 2rem;
+        font-size: 2rem; 
     }
-    
+
+    .prod-price {
+        font-size: 1.8rem;
+    }
+
+    /* Griglia dei correlati "Potrebbero piacerti" */
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* Due colonne su tablet per i correlati */
+        gap: 20px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .main-image {
+        padding: 10px; /* Recuperiamo spazio */
+    }
+
+    .main-image img {
+        max-height: 320px; /* Evita che l'immagine occupi tutta l'altezza dello smartphone */
+    }
+
+    /* Ridimensionamento delle miniature */
     .grid-img img.grid {
         width: 65px;
         height: 65px;
     }
 
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
+    .prod-title {
+        font-size: 1.6rem;
     }
 
-    .product-card {
+    .prod-price {
+        font-size: 1.5rem;
+    }
+
+    /* Modifichiamo l'allineamento dei campi di input del form */
+    #add-to-cart-form {
+        padding: 15px; /* Compattiamo il form box */
+    }
+
+    .btn-add-cart {
+        font-size: 1.1rem;
         padding: 12px;
     }
 
-    .product-card img {
-        height: 150px;
+    /* Griglia prodotti correlati a colonna singola su smartphone stretti */
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
-    .product-card h3 {
-        font-size: 1rem;
+    /* Ottimizzazione del popup modale */
+    .modal-box {
+        padding: 25px 20px; /* Più spazio per i testi interni nel popup */
+    }
+    
+    .modal-box h2 {
+        font-size: 18px;
     }
 }

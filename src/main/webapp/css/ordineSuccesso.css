@@ -67,6 +67,7 @@
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Impedisce al testo del singolo bottone di andare a capo internamente */
 }
 
 .btn-primary-success {
@@ -92,22 +93,65 @@
     color: var(--color-bg-main);
 }
 
-@media (max-width: 600px) {
+
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
     .success-container {
-        margin: 40px 20px;
-        padding: 30px 20px;
+        margin: 40px auto;
+        padding: 40px 30px;
+        max-width: 90%; 
     }
-    
+
     .success-title {
-        font-size: 26px;
+        font-size: 28px;
     }
-    
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .success-container {
+        margin: 20px auto;
+        padding: 30px 20px;
+        max-width: 95%;
+    }
+
+    .success-icon {
+        font-size: 54px;
+        margin-bottom: 20px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .success-text {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .order-number {
+        font-size: 16px;
+        padding: 10px 20px;
+        margin-bottom: 25px;
+        width: 100%; /* Il box del numero d'ordine diventa un blocco a larghezza intera */
+        box-sizing: border-box;
+    }
+
+    /* Trasformiamo il gruppo di bottoni da orizzontale a verticale */
     .actions-group {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
-    
+
     .btn-success-page {
-        width: 100%; 
+        width: 100%; /* I bottoni si estendono per tutta la larghezza */
+        padding: 14px 15px;
+        font-size: 12px;
+        text-align: center;
+        box-sizing: border-box;
     }
 }

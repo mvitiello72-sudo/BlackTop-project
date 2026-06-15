@@ -105,6 +105,7 @@
     letter-spacing: 1px;
     position: relative;
     transition: color 0.2s ease;
+    white-space: nowrap; /* Impedisce al testo del tab di andare a capo */
 }
 
 .tab-btn:hover {
@@ -241,6 +242,7 @@
     border: 1px solid var(--color-border);
     border-radius: 6px;
     background-color: var(--color-bg-main);
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
 }
 
 .admin-table {
@@ -260,6 +262,7 @@
     color: var(--color-text-main);
     padding: 15px 18px;
     border-bottom: 2px solid var(--color-border);
+    white-space: nowrap;
 }
 
 .admin-table td {
@@ -294,6 +297,7 @@
 .td-price {
     font-family: var(--font-main);
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .empty-state {
@@ -341,6 +345,7 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    white-space: nowrap;
 }
 
 .form-inline {
@@ -386,6 +391,7 @@
     background-color: var(--color-bg-card);
     color: var(--color-text-main);
     border: 1px solid var(--color-border);
+    white-space: nowrap;
 }
 
 /* Badge specifici */
@@ -401,19 +407,131 @@
     border: none;
 }
 
-/* Responsive design per schermi piccoli */
-@media (max-width: 768px) {
+
+/* ===============================
+   MEDIA QUERIES (RESPONSIVE)
+   =============================== */
+
+/* LAPTOP PICCOLI / TABLET VERTICALI (Sotto i 992px) */
+@media screen and (max-width: 992px) {
+    .dashboard-hero {
+        padding: 40px 25px;
+        margin-bottom: 30px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 32px;
+    }
+
+    /* Trasformiamo la barra dei Tab */
+    .tab-bar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+        gap: 0;
+    }
+
+    .tab-btn {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+
+    /* I filtri scendono in una riga flessibile e ordinata */
+    .filtro-group {
+        min-width: calc(50% - 10px); /* Due filtri per riga */
+    }
+
+    .filtro-btn-group {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 5px;
+    }
+}
+
+/* SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .dashboard-main {
+        padding: 20px 15px 40px 15px;
+    }
+
     .section-toolbar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-start; /* Allinea titolo e pulsante "Aggiungi" a sinistra */
+        gap: 10px;
     }
-    
-    .filtri-row {
-        flex-direction: column;
-        align-items: stretch;
+
+    .section-toolbar h2 {
+        font-size: 22px;
     }
-    
+
+    .section-toolbar .btn-add {
+        width: 100%; /* Il pulsante di azione principale occupa tutta la larghezza */
+        text-align: center;
+        padding: 12px;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Card statistiche più compatte */
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 30px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .dashboard-hero {
+        padding: 30px 15px;
+        border-radius: 6px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 24px;
+    }
+
+    .dashboard-hero p {
+        font-size: 14px;
+    }
+
+    /* Ogni filtro occupa una riga intera */
+    .filtro-group {
+        min-width: 100%;
+    }
+
+    /* I bottoni "Filtra" e "Reset" si allargano al 100% */
     .filtro-btn-group {
-        margin-top: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .filtro-btn-group .btn-add,
+    .filtro-btn-group .btn-action {
+        width: 100%;
+        text-align: center;
+        padding: 12px 10px;
+    }
+
+    .admin-table th, 
+    .admin-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .td-azioni {
+        gap: 6px;
+    }
+
+    .btn-action {
+        padding: 5px 8px;
+        font-size: 11px;
     }
 }

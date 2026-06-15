@@ -47,7 +47,7 @@
 .footer-links {
     display: flex;
     flex-direction: column;
-    gap: 12px;                              /* Spazio verticale tra i link */
+    gap: 12px;                              
 }
 
 .footer-link {
@@ -66,11 +66,11 @@
 
 .footer-link:hover {
     color: var(--color-secondary);          
-    padding-left: 5px;                      /* Effetto slittamento verso destra */
+    padding-left: 5px;                      
 }
 
 .footer-link:hover .footer-link-arrow {
-    transform: translateX(3px);             /* Sposta la freccetta a destra all'hover */
+    transform: translateX(3px);             
 }
 
 /* Sezione Newsletter */
@@ -116,7 +116,7 @@
 /* --- 2. FOOTER MID: BARRA DELLE GARANZIE --- */
 .footer-mid {
     display: flex;
-    justify-content: space-around;          /* distribuisce equamente */
+    justify-content: space-around;          
     background-color: rgba(255, 255, 255, 0.03); 
     padding: 25px 20px;
     border-radius: 8px;
@@ -201,4 +201,78 @@
     font-weight: bold;
     letter-spacing: 0.5px;
     border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .footer {
+        padding: 40px 20px 20px 20px; /* Riduciamo i padding interni del footer */
+    }
+
+    /* Le 3 colonne principali vanno una sotto l'altra */
+    .footer-top {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand .footer-desc {
+        max-width: 100%; /* Permettiamo al testo del brand di estendersi */
+    }
+
+    /* La barra delle garanzie si dispone in verticale */
+    .footer-mid {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start; /* Allinea le icone a sinistra */
+        padding: 20px;
+    }
+
+    /* Il fondo del footer incolonna copyright, link legali e loghi di pagamento */
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-legal {
+        justify-content: center;
+    }
+
+    .footer-payments {
+        justify-content: center;
+        flex-wrap: wrap; /* Se i badge sono troppi vanno a capo ordinatamente */
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .footer-col-title {
+        font-size: 16px; /* Titoli leggermente più piccoli */
+        margin-bottom: 12px;
+    }
+
+    .newsletter-row {
+        flex-direction: column; /* Input e Bottone newsletter si dividono su due righe */
+        gap: 10px;
+    }
+
+    .newsletter-input {
+        border-radius: 4px; /* Angoli arrotondati completi per l'input */
+    }
+
+    .newsletter-btn {
+        padding: 12px 20px;
+        border-radius: 4px; /* Angoli arrotondati completi per il bottone */
+    }
+
+    .footer-legal {
+        flex-direction: column; /* I link legali vanno uno sotto l'altro */
+        gap: 10px;
+    }
 }

@@ -7,13 +7,13 @@
     justify-content: space-between;      
     align-items: center;                    
     padding: 10px 40px;                 
-    position: sticky;             /* Rimane bloccato in alto quando l'utente scrolla la pagina */
+    position: sticky;             
     top: 0;
-    z-index: 1000;                /* Impedisce ad altri elementi del sito di sovrapporsi alla barra */
+    z-index: 1000;                
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
 }
 
-/* --- 1. BLOCCO SINISTRA: --- */
+/* --- 1. BLOCCO SINISTRA --- */
 .nav-left img {
     height: 100px;                        
     width: auto;         
@@ -25,7 +25,11 @@
     transform: scale(1.05);         
 }
 
-/* --- 2. BLOCCO CENTRALE --- */
+/* --- 2. BLOCCO CENTRALE (Ricerca) --- */
+.nav-center {
+    position: relative; /* Essenziale per contenere la tendina dei suggerimenti */
+}
+
 .nav-center form {
     display: flex;
     align-items: center;
@@ -64,7 +68,7 @@
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 15px;                              /* Crea uno spazio di 15px tra i bottoni */
+    gap: 15px;                              
 }
 
 .nav-btn {
@@ -76,6 +80,7 @@
     border-radius: 4px;
     border: 1px solid transparent;          
     text-transform: uppercase;
+    white-space: nowrap; /* Impedisce al testo del bottone (o nome utente) di spezzarsi su due righe */
 }
 
 .nav-btn:hover {
@@ -95,61 +100,123 @@
     color: var(--color-primary);        
 }
 
-/* ==========================================================================
-   TENDINA DEI SUGGERIMENTI DELLA RICERCA (SEARCH AUTOCOMPLETE)
-   ========================================================================== */
-
+/* --- TENDINA DEI SUGGERIMENTI --- */
 .search-suggestions {
-    position: absolute;       /* Si sgancia dal flusso e fluttua sotto la barra */
-    top: 100%;                /* Si posiziona esattamente sotto il form */
+    position: absolute;       
+    top: 100%;                
     left: 0;
-    width: 400px;             /* Ha la stessa identica larghezza del form */
-    background-color: #ffffff;/* Sfondo bianco pulito per far leggere bene il testo */
-    border-radius: 0 0 8px 8px;/* Arrotonda solo gli angoli in basso */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Ombra profonda per l'effetto "sospeso" */
-    z-index: 9999;            /* Passa sopra a qualsiasi altro elemento o card della pagina */
-    max-height: 300px;        /* Se ci sono troppi risultati mette il limite di altezza */
-    overflow-y: auto;         /* Mostra una barra di scorrimento interna se supera i 300px */
-    margin-top: 2px;          /* Un minimo di stacco millimetrico dall'input */
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); 
+    z-index: 9999;            
+    max-height: 300px;        
+    overflow-y: auto;         
+    margin-top: 2px;          
 }
 
-/* Rimuove i pallini e i margini nativi della lista <ul> */
 .search-suggestions ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-/* Stile della singola riga di suggerimento (Ogni <li>) */
 .search-suggestions li {
     padding: 12px 15px;
     font-size: 14px;
-    color: #333333;           /* Testo grigio scuro molto leggibile */
+    color: #333333;           
     cursor: pointer;
-    border-bottom: 1px solid #f0f0f0; /* Linea sottile di separazione tra prodotti */
+    border-bottom: 1px solid #f0f0f0; 
     transition: background-color 0.15s ease, color 0.15s ease;
-    white-space: nowrap;      /* Impedisce al testo lungo di andare a capo spezzando la riga */
+    white-space: nowrap;      
     overflow: hidden;
-    text-overflow: ellipsis;  /* Se il nome è lunghissimo mette i tre puntini (...) alla fine */
+    text-overflow: ellipsis;  
 }
 
-/* Rimuove la linea di separazione solo dall'ultimo elemento della lista */
 .search-suggestions li:last-child {
     border-bottom: none;
-    border-radius: 0 0 8px 8px; /* Smussa gli angoli dell'ultimo elemento per seguire la tendina */
+    border-radius: 0 0 8px 8px; 
 }
 
-/* EFFETTO HOVER: Quando l'utente passa sopra una riga con il mouse */
 .search-suggestions li:hover {
-    background-color: #f7f9fa;       /* Cambia lo sfondo in un grigio chiarissimo */
-    color: var(--color-secondary);   /* Il testo si illumina con il tuo colore secondario arancione */
+    background-color: #f7f9fa;       
+    color: var(--color-secondary);   
 }
 
-/* Stile del grassetto per evidenziare la squadra della canotta */
 .search-suggestions li strong {
-    color: var(--color-primary);     /* La squadra prende il colore primario scuro del brand */
+    color: var(--color-primary);     
     font-weight: 700;
-    text-transform: uppercase;       /* Nome squadra tutto in maiuscolo stile NBA */
-    font-size: 12px;                 /* Leggermente più piccolino per creare gerarchia visiva */
+    text-transform: uppercase;       
+    font-size: 12px;                 
     letter-spacing: 0.5px;
+}
+
+
+/* ====================
+   MEDIA QUERIES
+   ==================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column; 
+        gap: 15px;             
+    }
+
+    .nav-left img {
+        height: 65px; 
+    }
+
+    .nav-center {
+        width: 100%; 
+        order: 3;    /* La ricerca va in fondo così la tendina dei suggerimenti si apre liberamente verso il basso */
+    }
+
+    .nav-center form {
+        width: 100%; 
+    }
+
+    /* Gestione dei bottoni che aumentano quando l'utente si logga */
+    .nav-right {
+        width: 100%;
+        justify-content: center; 
+        order: 2;
+        flex-wrap: wrap; /* Se i bottoni (Admin, Nome, Esci, Carrello) non ci stanno, vanno a capo */
+        gap: 10px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .navbar {
+        gap: 12px;
+        padding: 12px 10px; /* Riduciamo i margini laterali per guadagnare spazio prezioso */
+    }
+
+    .nav-left img {
+        height: 55px; /* Logo ancora più compatto per lasciare spazio visivo */
+    }
+
+    /* Ottimizzazione definitiva per ospitare tutti i bottoni del Login/Admin su schermi piccoli */
+    .nav-right {
+        gap: 6px;
+    }
+
+    .nav-btn {
+        padding: 6px 10px; 
+        font-size: 11px; /* Dimensione di sicurezza per evitare che i pulsanti si sovrappongano */
+        letter-spacing: 0px;
+    }
+    
+    .nav-center input, 
+    .nav-center button {
+        padding: 8px 12px; 
+        font-size: 13px;
+    }
 }

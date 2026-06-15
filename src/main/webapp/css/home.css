@@ -9,8 +9,7 @@
 
 /* banner */
 .hero {
-    background-color: var(--color-primary); /* Sfondo scuro di base */
-    /*mettere immagine in futuro */
+    background-color: var(--color-primary); 
     background-size: cover;
     background-position: center;
     color: var(--color-bg-main);
@@ -53,11 +52,11 @@
 
 .btn-shop:hover {
     background-color: #d67d3e;
-    transform: translateY(-2px); /* Effetto saltino verso l'alto */
+    transform: translateY(-2px); 
 }
 
 
-/* prodtti in evidenza */
+/* prodotti in evidenza */
 .featured-products {
     margin-bottom: 60px;
 }
@@ -86,7 +85,7 @@
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px; /* Spazio tra le card */
+    gap: 30px; 
 }
 
 
@@ -103,11 +102,10 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Effetto sollevamento della card all'hover */
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-color: rgba(237, 145, 80, 0.3); /* Il bordo si tinge leggermente di arancione */
+    border-color: rgba(237, 145, 80, 0.3); 
 }
 
 .product-card img {
@@ -115,7 +113,7 @@
     height: 250px;
     object-fit: contain; 
     margin-bottom: 15px;
-    background-color: #ffffff; /* Sfondo bianco dietro l'immagine per farla risaltare */
+    background-color: #ffffff; 
     border-radius: 4px;
     padding: 10px;
 }
@@ -127,7 +125,6 @@
     font-weight: bold;
     color: var(--color-text-main);
     margin-bottom: 5px;
-    /* Forza il testo su massimo 2 righe se il nome è troppo lungo, evitando che le card si sballino */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -170,5 +167,74 @@
 
 .btn-detail:hover {
     background-color: var(--color-primary);
-    color: var(--color-bg-main); /* Inverte i colori al passaggio del cursore */
+    color: var(--color-bg-main); 
+}
+
+
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .main-content {
+        padding: 15px; /* Riduciamo leggermente i margini della pagina per guadagnare spazio */
+    }
+
+    /* Adattiamo l'Hero Banner */
+    .hero {
+        padding: 60px 20px; /* Meno spazio vuoto sopra e sotto */
+        margin-bottom: 40px;
+    }
+
+    .hero h1 {
+        font-size: 38px; /* Rimpiccioliamo il titolo per farlo stare su una o due righe */
+    }
+
+    .hero p {
+        font-size: 16px; /* Testo descrizione più leggibile su tablet */
+    }
+
+    /* Sezione Prodotti */
+    .featured-products h2 {
+        font-size: 26px; /* Titolo sezione ridimensionato */
+        margin-bottom: 25px;
+    }
+
+    .products-grid {
+        gap: 20px; /* Avviciniamo leggermente le card dei prodotti */
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .hero {
+        padding: 40px 15px; /* Compattiamo ancora di più l'hero */
+        margin-bottom: 30px;
+    }
+
+    .hero h1 {
+        font-size: 28px; 
+        letter-spacing: 1px;
+    }
+
+    .hero p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .btn-shop {
+        padding: 10px 20px; /* Riduce la dimensione del bottone del catalogo */
+        font-size: 14px;
+    }
+
+    /* Griglia prodotti forzata a singola colonna pulita se lo schermo è minuscolo */
+    .products-grid {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+
+    .product-card img {
+        height: 200px; /* Riduciamo l'altezza dell'immagine del prodotto per non allungare troppo la card */
+    }
 }

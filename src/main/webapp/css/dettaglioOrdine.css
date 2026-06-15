@@ -137,6 +137,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 6px;
+    white-space: nowrap; /* Evita che il prezzo finale vada a capo in modo strano */
 }
 
 .prodotto-prezzo p {
@@ -158,6 +159,7 @@
 }
 
 .btn-back {
+    display: inline-block;
     background-color: var(--color-primary);
     color: var(--color-bg-main);
     padding: 12px 18px;
@@ -165,6 +167,7 @@
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none; /* Sicurezza se usi un tag <a> */
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -173,21 +176,81 @@
     transform: translateY(-2px);
 }
 
-/* ======================================================================
-   RESPONSIVE
-   ====================================================================== */
-@media (max-width: 768px) {
 
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE) 
+   ==============================*/
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .ordine-container {
+        margin: 20px auto;
+        gap: 25px;
+    }
+
+    .ordine-header {
+        padding: 20px;
+    }
+
+    .ordine-header h1 {
+        font-size: 24px;
+    }
+
+    /* La griglia delle info passa da 3 colonne a 2 colonne flessibili */
+    .ordine-info {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .ordine-container {
+        padding: 0 15px;
+    }
+
+    .ordine-header h1 {
+        font-size: 20px;
+    }
+
+    /* ogni informazione dell'ordine prende una riga intera */
     .ordine-info {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
 
+    .ordine-prodotti h2 {
+        font-size: 18px;
+    }
+
+    /* Ristrutturazione completa della card prodotto da orizzontale a verticale */
     .prodotto-card {
         flex-direction: column;
-        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
     }
 
+    .prodotto-info h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    /* Allineiamo il prezzo a sinistra sotto le informazioni del prodotto */
     .prodotto-prezzo {
         text-align: left;
+        border-top: 1px solid var(--color-border); /* Crea una divisione leggera interna alla card */
+        padding-top: 12px;
+        justify-content: flex-start;
+    }
+
+    /* Il bottone "Torna indietro" si espande a tutta larghezza */
+    .ordine-actions {
+        width: 100%;
+    }
+
+    .btn-back {
+        width: 100%;
+        text-align: center;
+        padding: 14px;
     }
 }

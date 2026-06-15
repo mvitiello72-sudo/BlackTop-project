@@ -54,6 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0; /* Impedisce all'immagine di rimpicciolirsi */
 }
 
 .item-img img {
@@ -181,7 +182,7 @@
 .btn-remove-text {
     background: none;
     border: none;
-    color: #D32F2F; /* Rosso per indicare l'eliminazione */
+    color: #D32F2F; 
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -192,7 +193,7 @@
 }
 
 .btn-remove-text:hover {
-    background-color: rgba(211, 47, 47, 0.1); /* Sfondo rosso leggerissimo al passaggio */
+    background-color: rgba(211, 47, 47, 0.1); 
 }
 
 /* ==========================================================================
@@ -201,7 +202,7 @@
 .cart-summary {
     flex: 1;
     position: sticky;
-    top: 140px; /* Rimane bloccato a lato se la lista dei prodotti è molto lunga */
+    top: 140px; 
 }
 
 .summary-box {
@@ -229,7 +230,7 @@
 }
 
 .free-shipping {
-    color: #2E7D32; /* Verde per la spedizione gratuita */
+    color: #2E7D32; 
     font-weight: bold;
 }
 
@@ -239,14 +240,12 @@
     margin: 5px 0;
 }
 
-/* Riga del Totale Finale */
 .summary-row.total {
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--color-primary);
 }
 
-/* Pulsante Checkout richiesto */
 .btn-checkout {
     display: block;
     text-align: center;
@@ -308,46 +307,87 @@
     background-color: var(--color-secondary);
 }
 
-/* ==========================================================================
-   RESPONSIVE DESIGN (MEDIA QUERIES)
-   ========================================================================== */
-@media (max-width: 900px) {
+
+/* ================================
+   MEDIA QUERIES (RESPONSIVE)
+   ================================ */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .cart-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Il carrello si sviluppa in verticale: prima i prodotti, sotto il riepilogo */
     .cart-container {
         flex-direction: column;
         gap: 30px;
     }
-    
+
     .cart-items-list, .cart-summary {
         width: 100%;
         flex: none;
     }
-    
+
+    /* Rimuoviamo l'effetto "sticky" su mobile per far scorrere il box normalmente */
     .cart-summary {
-        position: static; /* Rimuove il blocco sticky su schermi piccoli */
+        position: static; 
     }
 }
 
-@media (max-width: 600px) {
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    /* Trasformiamo la singola riga prodotto in una card verticale compatta */
     .cart-item {
-        flex-wrap: wrap; /* Gli elementi vanno a capo sui telefoni stretti */
-        gap: 15px;
-        position: relative;
-        padding-bottom: 40px; /* Spazio per posizionare il tasto rimuovi */
+        display: grid;
+        grid-template-columns: 90px 1fr; /* L'immagine a sinistra fissa, tutto il resto a destra */
+        grid-template-areas: 
+            "img details"
+            "qty price"
+            "remove remove";
+        gap: 15px 10px;
+        padding: 20px 0;
     }
-    
+
+    /* Assegniamo gli elementi alle aree della griglia mobile */
+    .item-img {
+        grid-area: img;
+    }
+
     .item-details {
-        flex: 1;
-        min-width: 150px;
+        grid-area: details;
     }
-    
-    .item-qty, .item-price {
-        flex: none;
-        width: auto;
+
+    .item-qty {
+        grid-area: qty;
+        align-items: flex-start; /* Allinea i pulsanti + e - a sinistra */
     }
-    
+
+    .item-price {
+        grid-area: price;
+        text-align: right;
+        align-self: center; /* Centra verticalmente il prezzo rispetto ai tasti quantità */
+    }
+
     .item-remove {
-        position: absolute;
-        bottom: 10px;
-        left: 0;
+        grid-area: remove;
+        justify-content: flex-start; /* Sposta il tasto "Rimuovi" in basso a sinistra della card */
+        border-top: 1px dashed var(--color-border); /* Crea un mini divisore interno alla card */
+        padding-top: 8px;
+    }
+
+    .btn-remove-text {
+        padding: 5px 0; /* Rimuove i padding laterali */
+    }
+
+    /* Compattiamo il riepilogo dell'ordine */
+    .summary-box {
+        padding: 16px;
+    }
+
+    .btn-checkout {
+        padding: 12px;
+        font-size: 1rem;
     }
 }
