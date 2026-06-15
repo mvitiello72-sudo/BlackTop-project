@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+.error-text {
+    color: #C62828;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; 
+    text-align: left;
+}
+
 .profilo-container {
     display: flex;
     max-width: 1200px;
