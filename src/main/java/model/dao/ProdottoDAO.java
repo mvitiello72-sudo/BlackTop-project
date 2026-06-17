@@ -415,7 +415,7 @@ public class ProdottoDAO
         return new ArrayList<>(mappaProdotti.values());
     }
  
- 	// SELECT BY FILTER
+ // SELECT BY FILTER (CORRETTO)
     public List<Prodotto> doRetrieveByFilter(String[] squadre, String categoria) throws SQLException
     {
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
@@ -445,6 +445,9 @@ public class ProdottoDAO
             sql.append(") ");
         }
 
+        // AGGIUNTO IL GROUP BY: serve a far sputare fuori il MIN di OGNI modello/squadra filtrato, non uno solo totale!
+        sql.append("    GROUP BY p2.nome, p2.squadra ");
+        
         // Chiusura della subquery p2 e ordinamento finale sul p esterno
         sql.append(") ORDER BY p.id_prodotto");
 

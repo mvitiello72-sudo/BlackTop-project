@@ -41,16 +41,18 @@ CREATE TABLE metodo_pagamento(
 );
 
 CREATE TABLE ordine(
-	id_ordine int PRIMARY KEY AUTO_INCREMENT,
+    id_ordine int PRIMARY KEY AUTO_INCREMENT,
     data_ordine date NOT NULL,
-    stato enum('IN_PREPARAZIONE','SPEDITO','CONSEGNATO','RIMBORSATO') DEFAULT 'IN_PREPARAZIONE',
+    stato enum('IN_PREPARAZIONE','SPEDITO','CONSEGNATO') DEFAULT 'IN_PREPARAZIONE',
     totale decimal (10,2) NOT NULL,
-	
-	fk_utente int NOT NULL,
-	fk_indirizzo int NOT NULL,
-	
+    
+    fk_utente int NOT NULL,
+    fk_indirizzo int NOT NULL,
+    fk_pagamento int NOT NULL,
+    
     FOREIGN KEY(fk_indirizzo) REFERENCES indirizzo(id_indirizzo) ON UPDATE cascade ON DELETE cascade,
-    FOREIGN KEY(fk_utente) REFERENCES utente(id_utente) ON UPDATE cascade ON DELETE cascade
+    FOREIGN KEY(fk_utente) REFERENCES utente(id_utente) ON UPDATE cascade ON DELETE cascade,
+    FOREIGN KEY(fk_pagamento) REFERENCES metodo_pagamento(id_metodo) ON UPDATE cascade ON DELETE restrict
 );
 
 CREATE TABLE fattura(
@@ -90,7 +92,7 @@ CREATE TABLE dettagliOrdine(
 	fk_ordine int,
    	fk_prodotto int,
     quantita int DEFAULT 1,
-    prezzo_snapshot decimal(10,2),
+    prezzo_snapshot DOUBLE,
    	
    	PRIMARY KEY(fk_ordine,fk_prodotto),
    	
@@ -98,16 +100,4 @@ CREATE TABLE dettagliOrdine(
     FOREIGN KEY(fk_prodotto) REFERENCES prodotto(id_prodotto) ON UPDATE cascade ON DELETE restrict
 );
 
-CREATE TABLE recensione (
-    fk_utente int NOT NULL,
-    fk_prodotto int NOT NULL,
-    voto int CHECK (voto BETWEEN 1 AND 5),
-    commento varchar(500),
-    data_recensione date NOT NULL,
-	
-	PRIMARY KEY(fk_utente,fk_prodotto),
-
-    FOREIGN KEY(fk_utente) REFERENCES utente(id_utente) ON DELETE CASCADE,
-    FOREIGN KEY(fk_prodotto) REFERENCES prodotto(id_prodotto) ON DELETE CASCADE
-);
 
