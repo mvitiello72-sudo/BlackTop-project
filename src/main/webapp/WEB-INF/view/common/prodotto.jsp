@@ -79,7 +79,7 @@
                                 <label for="taglia">Seleziona Taglia:</label>
                                 <select name="taglia" id="taglia" required onchange="aggiornaIdProdotto(this)">
                                     <c:forEach var="variante" items="${variantiTaglia}">
-                                        <option value="${variante.taglia}" ${variante.idProdotto == prodotto.idProdotto ? 'selected' : ''}>
+                                        <option value="${variante.idProdotto}" ${variante.idProdotto == prodotto.idProdotto ? 'selected' : ''}>
                                             ${variante.taglia} (Disponibili: ${variante.stock})
                                         </option>
                                     </c:forEach>

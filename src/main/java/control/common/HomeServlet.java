@@ -10,47 +10,46 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet(urlPatterns = {"/HomeServlet", "/home"})
+@WebServlet(urlPatterns = {"/HomeServlet", "/home", ""})
 public class HomeServlet extends HttpServlet
 {
-	private static final long serialVersionUID = 1L;
-	private ProdottoDAO p;
-	
-	@Override
+    private static final long serialVersionUID = 1L;
+    private ProdottoDAO p;
+    
+    @Override
     public void init() throws ServletException
-	{
+    {
         // Inizializziamo il DAO una sola volta all'avvio della Servlet
         this.p = new ProdottoDAO();
     }
       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		try
-		{
-			List<Prodotto> tuttiProdotti = p.doRetrieveAllAttivi();			
-			
-			//Ora prendiamo solo acluni prodotti per metterli in evidenzia
-			List<Prodotto> prodottiEvidenza = tuttiProdotti.stream()
-	                .filter(p -> p.getAttivo())
-	                .limit(10)
-	                .collect(Collectors.toList());
-			
-			//Passiamo la lista alla jsp
-			request.setAttribute("prodottiEvidenza", prodottiEvidenza);
-		}
-		catch(Exception e)
-		{
-			System.out.println("DEBUG - ERRORE NEL COSTRUTTORE O NEL DAO:");
-			e.printStackTrace();
-		}
-		
-		//inoltra la richiesta alla pagina JSP 
-        request.getRequestDispatcher("/WEB-INF/view/common/home.jsp").forward(request, response);		
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		doGet(request, response);
-	}
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        try
+        {
+            //Prendiamo solo i prodotti univoci dal DB per evitare duplicati di taglia
+            List<Prodotto> tuttiProdotti = p.doRetrieveAllAttiviUnivoci();            
+            
+            //prendiamo solo alcuni prodotti per metterli in evidenza
+            List<Prodotto> prodottiEvidenza = tuttiProdotti.stream()
+                    .limit(8)
+                    .collect(Collectors.toList());
+            
+            // Passiamo la lista alla jsp
+            request.setAttribute("prodottiEvidenza", prodottiEvidenza);
+        }
+        catch(Exception e)
+        {
+            System.out.println("DEBUG - ERRORE NEL COSTRUTTORE O NEL DAO:");
+            e.printStackTrace();
+        }
+        
+        // Inoltra la richiesta alla pagina JSP 
+        request.getRequestDispatcher("/WEB-INF/view/common/home.jsp").forward(request, response);        
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        doGet(request, response);
+    }
 }

@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+/* Container Principale del Form */
+.contact-container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Titolo della pagina */
+.contact-title {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #111111;
+}
+
+/* Gruppi del Form (Label + Input) */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: #222222;
+}
+
+/* Campi di Input e Textarea */
+.form-control {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: #111111;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: #999999;
+}
+
+/* Focus sui Campi (Quando l'utente clicca per scrivere) */
+.form-control:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+}
+
+/* Area di testo per il messaggio */
+textarea.form-control {
+    resize: vertical;
+    min-height: 140px;
+    font-family: inherit;
+}
+
+/* Bottone di Invio Modulo */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: #111111;
+    color: #ffffff;
+    border: 2px solid #111111;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+/* Effetto di inversione al passaggio del mouse sul bottone */
+.btn-submit:hover {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+/* Messaggi di Feedback (Successo / Errore) */
+.alert {
+    padding: 16px;
+    margin-bottom: 30px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.alert-success {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #fce8e6;
+    color: #c5221f;
+    border: 1px solid #f5c6cb;
+}
+
+.error-message {
+    color: #C62828;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; 
+    text-align: left;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .contact-container {
+        margin: 30px 15px;
+        padding: 30px 20px; /* Compattiamo i padding interni */
+    }
+    
+    .contact-title {
+        font-size: 24px; /* Rimpiccioliamo leggermente il titolo principale */
+        margin-bottom: 25px;
+    }
+    
+    .form-control {
+        padding: 12px; /* Riduciamo la dimensione dei campi per lasciare spazio al testo */
+        font-size: 14px;
+    }
+    
+    .btn-submit {
+        padding: 14px;
+        font-size: 15px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .contact-container {
+        margin: 15px 10px;
+        padding: 20px 15px; /* Sfruttiamo il massimo spazio orizzontale sullo schermo */
+        border-radius: 8px;
+    }
+    
+    .contact-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 18px; /* Avviciniamo i campi per accorciare il form */
+    }
+
+    .form-group label {
+        font-size: 12px; /* Etichette più compatte */
+        margin-bottom: 6px;
+    }
+}

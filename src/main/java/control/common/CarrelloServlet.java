@@ -58,33 +58,29 @@ public class CarrelloServlet extends HttpServlet
         {
             try 
             {
-                if (action.equals("add")) 
-                {
-                    int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-                    int quantita = Integer.parseInt(request.getParameter("quantita"));
-                    String taglia = request.getParameter("taglia"); 
-
-                    Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
-                    
-                    if (p != null) 
-                    {        
-                        if (taglia == null || taglia.trim().isEmpty()) {
-                            taglia = p.getTaglia();
-                        }
-                        
-                        if (taglia != null && !taglia.trim().isEmpty()) 
-                        {
-                            carrello.aggiungiProdotto(p, taglia, quantita);
-                        
-                            // 1. Salviamo il flag di successo nella sessione
-                            session.setAttribute("prodottoAggiunto", true);
-                            
-                            // 2. Segnaliamo che l'azione era un'aggiunta e memorizziamo l'ID del prodotto
-                            isAggiuntaProdotto = true;
-                            idProdottoDestinazione = idProdotto;
-                        }
-                    }
-                } 
+            		if (action.equals("add")) 
+            		{
+            			int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+            			int quantita = Integer.parseInt(request.getParameter("quantita"));
+            	    
+            			// Recuperiamo il prodotto
+            			Prodotto p = prodottoDAO.doRetrieveByKey(idProdotto);
+            	    
+            			if (p != null) 
+            			{   
+            				String tagliaReale = p.getTaglia();
+            	        
+            				if (tagliaReale != null && !tagliaReale.trim().isEmpty()) 
+            				{
+            					carrello.aggiungiProdotto(p, tagliaReale, quantita);
+            	        
+            					session.setAttribute("prodottoAggiunto", true);
+            	            
+            					isAggiuntaProdotto = true;
+            					idProdottoDestinazione = idProdotto;
+            				}
+            			}
+            		}
                 else if (action.equals("remove")) 
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));

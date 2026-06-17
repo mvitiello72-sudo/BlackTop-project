@@ -41,20 +41,20 @@ public class ProdottoServlet extends HttpServlet
             {
                 List<Prodotto> tuttiIProdotti = prodottoDAO.doRetrieveAllAttivi();
                 
-                //Filtra per trovare tutte le varianti di taglia disponibili per QUESTO modello
+                // Filtra per trovare tutte le varianti di taglia disponibili per QUESTO modello
                 List<Prodotto> variantiTaglia = new ArrayList<>();
                 for (Prodotto p : tuttiIProdotti)
                 {
                     // Se ha lo stesso nome ed è disponibile in magazzino, 
-                		//consideriamo che è lo stesso articolo, con una taglia diversa
+                    // consideriamo che è lo stesso articolo, con una taglia diversa
                     if (p.getNome().equalsIgnoreCase(prodotto.getNome()) && p.getStock() > 0)
                     {
                         variantiTaglia.add(p);
                     }
                 }
                 
-                //Recupera i prodotti correlati (stessa squadra, escludendo quello corrente)
-                List<Prodotto> prodottiCorrelati = prodottoDAO.doRetrieveCorrelati(prodotto.getSquadra(), prodotto.getIdProdotto());
+                // MODIFICATO: Ora passiamo il NOME del prodotto per escludere i correlati duplicati
+                List<Prodotto> prodottiCorrelati = prodottoDAO.doRetrieveCorrelati(prodotto.getSquadra(), prodotto.getNome());
                
                 request.setAttribute("prodotto", prodotto);
                 request.setAttribute("variantiTaglia", variantiTaglia);

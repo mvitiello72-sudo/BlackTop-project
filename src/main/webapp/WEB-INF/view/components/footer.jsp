@@ -17,20 +17,8 @@
         <div class="footer-col"> <!-- Colonna verticale -->
             <div class="footer-col-title">Supporto</div>
             <div class="footer-links">
-                <a class="footer-link" href="#">
-                    <span class="footer-link-arrow">›</span> Come ordinare
-                </a>
-                <a class="footer-link" href="#">
+                <a class="footer-link" href="${pageContext.request.contextPath}/spedizioni">
                     <span class="footer-link-arrow">›</span> Spedizioni e consegne
-                </a>
-                <a class="footer-link" href="#">
-                    <span class="footer-link-arrow">›</span> Resi e rimborsi
-                </a>
-                <a class="footer-link" href="#">
-                    <span class="footer-link-arrow">›</span> Garanzia prodotti
-                </a>
-                <a class="footer-link" href="#">
-                    <span class="footer-link-arrow">›</span> FAQ
                 </a>
                 <a class="footer-link" href="${pageContext.request.contextPath}/contatti">
                     <span class="footer-link-arrow">›</span> Contattaci

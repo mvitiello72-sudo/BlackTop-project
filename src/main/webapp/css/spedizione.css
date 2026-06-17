@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   PAGINA SPEDIZIONI E CONSEGNE - BLACKTOP STORE
+   ========================================================================== */
+
+/* Container Principale */
+.info-container {
+    max-width: 850px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Titolo Principale della Pagina */
+.info-title {
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+    color: #111111;
+    border-bottom: 3px solid #111111;
+    padding-bottom: 15px;
+}
+
+/* Sezioni Informative */
+.info-section {
+    margin-bottom: 35px;
+}
+
+.info-section:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Sottotitoli delle Sezioni (H2) */
+.info-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #111111;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+/* Spaziatura per le Icone/Emoji */
+.info-section h2 span {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Testo dei Paragrafi */
+.info-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444444;
+    margin: 0 0 15px 0;
+}
+
+/* ==========================================================================
+   TABELLA DELLE SPEDIZIONI
+   ========================================================================== */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    text-align: left;
+}
+
+/* Intestazione Tabella */
+.info-table th {
+    background-color: #111111;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    border: 1px solid #111111;
+}
+
+/* Celle della Tabella (TD) */
+.info-table td {
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    color: #222222;
+    background-color: #f9f9f9;
+    font-weight: 500;
+}
+
+/* Evidenziato per la Spedizione Gratis */
+.info-table tbody tr td:last-child {
+    font-weight: 700;
+    color: #111111;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+
+/* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    .info-container {
+        margin: 30px 15px;
+        padding: 30px 20px; /* Compattiamo il box interno */
+    }
+
+    .info-title {
+        font-size: 26px; /* Titolo scalato per tablet */
+        margin-bottom: 30px;
+    }
+
+    .info-section h2 {
+        font-size: 16px; 
+    }
+
+    .info-section p {
+        font-size: 14px;
+        line-height: 1.6; /* Testo leggermente più denso su schermi piccoli */
+    }
+
+    /* Ottimizzazione Tabella su Mobile (Attiva lo scroll orizzontale nativo per evitare overlay e testi spaccati) */
+    .info-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .info-table th, .info-table td {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+/* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
+@media screen and (max-width: 480px) {
+    .info-container {
+        margin: 15px 10px;
+        padding: 20px 15px; /* Massimizziamo lo spazio utile a schermo */
+        border-radius: 8px;
+    }
+
+    .info-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .info-section {
+        margin-bottom: 25px; /* Avviciniamo le sezioni informative */
+    }
+
+    .info-section h2 {
+        font-size: 15px;
+    }
+
+    .info-section h2 span {
+        font-size: 18px; /* Ridimensiona leggermente l'emoji */
+    }
+}

@@ -27,7 +27,7 @@ public class CatalogoServlet extends HttpServlet {
     {
         List<Prodotto> listaProdotti;
         
-        //parametro della barra di ricerca
+        // Parametro della barra di ricerca
         String queryCerca = request.getParameter("cerca");
         
         String[] squadre = request.getParameterValues("squadra");
@@ -35,21 +35,21 @@ public class CatalogoServlet extends HttpServlet {
                
         try
         {
-            //Se l'utente ha cercato qualcosa nella barra di ricerca
+            // Se l'utente ha cercato qualcosa nella barra di ricerca
             if (queryCerca != null && !queryCerca.trim().isEmpty()) 
             {
                 listaProdotti = prodottoDAO.doRetrieveByNome(queryCerca.trim());
             }
             else 
             {
-                //gestione dei filtri
+                // Gestione dei filtri
                 boolean nessunaSquadra = (squadre == null || squadre.length == 0);
                 boolean nessunaCategoria = (categoria == null || categoria.equals("tutte"));
                 
                 if(nessunaSquadra && nessunaCategoria)
                 {
-                    // se non ci sono filtri e non si è cercato nulla, prende tutti i prodotti
-                    listaProdotti = prodottoDAO.doRetrieveAllAttivi();                        
+                    //Prende solo i prodotti UNIVOCI per evitare i doppioni delle taglie nel catalogo
+                    listaProdotti = prodottoDAO.doRetrieveAllAttiviUnivoci();                        
                 }
                 else
                 {
