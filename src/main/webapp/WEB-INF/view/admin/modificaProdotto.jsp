@@ -90,17 +90,12 @@
                     </div>
                 </div>
 
-                <div class="form-grid-three">
+                <%-- Modificato da form-grid-three a form-grid per ospitare perfettamente i due elementi rimasti --%>
+                <div class="form-grid">
                     <div class="form-group">
                         <label for="prezzo">Prezzo (€) *</label>
                         <input type="number" id="prezzo" name="prezzo" step="0.01" value="${prodotto.prezzo}" placeholder="es. 89.99 (usa il punto)">
                         <span id="error-prezzo" class="error-message"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sconto">Sconto (%)</label>
-                        <input type="number" id="sconto" name="sconto" value="${prodotto.sconto}" placeholder="es. 20">
-                        <span id="error-sconto" class="error-message"></span>
                     </div>
 
                     <div class="form-group">
@@ -166,20 +161,17 @@
             const nomeCampo = document.getElementById("nome");
             const squadraCampo = document.getElementById("squadra");
             const prezzoCampo = document.getElementById("prezzo");
-            const scontoCampo = document.getElementById("sconto");
             const stockCampo = document.getElementById("stock");
 
             const nome = nomeCampo.value.trim();
             const squadra = squadraCampo.value.trim();
             const prezzo = prezzoCampo.value.trim();
-            const sconto = scontoCampo.value.trim();
             const stock = stockCampo.value.trim();
 
             // Reset dei messaggi di errore precedenti
             document.getElementById("error-nome").innerText = "";
             document.getElementById("error-squadra").innerText = "";
             document.getElementById("error-prezzo").innerText = "";
-            document.getElementById("error-sconto").innerText = "";
             document.getElementById("error-stock").innerText = "";
             document.getElementById("error-immagine").innerText = "";
 
@@ -211,24 +203,6 @@
                 if (prezzoNumerico <= 0) {
                     document.getElementById("error-prezzo").innerText = "Il prezzo deve essere maggiore di zero.";
                     valido = false;
-                }
-            }
-
-            // Validazione campo SCONTO (Intercetta anomalie come '--12' o lettere sparse)
-            if (scontoCampo.validity.badInput) {
-                document.getElementById("error-sconto").innerText = "Valore dello sconto non valido.";
-                valido = false;
-            } else if (sconto !== "") {
-                const regexSconto = /^[0-9]+$/;
-                if (!regexSconto.test(sconto)) {
-                    document.getElementById("error-sconto").innerText = "Lo sconto deve essere un numero intero.";
-                    valido = false;
-                } else {
-                    const scontoNumerico = parseInt(sconto);
-                    if (scontoNumerico < 0 || scontoNumerico > 100) {
-                        document.getElementById("error-sconto").innerText = "Lo sconto deve essere compreso tra 0 e 100.";
-                        valido = false;
-                    }
                 }
             }
 

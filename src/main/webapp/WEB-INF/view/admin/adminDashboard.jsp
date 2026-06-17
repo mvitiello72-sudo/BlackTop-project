@@ -74,7 +74,6 @@
                             <th>Categoria</th>
                             <th>Taglia</th>
                             <th>Prezzo</th>
-                            <th>Sconto</th>
                             <th>Stock</th>
                             <th>Stato</th>
                             <th>Azioni</th>
@@ -91,14 +90,6 @@
                                         <td><span class="badge-cat">${p.categoria}</span></td>
                                         <td><span class="badge-taglia">${p.taglia}</span></td>
                                         <td class="td-price">€ <fmt:formatNumber value="${p.prezzo}" pattern="#,##0.00"/></td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${p.sconto > 0}">
-                                                    <span class="badge-sconto">-${p.sconto}%</span>
-                                                </c:when>
-                                                <c:otherwise>—</c:otherwise>
-                                            </c:choose>
-                                        </td>
                                         <td><span class="badge-stock">${p.stock}</span></td>
                                         <td>
                                             <span class="badge-stato">${p.attivo ? 'Attivo' : 'Disattivato'}</span>
@@ -130,7 +121,7 @@
                             </c:when>
                             <c:otherwise>
                                 <tr>
-                                    <td colspan="10" class="empty-state">
+                                    <td colspan="9" class="empty-state">
                                         Nessun prodotto trovato.
                                         <a href="${pageContext.request.contextPath}/admin/aggiungiProdotto">Aggiungi un prodotto</a>
                                     </td>
@@ -381,7 +372,7 @@
             			}
             			else
             			{
-                			messaggio = "Sei sicuro di voler declassare questo amministratore a semplice Utente? Perderà tutti i privilegi d'accesso.";
+                			messaggio = "Sei sicuro di voler declassare questo amministratore a semplice Utente? Perderà tutti i privileges d'accesso.";
             			}
 
             			if (!confirm(messaggio))

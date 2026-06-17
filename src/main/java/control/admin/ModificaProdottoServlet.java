@@ -32,7 +32,6 @@ public class ModificaProdottoServlet extends HttpServlet
     private final ProdottoDAO prodottoDAO = new ProdottoDAO();
     private final ImmagineDAO immagineDAO = new ImmagineDAO();
 
-    // COSTANTE WEB: Sempre e solo slash avanti (/) per la memorizzazione nel DB e uso HTML
     private static final String UPLOAD_DIR_WEB = "img/prodotti";
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -59,8 +58,7 @@ public class ModificaProdottoServlet extends HttpServlet
                 session.setAttribute("errorMessage", "Prodotto non trovato.");
                 response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -75,39 +73,53 @@ public class ModificaProdottoServlet extends HttpServlet
         String idParam = request.getParameter("id");
         int idProdotto = Integer.parseInt(idParam);
 
-        // CASO 1: CANCELLAZIONE DI UNA IMMAGINE DAL DATABASE E DAL DISCO
+        // CASO 1: CANCELLAZIONE DI UNA FOTO DELLA GALLERIA
         if ("deleteImage".equals(action))
         {
             String idImgParam = request.getParameter("idImmagine");
             try
             {
                 int idImmagine = Integer.parseInt(idImgParam);
-                
                 Immagine img = immagineDAO.doRetrieveByKey(idImmagine);
+                
                 if (img != null)
                 {
                     String appPath = request.getServletContext().getRealPath("");
-                    // Sostituiamo gli slash web con i separatori di sistema solo quando interagi con la classe File fisica
-                    String percorsoFisicoImg = img.getPercorsoImmagine().replace("/", File.separator);
+                    String percorsoDb = img.getPercorsoImmagine();
+                    
+                    // Se il percorso sul DB inizia con lo slash '/', lo rimuoviamo per evitare doppi separatori
+                    if (percorsoDb.startsWith("/")) {
+                        percorsoDb = percorsoDb.substring(1);
+                    }
+                    
+                    // Convertiamo gli slash web in separatori di sistema (\ o / a seconda dell'OS)
+                    String percorsoFisicoImg = percorsoDb.replace("/", File.separator);
                     File fileFisico = new File(appPath + File.separator + percorsoFisicoImg);
+                    
+                    // DEBUG LOG per monitorare la cancellazione sul server
+                    System.out.println("[DELETE] Tentativo di eliminazione: " + fileFisico.getAbsolutePath());
                     
                     if (fileFisico.exists())
                     {
-                        fileFisico.delete();
+                        boolean cancellato = fileFisico.delete();
+                        System.out.println("[DELETE] File eliminato dal disco? " + cancellato);
+                    } else {
+                        System.out.println("[DELETE] ATTENZIONE: File non trovato sul disco.");
                     }
                     
+                    // Rimozione logica dal Database tramite DAO
                     immagineDAO.doDelete(idImmagine);
                     session.setAttribute("successMessage", "Immagine rimossa correttamente!");
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
-                session.setAttribute("errorMessage", "Errore durante la rimozione dell'immagine.");
+                session.setAttribute("errorMessage", "Errore del database durante la rimozione dell'immagine.");
             }
             response.sendRedirect(request.getContextPath() + "/admin/modificaProdotto?id=" + idProdotto);
             return;
         }
 
-        // CASO 2: SALVATAGGIO DEI DATI DEL PRODOTTO + EVENTUALE NUOVA IMMAGINE
+        // CASO 2: AGGIORNAMENTO DATI PRODOTTO E ACQUISIZIONE EVENTUALE NUOVA FOTO
         try
         {
             String nome = request.getParameter("nome");
@@ -118,13 +130,6 @@ public class ModificaProdottoServlet extends HttpServlet
             int stock = Integer.parseInt(request.getParameter("stock"));
             String taglia = request.getParameter("taglia");
             boolean attivo = request.getParameter("attivo") != null;
-            
-            int sconto = 0;
-            String scontoParam = request.getParameter("sconto");
-            if (scontoParam != null && !scontoParam.trim().isEmpty())
-            {
-                sconto = Integer.parseInt(scontoParam);
-            }
             String categoria = request.getParameter("categoria");
             
             Prodotto p = new Prodotto();
@@ -137,21 +142,15 @@ public class ModificaProdottoServlet extends HttpServlet
             p.setStock(stock);
             p.setTaglia(taglia);
             p.setAttivo(attivo);
-            p.setSconto(sconto);
             p.setCategoria(categoria);
             
-            // Esecuzione dell'update dei testi nel DB
             prodottoDAO.doUpdate(p);
 
-            // Gestiamo il caricamento del file multipart
+            // Gestione del file Multipart (Nuova immagine facoltativa)
             Part filePart = request.getPart("nuovaImmagine"); 
             if (filePart != null && filePart.getSize() > 0)
             {
-            		
-                // 1. Ricava il path reale della radice del server locale
                 String appPath = request.getServletContext().getRealPath("");
-                
-                // 2. Costruisci il percorso di salvataggio fisico usando i separatori corretti del OS dell'host
                 String percorsoSalvataggioFisico = appPath + File.separator + "img" + File.separator + "prodotti";
                 
                 File fileSaveDir = new File(percorsoSalvataggioFisico);
@@ -160,22 +159,14 @@ public class ModificaProdottoServlet extends HttpServlet
                     fileSaveDir.mkdirs(); 
                 }
                 
-             // AGGIUNGI QUESTO LOG
-                System.out.println("--- DEBUG PERCORSO ---");
-                System.out.println("Path dove il server scrive fisicamente: " + percorsoSalvataggioFisico);
-                System.out.println("Esiste la cartella? " + fileSaveDir.exists());
-                System.out.println("----------------------");
-                
-                // Estrariamo il nome pulito senza i path assoluti che inviano vecchi browser (es. IE)
                 String nomeFileOriginale = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 String fileName = idProdotto + "_" + System.currentTimeMillis() + "_" + nomeFileOriginale;
                 
-                // 3. Scrittura fisica definitiva sull'Hard Disk temporaneo di Tomcat
                 String pathCompletoFileFisico = percorsoSalvataggioFisico + File.separator + fileName;
                 filePart.write(pathCompletoFileFisico);
                 
-                // 4. Salvataggio su database usando ESCLUSIVAMENTE la sintassi standard web URL (slash /)
                 Immagine nuovaImg = new Immagine();
+                // Salviamo SENZA lo slash iniziale per uniformità con la costante UPLOAD_DIR_WEB
                 nuovaImg.setPercorsoImmagine(UPLOAD_DIR_WEB + "/" + fileName);
                 nuovaImg.setFkProdotto(idProdotto);
                 
@@ -186,16 +177,17 @@ public class ModificaProdottoServlet extends HttpServlet
             response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=prodotti");
 
         } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Errore nel formato dei dati numerici.");
+            request.setAttribute("errorMessage", "Errore: formato dei dati numerici inseriti non valido.");
             ricaricaFormErrore(idParam, request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Errore del database durante il salvataggio.");
+            request.setAttribute("errorMessage", "Errore interno del database durante il salvataggio.");
             ricaricaFormErrore(idParam, request, response);
         }
     }
 
-    private void ricaricaFormErrore(String idParam, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void ricaricaFormErrore(String idParam, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
         try {
             int idProdotto = Integer.parseInt(idParam);
             Prodotto prodotto = prodottoDAO.doRetrieveByKey(idProdotto);

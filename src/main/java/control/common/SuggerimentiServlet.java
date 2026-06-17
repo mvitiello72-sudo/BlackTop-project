@@ -38,7 +38,7 @@ public class SuggerimentiServlet extends HttpServlet
 
         try
         {
-            List<Prodotto> suggeriti = prodottoDAO.doRetrieveByNome(query.trim());
+            List<Prodotto> suggeriti = prodottoDAO.doRetrieveByNomeUnivoci(query.trim());
             
             //l'array JSON che conterrà i prodotti
             org.json.JSONArray jsonArray = new org.json.JSONArray();

@@ -126,7 +126,6 @@
             }
 
             // Validazione campo PREZZO con REGEX (accetta solo il punto per i decimali)
-            // Spiegazione: ^[0-9]+([\.][0-9]{1,2})?$ -> accetta cifre intere opzionalmente seguite da un PUNTO e 1 o 2 cifre decimali
             const regexPrezzo = /^[0-9]+([\.][0-9]{1,2})?$/;
 
             if (prezzo === "") {

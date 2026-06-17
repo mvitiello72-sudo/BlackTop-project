@@ -18,13 +18,12 @@ public class ProdottoDAO
 	    Connection conn = ConnectionPool.getConnection();
 	    PreparedStatement ps = null;
 	    
-	    // Aggiungi RETURN_GENERATED_KEYS
 	    String sql = "INSERT INTO " + TABLE_NAME + 
-	                 " (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, sconto, categoria) " + 
-	                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	                 " (nome, squadra, materiale, descrizione, prezzo, stock, taglia, attivo, categoria) " + 
+	                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	    
 	    try {
-	        ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS); // <--- AGGIUNTA
+	        ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 	        
 	        ps.setString(1, p.getNome());
 	        ps.setString(2, p.getSquadra());
@@ -34,15 +33,13 @@ public class ProdottoDAO
 	        ps.setInt(6, p.getStock());
 	        ps.setString(7, p.getTaglia());
 	        ps.setBoolean(8, p.getAttivo());
-	        ps.setInt(9, p.getSconto());
-	        ps.setString(10, p.getCategoria());
+	        ps.setString(9, p.getCategoria());
 	        
 	        ps.executeUpdate();
 	        
-	        // RECUPERA L'ID GENERATO
 	        try (java.sql.ResultSet generatedKeys = ps.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                p.setIdProdotto(generatedKeys.getInt(1)); // AGGIORNA L'OGGETTO
+	                p.setIdProdotto(generatedKeys.getInt(1));
 	            }
 	        }
 	    } finally {
@@ -62,9 +59,7 @@ public class ProdottoDAO
 		try
 		{
 			ps = conn.prepareStatement(sql);
-			
 			ps.setInt(1, idProdotto);
-			
 			ps.executeUpdate();
 		}
 		finally
@@ -88,7 +83,7 @@ public class ProdottoDAO
 		PreparedStatement ps = null;
 		
 		String sql = "UPDATE "+TABLE_NAME+" SET " +
-                "nome=?, squadra=?, materiale=?, descrizione=?, prezzo=?, stock=?, taglia=?, attivo=?, sconto=?, categoria=? " +
+                "nome=?, squadra=?, materiale=?, descrizione=?, prezzo=?, stock=?, taglia=?, attivo=?, categoria=? " +
                 "WHERE id_prodotto=?";
 		
 		try
@@ -103,9 +98,8 @@ public class ProdottoDAO
 			ps.setInt(6, p.getStock());
 			ps.setString(7, p.getTaglia());
 			ps.setBoolean(8, p.getAttivo());
-			ps.setInt(9, p.getSconto());
-			ps.setString(10, p.getCategoria());
-			ps.setInt(11, p.getIdProdotto());
+			ps.setString(9, p.getCategoria());
+			ps.setInt(10, p.getIdProdotto());
         
 			ps.executeUpdate();
 		}
@@ -143,7 +137,7 @@ public class ProdottoDAO
     			
     			rs = ps.executeQuery();
     			
-    			while(rs.next()) //si usa il while per gestire le immagini del prodotto
+    			while(rs.next())
     			{
     				if(p == null) 
     				{
@@ -157,7 +151,6 @@ public class ProdottoDAO
         				p.setStock(rs.getInt("stock"));
         				p.setTaglia(rs.getString("taglia"));
         				p.setAttivo(rs.getBoolean("attivo"));
-        				p.setSconto(rs.getInt("sconto"));
         				p.setCategoria(rs.getString("categoria"));
     				}
     				
@@ -168,7 +161,7 @@ public class ProdottoDAO
     					img.setPercorsoImmagine(rs.getString("percorso_immagine"));
     					img.setFkProdotto(idProdotto);
     					
-    					p.getImmagini().add(img); //get immagini restituisce la lista delle immagini
+    					p.getImmagini().add(img);
     				}
     			}
     		}
@@ -199,14 +192,12 @@ public class ProdottoDAO
     //SELECT ALL
     public List<Prodotto> doRetrieveAll() throws SQLException
     {
-        // Mappa per raggruppare i prodotti per ID ed evitare duplicati causati dal JOIN
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
         
         Connection conn = ConnectionPool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        // Query con LEFT JOIN per estrarre ogni prodotto con tutte le sue immagini
         String sql = "SELECT p.*, i.id_immagine, i.percorso_immagine " +
                      "FROM " + TABLE_NAME + " p " +
                      "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +
@@ -219,13 +210,9 @@ public class ProdottoDAO
         
             while(rs.next())
             {
-                // Legge l'ID del prodotto della riga corrente
                 int idProd = rs.getInt("id_prodotto");
-                
-                // Cerca se il prodotto è già stato inserito nella mappa prima d'ora
                 Prodotto p = mappaProdotti.get(idProd);
                 
-                // Se il prodotto NON è ancora nella mappa, lo crea e lo inserisce
                 if(p == null) 
                 {
                     p = new Prodotto();
@@ -238,14 +225,11 @@ public class ProdottoDAO
                     p.setStock(rs.getInt("stock"));
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
-                    p.setSconto(rs.getInt("sconto"));
                     p.setCategoria(rs.getString("categoria"));
                     
-                    // Salva il nuovo prodotto nella mappa usando l'ID come chiave
                     mappaProdotti.put(idProd, p);
                 }
                 
-                // Se la riga corrente contiene un'immagine valida (non null)
                 if(rs.getString("percorso_immagine") != null) 
                 {
                     Immagine img = new Immagine();
@@ -278,11 +262,10 @@ public class ProdottoDAO
             }
         }
 
-        // Estrae i prodotti rimasti nella mappa e li restituisce sotto forma di ArrayList
         return new ArrayList<>(mappaProdotti.values());
     }
     
- // SELECT ALL ATTIVI (Torna a estrarre TUTTE le righe con TUTTE le taglie)
+    // SELECT ALL ATTIVI
     public List<Prodotto> doRetrieveAllAttivi() throws SQLException
     {
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
@@ -319,7 +302,6 @@ public class ProdottoDAO
                     p.setStock(rs.getInt("stock"));
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
-                    p.setSconto(rs.getInt("sconto"));
                     p.setCategoria(rs.getString("categoria"));
                     
                     mappaProdotti.put(idProd, p);
@@ -346,7 +328,7 @@ public class ProdottoDAO
         return new ArrayList<>(mappaProdotti.values());
     }
     
-    // NUOVO METODO: Estrae solo un record rappresentativo per modello (Per il Catalogo)
+    // SELECT ALL ATTIVI UNIVOCI
     public List<Prodotto> doRetrieveAllAttiviUnivoci() throws SQLException
     {
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
@@ -388,7 +370,6 @@ public class ProdottoDAO
                     p.setStock(rs.getInt("stock"));
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
-                    p.setSconto(rs.getInt("sconto"));
                     p.setCategoria(rs.getString("categoria"));
                     
                     mappaProdotti.put(idProd, p);
@@ -415,7 +396,7 @@ public class ProdottoDAO
         return new ArrayList<>(mappaProdotti.values());
     }
  
- // SELECT BY FILTER (CORRETTO)
+    // SELECT BY FILTER
     public List<Prodotto> doRetrieveByFilter(String[] squadre, String categoria) throws SQLException
     {
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
@@ -431,7 +412,6 @@ public class ProdottoDAO
                 "    FROM " + TABLE_NAME + " p2 " +
                 "    WHERE p2.attivo = true ");
 
-        // I filtri vengono applicati alla subquery p2
         if(categoria != null && !categoria.equals("tutte")) {
             sql.append("AND p2.categoria = ? ");
         }
@@ -445,10 +425,7 @@ public class ProdottoDAO
             sql.append(") ");
         }
 
-        // AGGIUNTO IL GROUP BY: serve a far sputare fuori il MIN di OGNI modello/squadra filtrato, non uno solo totale!
         sql.append("    GROUP BY p2.nome, p2.squadra ");
-        
-        // Chiusura della subquery p2 e ordinamento finale sul p esterno
         sql.append(") ORDER BY p.id_prodotto");
 
         try
@@ -482,7 +459,6 @@ public class ProdottoDAO
                     p.setStock(rs.getInt("stock"));
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
-                    p.setSconto(rs.getInt("sconto"));
                     p.setCategoria(rs.getString("categoria"));
                     
                     mappaProdotti.put(idProd, p);
@@ -505,9 +481,8 @@ public class ProdottoDAO
         return new ArrayList<>(mappaProdotti.values());
     }
     
-    
-    // SELECT CORRELATI (Stessa squadra, escludendo il modello corrente per nome)
-    public List<Prodotto> doRetrieveCorrelati(String squadra, String nomeProdottoCorrente) throws SQLException
+    // SELECT CORRELATI
+    public List<Prodotto> doRetrieveCorrelati(String squadres, String nomeProdottoCorrente) throws SQLException
     {
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
         Connection conn = ConnectionPool.getConnection();
@@ -529,8 +504,8 @@ public class ProdottoDAO
         try
         {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, squadra);
-            ps.setString(2, nomeProdottoCorrente); // Esclude tutti i duplicati di taglia del capo corrente
+            ps.setString(1, squadres);
+            ps.setString(2, nomeProdottoCorrente);
 
             rs = ps.executeQuery();
 
@@ -551,7 +526,6 @@ public class ProdottoDAO
                     p.setStock(rs.getInt("stock"));
                     p.setTaglia(rs.getString("taglia"));
                     p.setAttivo(rs.getBoolean("attivo"));
-                    p.setSconto(rs.getInt("sconto"));
                     p.setCategoria(rs.getString("categoria"));
 
                     mappaProdotti.put(idProd, p);
@@ -576,117 +550,187 @@ public class ProdottoDAO
         }
         return new ArrayList<>(mappaProdotti.values());
     }
- 	
- 	// COUNT PRODOTTI ATTIVI
- 	public int countProdottiAttivi() throws SQLException
- 	{
- 		Connection conn = ConnectionPool.getConnection();
- 		PreparedStatement ps = null;
- 		ResultSet rs = null;
- 		int totale = 0;
- 		
- 		String sql = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE attivo = true";
- 		
- 		try
- 		{
- 			ps = conn.prepareStatement(sql);
- 			rs = ps.executeQuery();
- 			
- 			if (rs.next())
- 			{
- 				totale = rs.getInt(1); //Estrae il risultato della prima colonna (il COUNT)
- 			}
- 		}
- 		finally
- 		{
- 			try
- 			{
- 				if (rs != null)
- 					rs.close();
- 			}
- 			finally
- 			{
- 				try
- 				{
- 					if (ps != null)
- 						ps.close();
- 				}
- 				finally
- 				{
- 					ConnectionPool.releaseConnection(conn);
- 				}
- 			}
- 		}
- 		
- 		return totale;
- 	}
- 	
- 	// UPDATE STATO ATTIVO 
- 	public void updateAttivo(int idProdotto, boolean nuovoStato) throws SQLException
- 	{
- 		Connection conn = ConnectionPool.getConnection();
- 		PreparedStatement ps = null;
- 		
- 		String sql = "UPDATE " + TABLE_NAME + " SET attivo = ? WHERE id_prodotto = ?";
- 		
- 		try
- 		{
- 			ps = conn.prepareStatement(sql);
- 			
- 			ps.setBoolean(1, nuovoStato);
- 			ps.setInt(2, idProdotto);
- 			
- 			ps.executeUpdate();
- 		}
- 		finally
- 		{
- 			try
- 			{
- 				if (ps != null)
- 					ps.close();
- 			}
- 			finally
- 			{
- 				ConnectionPool.releaseConnection(conn);
- 			}
- 		}
- 	}
- 	
- 	public List<Prodotto> doRetrieveByNome(String ricerca) throws SQLException {
- 	    List<Prodotto> prodotti = new ArrayList<>();
- 	    Connection conn = ConnectionPool.getConnection();
- 	    PreparedStatement ps = null;
- 	    ResultSet rs = null;
+	
+	// COUNT PRODOTTI ATTIVI
+	public int countProdottiAttivi() throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int totale = 0;
+		
+		String sql = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE attivo = true";
+		
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next())
+			{
+				totale = rs.getInt(1);
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+			}
+			finally
+			{
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				finally
+				{
+					ConnectionPool.releaseConnection(conn);
+				}
+			}
+		}
+		
+		return totale;
+	}
+	
+	// UPDATE STATO ATTIVO 
+	public void updateAttivo(int idProdotto, boolean nuovoStato) throws SQLException
+	{
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		
+		String sql = "UPDATE " + TABLE_NAME + " SET attivo = ? WHERE id_prodotto = ?";
+		
+		try
+		{
+			ps = conn.prepareStatement(sql);
+			
+			ps.setBoolean(1, nuovoStato);
+			ps.setInt(2, idProdotto);
+			
+			ps.executeUpdate();
+		}
+		finally
+		{
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			finally
+			{
+				ConnectionPool.releaseConnection(conn);
+			}
+		}
+	}
+	
+	// BY NOME UNIVOCI
+	public List<Prodotto> doRetrieveByNomeUnivoci(String ricerca) throws SQLException 
+	{
+		Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
+		Connection conn = ConnectionPool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
- 	    // Seleziona i prodotti attivi il cui nome o squadra corrisponde alla ricerca
- 	    String sql = "SELECT * FROM prodotto WHERE attivo = 1 AND (nome LIKE ? OR squadra LIKE ?) LIMIT 5";
+		String sql = "SELECT p.*, i.id_immagine, i.percorso_immagine " +
+		             "FROM " + TABLE_NAME + " p " +
+		             "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +
+		             "WHERE p.id_prodotto IN (" +
+		             "    SELECT MIN(p2.id_prodotto) " +
+		             "    FROM " + TABLE_NAME + " p2 " +
+		             "    WHERE p2.attivo = true AND (p2.nome LIKE ? OR p2.squadra LIKE ?) " +
+		             "    GROUP BY p2.nome, p2.squadra" +
+		             ") " +
+		             "ORDER BY p.id_prodotto";
 
- 	    try
- 	    {
- 	        ps = conn.prepareStatement(sql);
- 	        String param = "%" + ricerca + "%";
- 	        ps.setString(1, param);
- 	        ps.setString(2, param);
- 	        rs = ps.executeQuery();
+		try 
+		{
+			ps = conn.prepareStatement(sql);
+			String param = "%" + ricerca + "%";
+			ps.setString(1, param);
+			ps.setString(2, param);
+			
+			rs = ps.executeQuery();
 
- 	        while (rs.next()) {
- 	            Prodotto p = new Prodotto();
- 	            p.setIdProdotto(rs.getInt("id_prodotto"));
- 	            p.setNome(rs.getString("nome"));
- 	            p.setSquadra(rs.getString("squadra"));
- 	            p.setMateriale(rs.getString("materiale"));
- 	            p.setDescrizione(rs.getString("descrizione"));
- 	            p.setPrezzo(rs.getDouble("prezzo"));
- 	            p.setStock(rs.getInt("stock"));
- 	            p.setTaglia(rs.getString("taglia"));
- 	            p.setAttivo(rs.getBoolean("attivo"));
- 	            p.setSconto(rs.getInt("sconto"));
- 	            p.setCategoria(rs.getString("categoria"));
- 	            prodotti.add(p);
- 	        }
- 	    } finally {
- 	        try { if (rs != null) rs.close(); } finally { try { if (ps != null) ps.close(); } finally { ConnectionPool.releaseConnection(conn); } }
- 	    }
- 	    return prodotti;
- 	}
+			while (rs.next()) 
+			{
+				int idProd = rs.getInt("id_prodotto");
+				Prodotto p = mappaProdotti.get(idProd);
+				
+				if (p == null) 
+				{
+					p = new Prodotto();
+					p.setIdProdotto(idProd);
+					p.setNome(rs.getString("nome"));
+					p.setSquadra(rs.getString("squadra"));
+					p.setMateriale(rs.getString("materiale"));
+					p.setDescrizione(rs.getString("descrizione"));
+					p.setPrezzo(rs.getDouble("prezzo"));
+					p.setStock(rs.getInt("stock"));
+					p.setTaglia(rs.getString("taglia"));
+					p.setAttivo(rs.getBoolean("attivo"));
+					p.setCategoria(rs.getString("categoria"));
+					
+					mappaProdotti.put(idProd, p);
+				}
+				
+				if (rs.getString("percorso_immagine") != null) 
+				{
+					Immagine img = new Immagine();
+					img.setIdImmagine(rs.getInt("id_immagine"));
+					img.setPercorsoImmagine(rs.getString("percorso_immagine"));
+					img.setFkProdotto(idProd);
+					
+					p.getImmagini().add(img);
+				}
+			}
+		} 
+		finally 
+		{
+			try { if (rs != null) rs.close(); } 
+			finally { try { if (ps != null) ps.close(); } 
+			finally { ConnectionPool.releaseConnection(conn); } }
+		}
+		
+		return new ArrayList<>(mappaProdotti.values());
+	}
+	
+	// BY NOME (Standard)
+	public List<Prodotto> doRetrieveByNome(String ricerca) throws SQLException {
+	    List<Prodotto> prodotti = new ArrayList<>();
+	    Connection conn = ConnectionPool.getConnection();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT * FROM prodotto WHERE attivo = 1 AND (nome LIKE ? OR squadra LIKE ?) LIMIT 5";
+
+	    try
+	    {
+	        ps = conn.prepareStatement(sql);
+	        String param = "%" + ricerca + "%";
+	        ps.setString(1, param);
+	        ps.setString(2, param);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Prodotto p = new Prodotto();
+	            p.setIdProdotto(rs.getInt("id_prodotto"));
+	            p.setNome(rs.getString("nome"));
+	            p.setSquadra(rs.getString("squadra"));
+	            p.setMateriale(rs.getString("materiale"));
+	            p.setDescrizione(rs.getString("descrizione"));
+	            p.setPrezzo(rs.getDouble("prezzo"));
+	            p.setStock(rs.getInt("stock"));
+	            p.setTaglia(rs.getString("taglia"));
+	            p.setAttivo(rs.getBoolean("attivo"));
+	            p.setCategoria(rs.getString("categoria"));
+	            prodotti.add(p);
+	        }
+	    } finally {
+	        try { if (rs != null) rs.close(); } finally { try { if (ps != null) ps.close(); } finally { ConnectionPool.releaseConnection(conn); } }
+	    }
+	    return prodotti;
+	}
 }

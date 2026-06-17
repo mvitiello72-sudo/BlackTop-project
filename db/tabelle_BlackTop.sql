@@ -75,7 +75,6 @@ CREATE TABLE prodotto(
     stock int DEFAULT 0,
     taglia enum('XS','S','M','L','XL','XXL') NOT NULL,
     attivo boolean DEFAULT TRUE,
-    sconto INT CHECK (sconto BETWEEN 0 AND 100),
 	categoria enum('icon','attuali') NOT NULL
 );
 

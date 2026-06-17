@@ -31,14 +31,15 @@ public class CatalogoServlet extends HttpServlet {
         String queryCerca = request.getParameter("cerca");
         
         String[] squadre = request.getParameterValues("squadra");
-        String categoria = request.getParameter("categoria");  
+        String categoria = request.getParameter("categoria");   
                
         try
         {
             // Se l'utente ha cercato qualcosa nella barra di ricerca
             if (queryCerca != null && !queryCerca.trim().isEmpty()) 
             {
-                listaProdotti = prodottoDAO.doRetrieveByNome(queryCerca.trim());
+                // MODIFICATO QUI: Ora usa il metodo a gruppo unico che estrae anche le immagini di copertina!
+                listaProdotti = prodottoDAO.doRetrieveByNomeUnivoci(queryCerca.trim());
             }
             else 
             {
@@ -48,7 +49,7 @@ public class CatalogoServlet extends HttpServlet {
                 
                 if(nessunaSquadra && nessunaCategoria)
                 {
-                    //Prende solo i prodotti UNIVOCI per evitare i doppioni delle taglie nel catalogo
+                    // Prende solo i prodotti UNIVOCI per evitare i doppioni delle taglie nel catalogo
                     listaProdotti = prodottoDAO.doRetrieveAllAttiviUnivoci();                        
                 }
                 else

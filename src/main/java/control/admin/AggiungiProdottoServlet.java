@@ -78,13 +78,6 @@ public class AggiungiProdottoServlet extends HttpServlet
             // Gestione del checkbox/stato attivo (se non selezionato, i browser non lo inviano)
             boolean attivo = request.getParameter("attivo") != null;
             
-            int sconto = 0;
-            String scontoParam = request.getParameter("sconto");
-            if (scontoParam != null && !scontoParam.trim().isEmpty()) 
-            {
-                sconto = Integer.parseInt(scontoParam);
-            }
-            
             String categoria = request.getParameter("categoria");
             
             Prodotto p = new Prodotto();
@@ -96,7 +89,6 @@ public class AggiungiProdottoServlet extends HttpServlet
             p.setStock(stock);
             p.setTaglia(taglia);
             p.setAttivo(attivo);
-            p.setSconto(sconto);
             p.setCategoria(categoria);
             
             prodottoDAO.doSave(p); 
@@ -123,7 +115,8 @@ public class AggiungiProdottoServlet extends HttpServlet
         }
         catch (NumberFormatException e)
         {
-            request.setAttribute("errorMessage", "Errore: Controlla che i campi Prezzo, Stock e Sconto siano numeri validi.");
+            // Rimosso il riferimento allo sconto nel messaggio d'errore di parsing
+            request.setAttribute("errorMessage", "Errore: Controlla che i campi Prezzo e Stock siano numeri validi.");
             request.getRequestDispatcher("/WEB-INF/view/admin/aggiungiProdotto.jsp").forward(request, response);
         }
         catch (SQLException e)
