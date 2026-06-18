@@ -27,7 +27,6 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
         this.pagamentoDAO = new MetodoPagamentoDAO();
     }
 
-    // Blocchiamo l'accesso diretto in GET, rimandando al profilo
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.sendRedirect(request.getContextPath() + "/common/profilo");
@@ -73,13 +72,18 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
 
             } catch (IllegalArgumentException e) {
                 System.err.println("Formato data scadenza non valido: " + scadenzaStr);
+                session.setAttribute("messaggioErrore", "La data di scadenza inserita non è valida o ha un formato errato.");
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.err.println("Errore SQL durante il salvataggio del metodo di pagamento: " + e.getMessage());
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Impossibile salvare il metodo di pagamento.");
-                return;
+                // Gestiamo l'errore SQL senza rompere la navigazione con il sendError 500
+                session.setAttribute("messaggioErrore", "Errore interno del database durante il salvataggio della carta.");
             }
+        } else {
+            // Caso in cui i parametri del form arrivino vuoti o nulli alla servlet
+            session.setAttribute("messaggioErrore", "Tutti i campi del modulo sono obbligatori.");
         }
+        
         response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

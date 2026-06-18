@@ -35,6 +35,20 @@
         </aside>
 
         <section class="profilo-content">
+        
+        <c:if test="${not empty sessionScope.messaggioSuccesso}">
+        		<div class="alert alert-success">
+            		${sessionScope.messaggioSuccesso}
+            		<c:remove var="messaggioSuccesso" scope="session" />
+        		</div>
+    		</c:if>
+    
+    		<c:if test="${not empty sessionScope.messaggioErrore}">
+        		<div class="alert alert-danger">
+            		${sessionScope.messaggioErrore}
+            		<c:remove var="messaggioErrore" scope="session" />
+        		</div>
+    		</c:if>
             
             <div id="dati-personali" class="tab-panel active">
                 <h2>Informazioni Account</h2>
@@ -262,6 +276,11 @@
 
 <script>
     function switchTab(tabId) {
+    	
+    		const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.remove();
+        });
         const panels = document.querySelectorAll('.tab-panel');
         panels.forEach(panel => panel.classList.remove('active'));
 
@@ -443,9 +462,18 @@
                     const oggi = new Date();
                     oggi.setHours(0, 0, 0, 0);
                     
+                    //Creiamo un limite massimo (Anno Corrente + 20 anni)
+                    const annoMassimo = oggi.getFullYear() + 20;
+
                     if (dataScelta < oggi) 
                     {
-                        document.getElementById("scadenza-error").innerText = "La carta è scaduta o la data non è valida.";
+                        document.getElementById("scadenza-error").innerText = "La carta è scaduta.";
+                        formValido = false;
+                        if (!campoConErrore) campoConErrore = scadenza;
+                    }
+                    else if (dataScelta.getFullYear() > annoMassimo || isNaN(dataScelta.getTime()))
+                    {
+                        document.getElementById("scadenza-error").innerText = "Inserisci una data di scadenza valida e realistica";
                         formValido = false;
                         if (!campoConErrore) campoConErrore = scadenza;
                     }

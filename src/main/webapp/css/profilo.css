@@ -36,6 +36,49 @@
     min-width: 0; /* Previene la rottura del layout con elementi grid interni */
 }
 
+/* Contenitore base dell'alert */
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid transparent;
+    
+    /* Animazione fluida quando il messaggio compare nella pagina */
+    animation: slideIn 0.3s ease-out-in;
+}
+
+/* Variante Successo (Verde) */
+.alert-success {
+    background-color: #e6f4ea;
+    color: #137333;
+    border-left-color: #1e8e3e;
+    border: 1px solid #ceead6;
+    border-left-width: 5px; /* Mantiene il bordo sinistro più spesso */
+}
+
+/* Variante Pericolo / Errore (Rosso) */
+.alert-danger {
+    background-color: #fce8e6;
+    color: #c5221f;
+    border-left-color: #d93025;
+    border: 1px solid #fad2cf;
+    border-left-width: 5px;
+}
+
+/* Opzionale: Se nella JSP hai usato alert-error invece di alert-danger */
+.alert-error {
+    background-color: #fce8e6;
+    color: #c5221f;
+    border-left-color: #d93025;
+    border: 1px solid #fad2cf;
+    border-left-width: 5px;
+}
+
 /* ==========================================================================
    COMPONENTI DELLA SIDEBAR
    ========================================================================== */

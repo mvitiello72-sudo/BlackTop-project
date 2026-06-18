@@ -313,12 +313,12 @@
     <jsp:include page="/WEB-INF/view/components/footer.jsp" />
 
     <script>
-        function switchTab(tabName, btn) {
-            document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.add('active');
-            btn.classList.add('active');
-        }
+    function switchTab(tabName, btn) {
+        document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        btn.classList.add('active');
+    }
 
         window.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams(window.location.search);
