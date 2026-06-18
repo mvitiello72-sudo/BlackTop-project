@@ -250,6 +250,24 @@
     }
 }
 
+.err-message {
+    color: #C62828;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; 
+    text-align: left;
+}
+
+.succ-message {
+    color: #2E7D32;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+    display: block; 
+    text-align: left;
+}
+
 /* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
 @media screen and (max-width: 480px) {
     .footer-col-title {
