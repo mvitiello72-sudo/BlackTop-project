@@ -225,16 +225,18 @@
                 <div class="alert alert-error">${errorMessage}</div>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/admin/admindashboard" method="get" class="filtri-form">
+            <form action="${pageContext.request.contextPath}/admin/admindashboard" method="get" class="filtri-form" novalidate>
                 <input type="hidden" name="tab" value="ordini">
                 <div class="filtri-row">
                     <div class="filtro-group">
                         <label for="dataInizio">Dal</label>
                         <input type="date" id="dataInizio" name="dataInizio" value="${param.dataInizio}">
+                        <span id="dataI-error" class="error-message"></span>
                     </div>
                     <div class="filtro-group">
                         <label for="dataFine">Al</label>
                         <input type="date" id="dataFine" name="dataFine" value="${param.dataFine}">
+                        <span id="dataF-error" class="error-message"></span>
                     </div>
                     <div class="filtro-group">
                             <label for="cliente">Email Cliente</label>
@@ -331,6 +333,37 @@
         
 
         document.addEventListener("DOMContentLoaded", function() {
+        	
+        		// ==================== CONTROLLO DATE FILTRI ====================
+            const filtroForm = document.querySelector('.filtri-form');
+        		if (filtroForm) {
+            		filtroForm.addEventListener("submit", function(event) {
+                		const dataInizio = document.getElementById('dataInizio').value;
+                		const dataFine = document.getElementById('dataFine').value;
+                
+                		const errInizio = document.getElementById('dataI-error');
+                		const errFine = document.getElementById('dataF-error');
+                
+                		// Reset preventivo dei messaggi
+                		if (errInizio) errInizio.innerText = "";
+                		if (errFine) errFine.innerText = "";
+
+                		if (dataInizio && dataFine) {
+                    		if (new Date(dataInizio) > new Date(dataFine)) {
+                        		event.preventDefault(); // Blocca l'invio del form
+                        
+                        		// Iniettiamo i messaggi nei tuoi span dedicati
+                        		if (errInizio) {
+                            		errInizio.innerText = "La data d'inizio non può superare quella di fine.";
+                        		}
+                        		if (errFine) {
+                            		errFine.innerText = "La data di fine deve essere successiva a quella d'inizio.";
+                        		}
+                        		return;
+                    		}
+                		}
+            		});
+        		}
         	
             // Intercettiamo tutti i form che modificano lo stato del prodotto
             const formsStato = document.querySelectorAll('form[action*="prodottoStato"]');
