@@ -11,7 +11,7 @@
 	<div class="nav-center" style="position: relative;">
 	
     		<form action="${pageContext.request.contextPath}/catalogo" method="get" autocomplete="off">
-        		<input type="text" id="barra-ricerca" name="cerca" placeholder="Cerca componenti..." value="${param.cerca}">
+        		<input type="text" id="barra-ricerca" name="cerca" placeholder="Cerca componenti..." value="${param.cerca}"> <!-- il value serve per far mantenere nella barra, quello che ha scritto l'utente anche dopo che si ricarica -->
         		<button type="submit">Cerca</button>
     		</form>
     		
@@ -25,7 +25,7 @@
         </a>
         
         <c:choose>
-            <c:when test="${not empty sessionScope.utente}">
+            <c:when test="${not empty sessionScope.utente}"> <!-- sessioScope vede se esiste la variabile utente nella sessione --> 
             		<c:if test="${sessionScope.utente.ruolo == 'ADMIN'}">
             			<a class="nav-btn" href="${pageContext.request.contextPath}/admin/admindashboard">
                 			ADMIN
@@ -37,8 +37,7 @@
                 <a class="nav-btn" href="${pageContext.request.contextPath}/common/logout">
                     ESCI
                 </a>
-            </c:when>
-            
+            </c:when>      
             <c:otherwise>
                 <a class="nav-btn" href="${pageContext.request.contextPath}/login">
                     ACCEDI
@@ -65,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function()
     // Recupera dinamicamente il contesto dell'applicazione ("/BlackTop")
     const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
 
-    // Ascolta ogni carattere digitato dall'utente
+    //si attiva ogni volta che l'utente scrive qualcosa in inputRicerca ("input" è il nome dell'evento standard)
     inputRicerca.addEventListener("input", function()
     		{
         const query = inputRicerca.value.trim();
@@ -80,9 +79,9 @@ document.addEventListener("DOMContentLoaded", function()
 
         // Esegue la chiamata AJAX (Fetch API) alla servlet dei suggerimenti
         fetch(contextPath + "/suggerimenti?q=" + encodeURIComponent(query))
-            .then(response => response.json())
+            .then(response => response.json()) //prende la risposta, e la traduce in oggetto java
             .then(data => {
-            	console.log("Dati ricevuti dal server:", data); // <-- Aggiungi questa riga temporaneamente!
+            	console.log("Dati ricevuti dal server:", data);
                 // Se il server non trova prodotti, nascondi la tendina
                 if (data.length === 0)
                 	{
@@ -104,7 +103,8 @@ document.addEventListener("DOMContentLoaded", function()
                 }); 
                 html += "</ul>";
 
-                boxSuggerimenti.innerHTML = html;
+              //dentro a boxSuggerimenti, mette tutto quello che abbiamo costruito in html
+                boxSuggerimenti.innerHTML = html; 
                 boxSuggerimenti.style.display = "block";
             })
             .catch(err => console.error("Errore AJAX nel recupero suggerimenti:", err));
@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function()
 
     // Chiude la tendina se l'utente clicca in un punto qualsiasi fuori dalla barra
     document.addEventListener("click", function(e) {
+    		//se si clicca in un punto diverso da inputRicerca e boxSuggerimenti
         if (e.target !== inputRicerca && e.target !== boxSuggerimenti) {
             boxSuggerimenti.style.display = "none";
         }

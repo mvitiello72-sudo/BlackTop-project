@@ -48,7 +48,7 @@ public class SuggerimentiServlet extends HttpServlet
                 //per ogni prodotto crea un oggetto JSON
                 org.json.JSONObject jsonOggetto = new org.json.JSONObject();
                 
-                //inserisce i dati come coppie Chiave-Valore
+                //inserisce i dati
                 jsonOggetto.put("id", p.getIdProdotto());
                 jsonOggetto.put("nome", p.getNome());
                 jsonOggetto.put("squadra", p.getSquadra());
