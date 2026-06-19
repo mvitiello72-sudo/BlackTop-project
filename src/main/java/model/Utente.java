@@ -17,18 +17,6 @@ public class Utente implements Serializable
     // Costruttore vuoto
     public Utente() { }
 
-    public Utente(int idUtente, String email, String nome, String cognome, String password, String ruolo, 
-    			  String cellulare)
-    {
-        this.idUtente = idUtente;
-        this.email = email;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.password = password;
-        this.ruolo = ruolo;
-        this.cellulare = cellulare;
-    }
-
     // Getter e Setter
     public int getIdUtente()
     {

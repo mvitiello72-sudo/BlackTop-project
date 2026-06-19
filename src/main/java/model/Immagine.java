@@ -14,14 +14,6 @@ public class Immagine implements Serializable
     // Costruttore vuoto
     public Immagine() { }
 
-    // Costruttore completo
-    public Immagine(int idImmagine, String percorsoImmagine, int fkProdotto)
-    {
-        this.idImmagine = idImmagine;
-        this.percorsoImmagine = percorsoImmagine;
-        this.fkProdotto = fkProdotto;
-    }
-
     // Getter e Setter
     public int getIdImmagine() {
         return idImmagine;
