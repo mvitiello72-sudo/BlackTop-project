@@ -58,7 +58,7 @@ public class CarrelloServlet extends HttpServlet
         {
             try 
             {
-            		if (action.equals("add")) 
+            		if (action.equals("add")) //aggiuge al carrello
             		{
             			int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
             			int quantita = Integer.parseInt(request.getParameter("quantita"));
@@ -81,14 +81,14 @@ public class CarrelloServlet extends HttpServlet
             				}
             			}
             		}
-                else if (action.equals("remove")) 
+                else if (action.equals("remove")) //rimuove dal carrello
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
                     String taglia = request.getParameter("taglia");
 
                     carrello.rimuoviProdotto(idProdotto, taglia);
                 }
-                else if (action.equals("update"))
+                else if (action.equals("update")) //modifica la quantità di un prodotto nel carrello
                 {
                     int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
                     String taglia = request.getParameter("taglia");

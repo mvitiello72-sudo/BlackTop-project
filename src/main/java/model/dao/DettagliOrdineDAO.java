@@ -110,7 +110,7 @@ public class DettagliOrdineDAO
 
 	    return dettagli;
 	}
-	//DELETE (opzionale, raro)
+	//DELETE
 	public void doDelete(int fkOrdine, int fkProdotto) throws SQLException
 	{
 		Connection conn = ConnectionPool.getConnection();

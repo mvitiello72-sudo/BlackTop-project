@@ -159,7 +159,6 @@
             const quantitaInput = document.getElementById("quantita");
             const errorQuantita = document.getElementById("error-quantita");
 
-            // Qui rimane ESCLUSIVAMENTE la tua validazione testuale originaria prima di far partire il form
             formCart.addEventListener("submit", function(event) {
                 let formValido = true;
                 errorQuantita.innerText = "";

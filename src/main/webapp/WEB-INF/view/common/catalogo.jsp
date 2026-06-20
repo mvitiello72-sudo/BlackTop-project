@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/catalogo.css">
 </head>
+
 <body>
 
     <jsp:include page="/WEB-INF/view/components/header.jsp" />

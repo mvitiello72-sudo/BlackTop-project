@@ -154,7 +154,7 @@ public class FatturaDAO
         return f;
     }
 
-    //DELETE (raramente usato, ma utile admin)
+    //DELETE
     public void doDelete(int idFattura) throws SQLException
     {
         Connection conn = ConnectionPool.getConnection();

@@ -38,7 +38,6 @@ public class CatalogoServlet extends HttpServlet {
             // Se l'utente ha cercato qualcosa nella barra di ricerca
             if (queryCerca != null && !queryCerca.trim().isEmpty()) 
             {
-                // MODIFICATO QUI: Ora usa il metodo a gruppo unico che estrae anche le immagini di copertina!
                 listaProdotti = prodottoDAO.doRetrieveByNomeUnivoci(queryCerca.trim());
             }
             else 

@@ -32,7 +32,7 @@
                 
                 <c:choose>
                     <c:when test="${not empty prodottiEvidenza}"> <!-- se prodottiEvidenza contiene prodotti -->
-                    		<c:forEach var="prodotto" items="${prodottiEvidenza}"> <!-- Per ogni prodotto in prodottiEvidenza -->
+                    		<c:forEach var="prodotto" items="${prodottiEvidenza}"> <!-- cicla su ogni item di prodottiEvidenza -->
                     			<div class="product-card"> 
                     			  
                     				<!-- Prende solo la prima immagine -->

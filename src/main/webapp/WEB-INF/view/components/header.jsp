@@ -11,7 +11,7 @@
 	<div class="nav-center" style="position: relative;">
 	
     		<form action="${pageContext.request.contextPath}/catalogo" method="get" autocomplete="off">
-        		<input type="text" id="barra-ricerca" name="cerca" placeholder="Cerca componenti..." value="${param.cerca}"> <!-- il value serve per far mantenere nella barra, quello che ha scritto l'utente anche dopo che si ricarica -->
+        		<input type="text" id="barra-ricerca" name="cerca" placeholder="Cerca jersey..." value="${param.cerca}"> <!-- il value serve per far mantenere nella barra, quello che ha scritto l'utente anche dopo che si ricarica -->
         		<button type="submit">Cerca</button>
     		</form>
     		
@@ -22,7 +22,7 @@
     <div class="nav-right">
     		 <a class="nav-btn" href="${pageContext.request.contextPath}/catalogo">
             CATALOGO
-        </a>
+        	 </a>
         
         <c:choose>
             <c:when test="${not empty sessionScope.utente}"> <!-- sessioScope vede se esiste la variabile utente nella sessione --> 

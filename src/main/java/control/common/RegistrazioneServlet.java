@@ -57,7 +57,7 @@ public class RegistrazioneServlet extends HttpServlet
             request.getRequestDispatcher("/WEB-INF/view/common/registrazione.jsp").forward(request, response);
             return;
         }
-
+        
         try 
         {
             //Verifichiamo se esiste già un utente con questa email

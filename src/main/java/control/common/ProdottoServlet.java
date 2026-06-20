@@ -53,7 +53,7 @@ public class ProdottoServlet extends HttpServlet
                     }
                 }
                 
-                // MODIFICATO: Ora passiamo il NOME del prodotto per escludere i correlati duplicati
+                //passiamo il NOME del prodotto per escludere i correlati duplicati
                 List<Prodotto> prodottiCorrelati = prodottoDAO.doRetrieveCorrelati(prodotto.getSquadra(), prodotto.getNome());
                
                 request.setAttribute("prodotto", prodotto);
