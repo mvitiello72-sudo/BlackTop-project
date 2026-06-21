@@ -21,7 +21,7 @@ import model.Immagine;
 import model.dao.ImmagineDAO;
 
 @WebServlet("/admin/aggiungiProdotto")
-@MultipartConfig( // FONDAMENTALE per gestire file upload
+@MultipartConfig( //per gestire file upload
  fileSizeThreshold = 1024 * 1024 * 2,
  maxFileSize = 1024 * 1024 * 10,
  maxRequestSize = 1024 * 1024 * 50
@@ -34,7 +34,7 @@ public class AggiungiProdottoServlet extends HttpServlet
     
     private final ImmagineDAO immagineDAO = new ImmagineDAO();
 
-    // 1. Mostra il form di inserimento prodotto
+    //mostra il form di inserimento prodotto
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
@@ -61,7 +61,6 @@ public class AggiungiProdottoServlet extends HttpServlet
             return;
         }
         
-        // Imposta la codifica dei caratteri corretta per evitare problemi con accenti
         request.setCharacterEncoding("UTF-8");
 
         try
@@ -75,7 +74,7 @@ public class AggiungiProdottoServlet extends HttpServlet
             int stock = Integer.parseInt(request.getParameter("stock"));
             String taglia = request.getParameter("taglia");
             
-            // Gestione del checkbox/stato attivo (se non selezionato, i browser non lo inviano)
+            // Gestione del checkbox/stato attivo
             boolean attivo = request.getParameter("attivo") != null;
             
             String categoria = request.getParameter("categoria");
@@ -94,7 +93,7 @@ public class AggiungiProdottoServlet extends HttpServlet
             prodottoDAO.doSave(p); 
             int idProdotto = p.getIdProdotto();
 
-            // 2. Gestione Immagine
+            //Gestione Immagine
             Part filePart = request.getPart("nuovaImmagine");
             if (filePart != null && filePart.getSize() > 0) {
                 String appPath = request.getServletContext().getRealPath("");
@@ -115,7 +114,6 @@ public class AggiungiProdottoServlet extends HttpServlet
         }
         catch (NumberFormatException e)
         {
-            // Rimosso il riferimento allo sconto nel messaggio d'errore di parsing
             request.setAttribute("errorMessage", "Errore: Controlla che i campi Prezzo e Stock siano numeri validi.");
             request.getRequestDispatcher("/WEB-INF/view/admin/aggiungiProdotto.jsp").forward(request, response);
         }

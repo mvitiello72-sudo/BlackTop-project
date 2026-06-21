@@ -40,7 +40,7 @@ public class CheckoutServlet extends HttpServlet
         this.metodoPagamentoDAO = new MetodoPagamentoDAO();
     }
 
-    // 1. QUESTO METODO VISUALIZZA IL FORM DI CHECKOUT (Richiesta GET)
+    //Visualizza il form del checkout
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         HttpSession session = request.getSession();
@@ -56,7 +56,6 @@ public class CheckoutServlet extends HttpServlet
 
         try 	
         {
-            // Recuperiamo gli indirizzi e le carte dell'utente dal database
             List<Indirizzo> indirizzi = indirizzoDAO.doRetrieveByUtente(utenteLoggato.getIdUtente());
             List<MetodoPagamento> carte = metodoPagamentoDAO.doRetrieveByUtente(utenteLoggato.getIdUtente()); 
 
@@ -71,7 +70,7 @@ public class CheckoutServlet extends HttpServlet
         }
     }
 
-    // 2. QUESTO METODO RICEVE I DATI DEL FORM E INVIA L'ORDINE (Richiesta POST)
+    //Riceve i dati da form
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         HttpSession session = request.getSession();
@@ -91,7 +90,6 @@ public class CheckoutServlet extends HttpServlet
         String idIndirizzoStr = request.getParameter("idIndirizzoSelezionato");
         String idMetodoStr = request.getParameter("idMetodoSelezionato");
 
-        // Controllo robusto: se manca la selezione, rimanda indietro con un messaggio d'errore
         if (idIndirizzoStr == null || idIndirizzoStr.trim().isEmpty() || idMetodoStr == null || idMetodoStr.trim().isEmpty()) {
             session.setAttribute("messaggioErrore", "Seleziona un indirizzo e un metodo di pagamento validi prima di acquistare.");
             response.sendRedirect(request.getContextPath() + "/common/checkout");
@@ -109,7 +107,6 @@ public class CheckoutServlet extends HttpServlet
             ordine.setFkPagamento(idMetodo);
             ordine.setTotale(carrello.getTotaleComplessivo());
             
-            // FORZATO IN MAIUSCOLO PER DIRETTIVA ENUM DB
             ordine.setStato("IN_PREPARAZIONE"); 
             ordine.setDataOrdine(Date.valueOf(LocalDate.now())); 
 
@@ -145,7 +142,7 @@ public class CheckoutServlet extends HttpServlet
             response.sendRedirect(request.getContextPath() + "/common/checkout");
         } 
         catch (SQLException e) {
-            // Questo ti stampa l'errore preciso del database nella console del server!
+            //stampa l'errore preciso del database nella console del server
             System.err.println("CRASH DB NEL CHECKOUT:");
             e.printStackTrace(); 
             

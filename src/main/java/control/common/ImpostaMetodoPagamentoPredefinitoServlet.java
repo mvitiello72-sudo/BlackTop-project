@@ -57,7 +57,6 @@ public class ImpostaMetodoPagamentoPredefinitoServlet extends HttpServlet
             }
         }
 
-        // 4. Rimbalzo sulla ProfiloServlet per rinfrescare la pagina con le modifiche visibili
         response.sendRedirect(request.getContextPath() + "/common/profilo");
     }
 }

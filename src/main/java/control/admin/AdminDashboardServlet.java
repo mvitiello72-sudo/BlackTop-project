@@ -72,7 +72,6 @@ public class AdminDashboardServlet extends HttpServlet
                 listaOrdini = ordineDAO.doRetrieveAllConUtenti();
             }
 
-            // 4. SETTAGGIO ATTRIBUTI PER LA JSP
             request.setAttribute("totaleProdotti", totaleProdotti);
             request.setAttribute("totaleUtenti", totaleUtenti);
             request.setAttribute("totaleOrdini", totaleOrdini);

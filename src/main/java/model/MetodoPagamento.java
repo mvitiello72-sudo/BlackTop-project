@@ -8,7 +8,7 @@ public class MetodoPagamento implements Serializable
     private static final long serialVersionUID = 1L;
 
     private int idMetodo;
-    private String tipo;            // es: "Carta", "PayPal", "Bonifico"
+    private String tipo;      
     private String numeroCarta;
     private String intestatario;
     private Date scadenza;

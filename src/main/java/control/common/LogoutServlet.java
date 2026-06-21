@@ -15,7 +15,7 @@ public class LogoutServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        // Recuperiamo la sessione corrente, se esiste
+        // Recuperiamo la sessione corrente, se esiste (non la crea se non esiste)
         HttpSession session = request.getSession(false);
         
         if (session != null) 

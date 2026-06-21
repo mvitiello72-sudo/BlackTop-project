@@ -192,6 +192,8 @@ public class ProdottoDAO
     //SELECT ALL
     public List<Prodotto> doRetrieveAll() throws SQLException
     {
+    		//serve per gestire anche le immaigni, se si usa una list, avremo 
+    		//lo stesso prodotto ripetuto tante volte quante sono le immagini
         Map<Integer, Prodotto> mappaProdotti = new LinkedHashMap<>();
         
         Connection conn = ConnectionPool.getConnection();
@@ -337,6 +339,7 @@ public class ProdottoDAO
         PreparedStatement ps = null;
         ResultSet rs = null;
         
+        //evita i duplicati, prende solo quello con id più basso
         String sql = "SELECT p.*, i.id_immagine, i.percorso_immagine " +
                      "FROM " + TABLE_NAME + " p " +
                      "LEFT JOIN immagine i ON p.id_prodotto = i.fk_prodotto " +

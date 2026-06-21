@@ -29,7 +29,6 @@
     padding-bottom: 10px;
 }
 
-/* Form principale diviso in due colonne con Grid */
 .checkout-container {
     display: grid;
     grid-template-columns: 7fr 4fr;
@@ -37,14 +36,12 @@
     align-items: start;
 }
 
-/* --- COLONNA DI SINISTRA: SEZIONI SELEZIONE --- */
 .checkout-sections {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-/* Le card bianche che contengono Indirizzi e Pagamenti */
 .checkout-card {
     background-color: var(--color-bg-main);
     border: 1px solid var(--color-border);
@@ -59,14 +56,12 @@
     color: var(--color-text-main);
 }
 
-/* Gruppo che contiene le opzioni radio */
 .options-group {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Etichetta cliccabile che fa da contenitore alla riga */
 .option-label {
     display: flex;
     align-items: center;
@@ -90,7 +85,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Input radio customizzato o standard */
 .option-label input[type="radio"] {
     accent-color: var(--color-secondary); 
     width: 18px;
@@ -99,7 +93,6 @@
     flex-shrink: 0; /* Impedisce al pallino di schiacciarsi se il testo va a capo */
 }
 
-/* Contenitore dei testi dentro l'opzione */
 .option-info {
     display: flex;
     flex-direction: column;
@@ -107,7 +100,6 @@
     flex-grow: 1;
 }
 
-/* Riga del Titolo dell'opzione */
 .option-title {
     font-family: var(--font-main);
     font-weight: bold;
@@ -116,7 +108,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap; /* Permette al badge "Predefinito" di andare a capo su schermi minuscoli */
+    flex-wrap: wrap; 
 }
 
 /* Sottotitolo */
@@ -126,7 +118,6 @@
     color: var(--color-text-secondary);
 }
 
-/* Piccola etichetta ovale "Predefinito" */
 .badge-checkout {
     background-color: var(--color-secondary);
     color: var(--color-bg-main);
@@ -138,7 +129,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Link di gestione posizionati a fondo card */
 .link-modifica-profilo {
     display: inline-block;
     margin-top: 15px;
@@ -153,12 +143,11 @@
 }
 
 
-/* --- COLONNA DI DESTRA: RIEPILOGO SHOPPING --- */
+/* RIEPILOGO ORDINE  */
 .checkout-summary-panel {
     position: relative;
 }
 
-/* Mantiene il riepilogo fisso a schermo durante lo scroll */
 .sticky-summary {
     position: sticky;
     top: 100px; 
@@ -177,7 +166,6 @@
     padding-bottom: 5px;
 }
 
-/* Box con l'anteprima rapida dei prodotti nel carrello */
 .checkout-items-preview {
     max-height: 240px; 
     overflow-y: auto;  
@@ -205,7 +193,7 @@
     font-size: 14px;
     text-transform: none; 
     color: var(--color-text-main);
-    margin-bottom: 5px; /* Ridotto per lasciare spazio coerente */
+    margin-bottom: 5px; 
 }
 
 .preview-info p {
@@ -231,7 +219,6 @@
     margin: 15px 0;
 }
 
-/* Blocco dei dettagli economici */
 .summary-details {
     display: flex;
     flex-direction: column;
@@ -252,7 +239,6 @@
     font-weight: 500;
 }
 
-/* Testo "Gratuita" verde o arancione */
 .free-text {
     color: #2ec4b6 !important; 
     font-weight: bold !important;
@@ -261,7 +247,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Riga del Totale finale */
 .total-line {
     font-size: 18px;
     color: var(--color-text-main) !important;
@@ -304,9 +289,7 @@
 }
 
 
-/* =================================
-   MEDIA QUERIES (RESPONSIVE)
-   ================================= */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -319,13 +302,11 @@
         margin-bottom: 20px;
     }
 
-    /* Trasformiamo la griglia a due colonne in un'unica colonna verticale */
     .checkout-container {
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    /* Disattiviamo il comportamento sticky per far scorrere il riepilogo normalmente */
     .sticky-summary {
         position: static;
         padding: 20px;
@@ -339,7 +320,7 @@
     }
 
     .checkout-card {
-        padding: 20px 15px; /* Riduciamo i margini interni delle card */
+        padding: 20px 15px;
     }
 
     .checkout-card h2 {
@@ -347,7 +328,6 @@
         margin-bottom: 15px;
     }
 
-    /* Ottimizziamo l'area cliccabile dei radio button */
     .option-label {
         padding: 12px 15px;
         gap: 10px;
@@ -361,7 +341,6 @@
         font-size: 12px;
     }
 
-    /* Compattiamo l'anteprima dei prodotti  */
     .preview-info h4 {
         font-size: 13px;
     }

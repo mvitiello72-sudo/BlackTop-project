@@ -30,7 +30,6 @@ public class StatoRuoloServlet extends HttpServlet
         String idParam = request.getParameter("id");
         String nuovoStato = request.getParameter("nuovoStato");
 
-        // 1. Validazione dei parametri: controlliamo che non siano vuoti
         if (idParam == null || idParam.trim().isEmpty() || nuovoStato == null || nuovoStato.trim().isEmpty())
         {
             session.setAttribute("errorMessage", "Dati mancanti per l'aggiornamento dell'ordine.");

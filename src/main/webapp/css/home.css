@@ -81,7 +81,6 @@
     background-color: var(--color-secondary);
 }
 
-/* Griglia responsive dei prodotti */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -171,45 +170,41 @@
 }
 
 
-/* ==============================
-   MEDIA QUERIES (RESPONSIVE)
-   ============================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
     .main-content {
-        padding: 15px; /* Riduciamo leggermente i margini della pagina per guadagnare spazio */
+        padding: 15px; 
     }
 
-    /* Adattiamo l'Hero Banner */
     .hero {
-        padding: 60px 20px; /* Meno spazio vuoto sopra e sotto */
+        padding: 60px 20px; 
         margin-bottom: 40px;
     }
 
     .hero h1 {
-        font-size: 38px; /* Rimpiccioliamo il titolo per farlo stare su una o due righe */
+        font-size: 38px; 
     }
 
     .hero p {
-        font-size: 16px; /* Testo descrizione più leggibile su tablet */
+        font-size: 16px; 
     }
 
-    /* Sezione Prodotti */
     .featured-products h2 {
-        font-size: 26px; /* Titolo sezione ridimensionato */
+        font-size: 26px; 
         margin-bottom: 25px;
     }
 
     .products-grid {
-        gap: 20px; /* Avviciniamo leggermente le card dei prodotti */
+        gap: 20px; 
     }
 }
 
 /* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
 @media screen and (max-width: 480px) {
     .hero {
-        padding: 40px 15px; /* Compattiamo ancora di più l'hero */
+        padding: 40px 15px; 
         margin-bottom: 30px;
     }
 
@@ -224,17 +219,16 @@
     }
 
     .btn-shop {
-        padding: 10px 20px; /* Riduce la dimensione del bottone del catalogo */
+        padding: 10px 20px; 
         font-size: 14px;
     }
 
-    /* Griglia prodotti forzata a singola colonna pulita se lo schermo è minuscolo */
     .products-grid {
         grid-template-columns: 1fr; 
         gap: 15px;
     }
 
     .product-card img {
-        height: 200px; /* Riduciamo l'altezza dell'immagine del prodotto per non allungare troppo la card */
+        height: 200px; 
     }
 }

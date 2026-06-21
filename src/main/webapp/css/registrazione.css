@@ -19,7 +19,6 @@
     text-transform: uppercase;
 }
 
-/* Scatola per gli errori globali di registrazione */
 .error-box {
     background-color: #FFEBEE;
     color: #C62828;
@@ -103,7 +102,6 @@
     background-color: var(--color-secondary);
 }
 
-/* Link di reindirizzamento al login */
 .auth-redirect {
     text-align: center;
     margin-top: 20px;
@@ -122,16 +120,14 @@
 }
 
 
-/* =============================
-   MEDIA QUERIES (RESPONSIVE) 
-   ============================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
     .auth-container {
         margin: 40px auto;
         padding: 25px;
-        max-width: 90%; /* Evita che la card tocchi i bordi dello schermo su tablet */
+        max-width: 90%; 
     }
 
     .auth-title {
@@ -144,7 +140,7 @@
 @media screen and (max-width: 480px) {
     .auth-container {
         margin: 20px auto;
-        padding: 20px 15px; /* Compattiamo lo spazio interno per dare più aria agli input */
+        padding: 20px 15px; 
         max-width: 95%;   
         border-radius: 6px;
     }
@@ -153,14 +149,13 @@
         font-size: 1.4rem;
     }
 
-    /* Rompe l'affiancamento: Nome e Cognome si incolonnano uno sotto l'altro */
     .form-row {
         flex-direction: column;
-        gap: 18px; /* Mantiene lo stesso gap verticale del resto del form */
+        gap: 18px; 
     }
 
     .form-group input {
-        padding: 12px 10px; /* Aumenta l'altezza dell'input */
+        padding: 12px 10px; 
         font-size: 16px;  
     }
 

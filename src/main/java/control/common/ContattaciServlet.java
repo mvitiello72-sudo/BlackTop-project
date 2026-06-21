@@ -20,7 +20,6 @@ public class ContattaciServlet extends HttpServlet
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        // Recupera i dati inviati dall'utente
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String messaggio = request.getParameter("messaggio");

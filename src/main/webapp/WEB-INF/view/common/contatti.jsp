@@ -73,7 +73,7 @@
             document.getElementById("email-error").innerText = "";
             document.getElementById("messaggio-error").innerText = "";
 
-            // 1. Validazione Nome Completo
+            //Validazione Nome Completo
             const regexNome = /^[a-zA-Z\s]{2,50}$/;
             if (!regexNome.test(nome.value.trim()))
             {
@@ -82,7 +82,7 @@
                 campoConErrore = nome;
             }
 
-            // 2. Validazione Formato Email
+            //Validazione Formato Email
             const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             if (!regexEmail.test(inputEmail.value.trim()))
             {
@@ -91,7 +91,7 @@
                 if (!campoConErrore) campoConErrore = inputEmail;
             }
 
-            // 3. Validazione Messaggio
+            //Validazione Messaggio
             if (messaggio.value.trim().length < 10)
             {
                 document.getElementById("messaggio-error").innerText = "Il messaggio è troppo corto. Scrivi almeno 10 caratteri.";

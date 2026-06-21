@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   TITOLO E CONTENITORE PRINCIPALE
-   ========================================================================== */
 .cart-title {
     font-size: 2.2rem;
     color: var(--color-primary);
@@ -17,16 +14,12 @@
     align-items: flex-start;
 }
 
-/* colonna sinistra (Lista prodotti) prende più spazio */
 .cart-items-list {
     flex: 1.8;
     display: flex;
     flex-direction: column;
 }
 
-/* ==========================================================================
-   SINGOLO ELEMENTO DEL CARRELLO
-   ========================================================================== */
 .cart-item {
     display: flex;
     align-items: center;
@@ -54,7 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0; /* Impedisce all'immagine di rimpicciolirsi */
+    flex-shrink: 0;
 }
 
 .item-img img {
@@ -65,7 +58,7 @@
 
 /* Dettagli testuali (Squadra, Nome, Taglia) */
 .item-details {
-    flex: 2; /* Prende lo spazio centrale */
+    flex: 2;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -163,7 +156,6 @@
     display: inline-block;
 }
 
-/* Prezzo totale della riga */
 .item-price {
     flex: 1;
     text-align: right;
@@ -173,7 +165,6 @@
     color: var(--color-primary);
 }
 
-/* Bottone rimuovi testuale semplice */
 .item-remove {
     display: flex;
     justify-content: center;
@@ -196,9 +187,7 @@
     background-color: rgba(211, 47, 47, 0.1); 
 }
 
-/* ==========================================================================
-   COLONNA DESTRA: BOX RIEPILOGO ORDINE
-   ========================================================================= */
+/* BOX RIEPILOGO ORDINE */
 .cart-summary {
     flex: 1;
     position: sticky;
@@ -271,9 +260,6 @@
     transform: scale(0.98);
 }
 
-/* ==========================================================================
-   SCENARIO CARRELLO VUOTO
-   ========================================================================== */
 .empty-cart-box {
     text-align: center;
     padding: 60px 20px;
@@ -308,9 +294,7 @@
 }
 
 
-/* ================================
-   MEDIA QUERIES (RESPONSIVE)
-   ================================ */
+/* MEDIA QUERIES  */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -330,7 +314,6 @@
         flex: none;
     }
 
-    /* Rimuoviamo l'effetto "sticky" su mobile per far scorrere il box normalmente */
     .cart-summary {
         position: static; 
     }
@@ -338,7 +321,6 @@
 
 /* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
 @media screen and (max-width: 480px) {
-    /* Trasformiamo la singola riga prodotto in una card verticale compatta */
     .cart-item {
         display: grid;
         grid-template-columns: 90px 1fr; /* L'immagine a sinistra fissa, tutto il resto a destra */
@@ -350,7 +332,6 @@
         padding: 20px 0;
     }
 
-    /* Assegniamo gli elementi alle aree della griglia mobile */
     .item-img {
         grid-area: img;
     }
@@ -367,21 +348,20 @@
     .item-price {
         grid-area: price;
         text-align: right;
-        align-self: center; /* Centra verticalmente il prezzo rispetto ai tasti quantità */
+        align-self: center; 
     }
 
     .item-remove {
         grid-area: remove;
-        justify-content: flex-start; /* Sposta il tasto "Rimuovi" in basso a sinistra della card */
-        border-top: 1px dashed var(--color-border); /* Crea un mini divisore interno alla card */
+        justify-content: flex-start; 
+        border-top: 1px dashed var(--color-border); 
         padding-top: 8px;
     }
 
     .btn-remove-text {
-        padding: 5px 0; /* Rimuove i padding laterali */
+        padding: 5px 0; 
     }
 
-    /* Compattiamo il riepilogo dell'ordine */
     .summary-box {
         padding: 16px;
     }

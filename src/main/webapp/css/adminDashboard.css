@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   CONTENITORE PRINCIPALE E HERO
-   ========================================================================== */
 .dashboard-main {
     max-width: 1200px;
     margin: 0 auto;
@@ -50,9 +47,7 @@
     text-align: left;
 }
 
-/* ==========================================================================
-   CARDS DELLE STATISTICHE
-   ========================================================================== */
+/* CARDS DELLE STATISTICHE  */
 .stats-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -92,9 +87,7 @@
     letter-spacing: 0.5px;
 }
 
-/* ==========================================================================
-   TAB BAR NAVIGATION
-   ========================================================================== */
+/* TAB BAR NAVIGATION */
 .tab-bar {
     display: flex;
     border-bottom: 2px solid var(--color-border);
@@ -136,7 +129,6 @@
     background-color: var(--color-secondary);
 }
 
-/* Gestione visibilità sezioni Tab */
 .tab-section {
     display: none;
 }
@@ -151,9 +143,6 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   TOOLBARS, ALERTS E FILTRI
-   ========================================================================== */
 .section-toolbar {
     display: flex;
     justify-content: space-between;
@@ -242,16 +231,14 @@
     min-width: auto;
 }
 
-/* ==========================================================================
-   TABELLE ADMIN
-   ========================================================================== */
+/* TABELLE ADMIN */
 .table-wrapper {
     width: 100%;
-    overflow-x: auto; /* Rende la tabella scrollabile su schermi piccoli */
+    overflow-x: auto; /* Rende la tabella scrollabile */
     border: 1px solid var(--color-border);
     border-radius: 6px;
     background-color: var(--color-bg-main);
-    -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .admin-table {
@@ -324,10 +311,7 @@
     margin-left: 5px;
 }
 
-/* ==========================================================================
-   BOTTONI E AZIONI
-   ========================================================================== */
-/* Bottone Aggiungi / Filtra (Stile Principale) */
+/* Bottone Aggiungi / Filtra  */
 .btn-add {
     display: inline-block;
     background-color: var(--color-secondary);
@@ -348,7 +332,7 @@
     transform: translateY(-1px);
 }
 
-/* Bottoni Azione in Linea (Modifica, Attiva, Reset...) */
+/* Bottoni Azione (Modifica, Attiva, Reset) */
 .td-azioni {
     display: flex;
     align-items: center;
@@ -381,15 +365,12 @@
     color: var(--color-bg-main);
 }
 
-/* Modifica specifica per bottone Reset nei filtri */
+/* bottone Reset nei filtri */
 .filtro-btn-group .btn-action {
     padding: 10px 20px;
     height: 100%;
 }
 
-/* ==========================================================================
-   BADGES (Etichette colorate)
-   ========================================================================== */
 .badge-cat, .badge-taglia, .badge-stock, .badge-ruolo, .badge-stato, .badge-sconto {
     display: inline-block;
     padding: 4px 8px;
@@ -403,7 +384,6 @@
     white-space: nowrap;
 }
 
-/* Badge specifici */
 .badge-sconto {
     background-color: #FFEBEE;
     color: #C62828;
@@ -417,9 +397,7 @@
 }
 
 
-/* ===============================
-   MEDIA QUERIES (RESPONSIVE)
-   =============================== */
+/* MEDIA QUERIES */
 
 /* LAPTOP PICCOLI / TABLET VERTICALI (Sotto i 992px) */
 @media screen and (max-width: 992px) {
@@ -445,7 +423,7 @@
         font-size: 15px;
     }
 
-    /* I filtri scendono in una riga flessibile e ordinata */
+    /* I filtri scendono in una riga flessibile */
     .filtro-group {
         min-width: calc(50% - 10px); /* Due filtri per riga */
     }
@@ -474,13 +452,13 @@
     }
 
     .section-toolbar .btn-add {
-        width: 100%; /* Il pulsante di azione principale occupa tutta la larghezza */
+        width: 100%;
         text-align: center;
         padding: 12px;
     }
 
     .stats-row {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Card statistiche più compatte */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 15px;
         margin-bottom: 30px;
     }

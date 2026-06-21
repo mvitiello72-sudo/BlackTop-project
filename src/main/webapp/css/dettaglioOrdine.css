@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* ======================================================================
-   CONTAINER PRINCIPALE
-   ====================================================================== */
 .ordine-container {
     max-width: 1000px;
     margin: 40px auto;
@@ -12,9 +9,6 @@
     gap: 30px;
 }
 
-/* ======================================================================
-   HEADER ORDINE
-   ====================================================================== */
 .ordine-header {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -63,9 +57,6 @@
     color: var(--color-text-main);
 }
 
-/* ======================================================================
-   STATI ORDINE
-   ====================================================================== */
 .status-in_preparazione {
     color: #f0ad4e;
     font-weight: bold;
@@ -86,9 +77,6 @@
     font-weight: bold;
 }
 
-/* ======================================================================
-   PRODOTTI
-   ====================================================================== */
 .ordine-prodotti {
     display: flex;
     flex-direction: column;
@@ -137,7 +125,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 6px;
-    white-space: nowrap; /* Evita che il prezzo finale vada a capo in modo strano */
+    white-space: nowrap; 
 }
 
 .prodotto-prezzo p {
@@ -149,9 +137,6 @@
     color: var(--color-primary);
 }
 
-/* ======================================================================
-   AZIONI
-   ====================================================================== */
 .ordine-actions {
     display: flex;
     justify-content: flex-start;
@@ -177,9 +162,7 @@
 }
 
 
-/* ==============================
-   MEDIA QUERIES (RESPONSIVE) 
-   ==============================*/
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -213,7 +196,6 @@
         font-size: 20px;
     }
 
-    /* ogni informazione dell'ordine prende una riga intera */
     .ordine-info {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -223,7 +205,6 @@
         font-size: 18px;
     }
 
-    /* Ristrutturazione completa della card prodotto da orizzontale a verticale */
     .prodotto-card {
         flex-direction: column;
         gap: 15px;
@@ -235,15 +216,13 @@
         margin-bottom: 6px;
     }
 
-    /* Allineiamo il prezzo a sinistra sotto le informazioni del prodotto */
     .prodotto-prezzo {
         text-align: left;
-        border-top: 1px solid var(--color-border); /* Crea una divisione leggera interna alla card */
+        border-top: 1px solid var(--color-border); 
         padding-top: 12px;
         justify-content: flex-start;
     }
 
-    /* Il bottone "Torna indietro" si espande a tutta larghezza */
     .ordine-actions {
         width: 100%;
     }

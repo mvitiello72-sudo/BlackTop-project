@@ -293,7 +293,7 @@
     
     document.addEventListener("DOMContentLoaded", function() {
         
-        // 1. VALIDAZIONE FORM: DATI PERSONALI
+        //VALIDAZIONE FORM: DATI PERSONALI
         const formDati = document.getElementById("form-dati-personali"); 
         if (formDati)
         {
@@ -352,7 +352,7 @@
             });
         }
 
-        // 2. VALIDAZIONE FORM: NUOVO INDIRIZZO
+        //VALIDAZIONE FORM: NUOVO INDIRIZZO
         const formIndirizzo = document.getElementById("form-nuovo-indirizzo");
         if (formIndirizzo)
         {
@@ -413,7 +413,7 @@
             });
         }
 
-        // 3. VALIDAZIONE FORM: METODO PAGAMENTO
+        //VALIDAZIONE FORM: METODO PAGAMENTO
         const formPagamento = document.getElementById("form-nuovo-pagamento");
         if (formPagamento) {
             const intestatario = document.getElementById("intestatario");

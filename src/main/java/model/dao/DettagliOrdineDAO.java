@@ -82,7 +82,7 @@ public class DettagliOrdineDAO
 	            d.setQuantita(rs.getInt("quantita"));
 	            d.setPrezzoSnapshot(rs.getDouble("prezzo_snapshot"));
 
-	            // prodotto (JOIN)
+	            // prodotto
 	            Prodotto p = new Prodotto();
 	            p.setIdProdotto(rs.getInt("id_prodotto"));
 	            p.setNome(rs.getString("nome"));
@@ -110,6 +110,7 @@ public class DettagliOrdineDAO
 
 	    return dettagli;
 	}
+	
 	//DELETE
 	public void doDelete(int fkOrdine, int fkProdotto) throws SQLException
 	{

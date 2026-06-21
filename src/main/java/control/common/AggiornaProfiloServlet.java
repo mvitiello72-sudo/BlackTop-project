@@ -33,7 +33,6 @@ public class AggiornaProfiloServlet extends HttpServlet {
         String cellulare = request.getParameter("cellulare");
         String nuovaPassword = request.getParameter("password");
 
-        // Validazione base dei campi obbligatori
         if (nome == null || nome.trim().isEmpty() || cognome == null || cognome.trim().isEmpty())
         {
             request.setAttribute("erroreProfilo", "Nome e Cognome sono campi obbligatori.");

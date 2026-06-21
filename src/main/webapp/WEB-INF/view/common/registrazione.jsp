@@ -142,7 +142,6 @@
                 inputEmail.style.border = "";
             }
 
-         	// Regex Semplice: Lettere maiuscole, minuscole e spazi (da 2 a 20 caratteri)
             const regexLettere = /^[a-zA-Z\s]{2,20}$/;
             
             if (!regexLettere.test(nome.value.trim()))
@@ -171,7 +170,7 @@
                 		campoConErrore = inputEmail;
             }
 
-            // Regex Password: Minimo 8 caratteri, 1 maiuscola, 1 minuscola, 1 numero
+            //Regex Password: Minimo 8 caratteri, 1 maiuscola, 1 minuscola, 1 numero
             const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             if (!regexPassword.test(pass.value))
             {

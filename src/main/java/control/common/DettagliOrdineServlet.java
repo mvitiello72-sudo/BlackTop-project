@@ -71,15 +71,13 @@ public class DettagliOrdineServlet extends HttpServlet {
                 return;
             }
 
-            // DETTAGLI ORDINE (JOIN BASE)
-            List<DettagliOrdine> dettagli =
-                    dettagliOrdineDAO.doRetrieveByOrdine(idOrdine);
+            // DETTAGLI ORDINE
+            List<DettagliOrdine> dettagli = dettagliOrdineDAO.doRetrieveByOrdine(idOrdine);
 
-            // ARRICCHIMENTO PRODOTTO
             for (DettagliOrdine d : dettagli)
             {
-                Prodotto prodotto =
-                        prodottoDAO.doRetrieveByKey(d.getFkProdotto());
+            		//recupera il prodotto
+                Prodotto prodotto = prodottoDAO.doRetrieveByKey(d.getFkProdotto());
 
                 d.setProdotto(prodotto);
             }

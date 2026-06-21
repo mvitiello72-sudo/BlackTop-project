@@ -49,7 +49,7 @@
             <button class="tab-btn" onclick="switchTab('ordini', this)">Ordini</button>
         </div>
 
-        <%-- ==================== TAB PRODOTTI ==================== --%>
+        <%-- TAB PRODOTTI --%>
         <section id="tab-prodotti" class="tab-section active">
 
             <div class="section-toolbar">
@@ -133,7 +133,7 @@
             </div>
         </section>
 
-		<%-- ==================== TAB UTENTI ==================== --%>
+		<%-- TAB UTENTI --%>
         <section id="tab-utenti" class="tab-section">
             <div class="section-toolbar">
                 <h2>Utenti Registrati</h2>
@@ -212,7 +212,7 @@
             </div>
         </section>
 
-		<%-- ==================== TAB ORDINI ==================== --%>
+		<%-- TAB ORDINI --%>
         <section id="tab-ordini" class="tab-section">
             <div class="section-toolbar">
                 <h2>Ordini</h2>
@@ -316,12 +316,17 @@
 
     <script>
     function switchTab(tabName, btn) {
+    		//cerca tutti gli elementi che hanno la classe tab-section e rimuovono la classe active
         document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + tabName).classList.add('active');
         btn.classList.add('active');
     }
 
+    /* 
+     * Al caricamento della pagina, legge i parametri dall'URL (es. ?tab=nomeTab)
+     * e attiva automaticamente la scheda corrispondente per mantenere lo stato.
+     */
         window.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams(window.location.search);
             const tab = params.get('tab');
@@ -334,7 +339,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
         	
-        		// ==================== CONTROLLO DATE FILTRI ====================
+        		// CONTROLLO DATE FILTRI
             const filtroForm = document.querySelector('.filtri-form');
         		if (filtroForm) {
             		filtroForm.addEventListener("submit", function(event) {
@@ -352,7 +357,7 @@
                     		if (new Date(dataInizio) > new Date(dataFine)) {
                         		event.preventDefault(); // Blocca l'invio del form
                         
-                        		// Iniettiamo i messaggi nei tuoi span dedicati
+                        		// scriviamo i mess di errore 
                         		if (errInizio) {
                             		errInizio.innerText = "La data d'inizio non può superare quella di fine.";
                         		}

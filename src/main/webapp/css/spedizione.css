@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   PAGINA SPEDIZIONI E CONSEGNE - BLACKTOP STORE
-   ========================================================================== */
-
 /* Container Principale */
 .info-container {
     max-width: 850px;
@@ -17,7 +13,6 @@
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Titolo Principale della Pagina */
 .info-title {
     font-size: 32px;
     font-weight: 800;
@@ -38,7 +33,6 @@
     margin-bottom: 0;
 }
 
-/* Sottotitoli delle Sezioni (H2) */
 .info-section h2 {
     font-size: 18px;
     font-weight: 700;
@@ -50,13 +44,11 @@
     align-items: center;
 }
 
-/* Spaziatura per le Icone/Emoji */
 .info-section h2 span {
     margin-right: 10px;
     font-size: 20px;
 }
 
-/* Testo dei Paragrafi */
 .info-section p {
     font-size: 15px;
     line-height: 1.7;
@@ -64,9 +56,6 @@
     margin: 0 0 15px 0;
 }
 
-/* ==========================================================================
-   TABELLA DELLE SPEDIZIONI
-   ========================================================================== */
 .info-table {
     width: 100%;
     border-collapse: collapse;
@@ -75,7 +64,6 @@
     text-align: left;
 }
 
-/* Intestazione Tabella */
 .info-table th {
     background-color: #111111;
     color: #ffffff;
@@ -87,7 +75,6 @@
     border: 1px solid #111111;
 }
 
-/* Celle della Tabella (TD) */
 .info-table td {
     padding: 16px;
     border: 1px solid #e0e0e0;
@@ -96,25 +83,22 @@
     font-weight: 500;
 }
 
-/* Evidenziato per la Spedizione Gratis */
 .info-table tbody tr td:last-child {
     font-weight: 700;
     color: #111111;
 }
 
-/* ==========================================================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================================================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
     .info-container {
         margin: 30px 15px;
-        padding: 30px 20px; /* Compattiamo il box interno */
+        padding: 30px 20px; 
     }
 
     .info-title {
-        font-size: 26px; /* Titolo scalato per tablet */
+        font-size: 26px;
         margin-bottom: 30px;
     }
 
@@ -124,10 +108,9 @@
 
     .info-section p {
         font-size: 14px;
-        line-height: 1.6; /* Testo leggermente più denso su schermi piccoli */
+        line-height: 1.6; 
     }
 
-    /* Ottimizzazione Tabella su Mobile (Attiva lo scroll orizzontale nativo per evitare overlay e testi spaccati) */
     .info-table {
         display: block;
         width: 100%;
@@ -145,7 +128,7 @@
 @media screen and (max-width: 480px) {
     .info-container {
         margin: 15px 10px;
-        padding: 20px 15px; /* Massimizziamo lo spazio utile a schermo */
+        padding: 20px 15px; 
         border-radius: 8px;
     }
 
@@ -156,7 +139,7 @@
     }
 
     .info-section {
-        margin-bottom: 25px; /* Avviciniamo le sezioni informative */
+        margin-bottom: 25px; 
     }
 
     .info-section h2 {
@@ -164,6 +147,6 @@
     }
 
     .info-section h2 span {
-        font-size: 18px; /* Ridimensiona leggermente l'emoji */
+        font-size: 18px; 
     }
 }

@@ -19,17 +19,15 @@ public class UtenteRuoloServlet extends HttpServlet
 
     @Override
     public void init() throws ServletException {
-        this.utenteDAO = new UtenteDAO(); // Inizializziamo il DAO per comunicare col DB
+        this.utenteDAO = new UtenteDAO(); 
     }
 
-    // Le modifiche di stato si fanno SOLO in POST per sicurezza
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
         String idParam = request.getParameter("id");
         String action = request.getParameter("action");
 
-        // Verifichiamo che i parametri essenziali non siano vuoti
         if (idParam == null || idParam.trim().isEmpty() || action == null || action.trim().isEmpty()) {
             session.setAttribute("errorMessage", "Parametri mancanti per la modifica del ruolo.");
             response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=utenti");
@@ -41,7 +39,6 @@ public class UtenteRuoloServlet extends HttpServlet
             int idUtente = Integer.parseInt(idParam);
             String nuovoRuolo = null;
 
-            // Decidiamo il nuovo ruolo in base all'azione inviata dalla JSP
             if ("promuovi".equals(action)) {
                 nuovoRuolo = "ADMIN";
             } else if ("declassa".equals(action)) {
@@ -65,17 +62,15 @@ public class UtenteRuoloServlet extends HttpServlet
             session.setAttribute("errorMessage", "ID utente non valido.");
         }
         catch (SQLException e) {
-            e.printStackTrace(); // Stampa l'errore SQL nella console di Tomcat
+            e.printStackTrace(); 
             session.setAttribute("errorMessage", "Errore del database durante l'aggiornamento del ruolo.");
         }
 
-        // Ritorniamo alla dashboard posizionandoci direttamente sul tab degli utenti
         response.sendRedirect(request.getContextPath() + "/admin/admindashboard?tab=utenti");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        // Se qualcuno prova a chiamare la servlet in GET, lo rimandiamo alla dashboard senza fare danni
         response.sendRedirect(request.getContextPath() + "/admin/admindashboard");
     }
 }

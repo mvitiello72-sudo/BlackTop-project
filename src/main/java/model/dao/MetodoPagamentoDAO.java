@@ -11,7 +11,7 @@ public class MetodoPagamentoDAO
 {
     private static final String TABLE_NAME = "metodo_pagamento";
 
-    //Imposta a false tutte le carte di un utente
+    //Imposta "predefinto" = false a tutte le carte di un utente
     public void resetPredefinitoPerUtente(int fkUtente, Connection conn) throws SQLException
     {
         PreparedStatement ps = null;
@@ -38,10 +38,10 @@ public class MetodoPagamentoDAO
 
         try
         {
-            // 1. Disattiva il flag predefinito su tutte le altre carte dell'utente usando la connessione corrente
+            //Disattiva il flag predefinito su tutte le altre carte dell'utente
             resetPredefinitoPerUtente(idUtente, conn);
 
-            // 2. Attiva il flag predefinito sulla carta selezionata
+            //Attiva il flag predefinito sulla carta selezionata
             ps = conn.prepareStatement(sql);
             ps.setInt(1, idMetodo);
 

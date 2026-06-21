@@ -11,7 +11,7 @@ public class IndirizzoDAO
 {
 	private static final String TABLE_NAME = "indirizzo";
 
-	//Imposta a false tutti gli indirizzi di un utente 
+	//Imposta "predefinito" = false a tutti gli indirizzi di un utente 
 	public void resetPredefinitoPerUtente(int fkUtente, Connection conn) throws SQLException
 	{
 		PreparedStatement ps = null;
@@ -28,7 +28,7 @@ public class IndirizzoDAO
 		}
 	}
 	
-	// CAMBIA STATO PREDEFINITO
+		// CAMBIA STATO PREDEFINITO
 		public void cambiaStatoPredefinito(int idUtente, int idIndirizzo) throws SQLException
 		{
 			Connection conn = ConnectionPool.getConnection();

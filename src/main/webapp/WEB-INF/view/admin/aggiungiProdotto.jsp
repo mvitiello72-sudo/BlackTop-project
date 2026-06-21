@@ -92,7 +92,7 @@
             const stock = document.getElementById("stock").value;
             const immagine = document.getElementById("nuovaImmagine").files[0];
 
-            // Reset dei messaggi di errore precedenti
+            // Reset dei messaggi di errore 
             document.getElementById("error-nome").innerText = "";
             document.getElementById("error-squadra").innerText = "";
             document.getElementById("error-taglia").innerText = "";

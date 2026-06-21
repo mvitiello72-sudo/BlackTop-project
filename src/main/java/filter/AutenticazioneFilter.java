@@ -32,18 +32,25 @@ public class AutenticazioneFilter extends HttpFilter
 	        return; // Per evitare che il codice che segue venga eseguito
 	    }
 	    
-	    // Controllo che il token sia in sessione
+	    //recupera la sessione solo se esiste
 	    HttpSession session = request.getSession(false);
+	    //se la sessione esisteva, prende la sessione dell'utente
 	    Utente utente = (session != null) ? (Utente) session.getAttribute("utente") : null;
+	    //se l'utente è diverso da null, prendi il suo ruolo
 	    String role = (utente != null) ? utente.getRuolo() : null;
 	    
 	    // Controllo autenticazione e autorizzazione
 	    boolean autorizzato = false;
 	    if (role != null)
 	    {
-	    		if (path.startsWith("/admin/")) {
+	    		// Verifica se l'URL richiesto inizia con "/admin/"
+	    		if (path.startsWith("/admin/"))
+	    		{
+	    			//re il ruolo dell'utente era "ADMIN", autorizzato sarà true, false altrimenti
 	            autorizzato = role.equals("ADMIN");
-	        } else if (path.startsWith("/common/")) {
+	        }
+	    		else if (path.startsWith("/common/"))
+	    		{
 	            autorizzato = role.equals("ADMIN") || role.equals("USER");
 	        }
 	    }

@@ -24,7 +24,7 @@ public class RegistrazioneServlet extends HttpServlet
         this.utenteDAO = new UtenteDAO();
     }
 
-    // 1. mostra il form di registrazione
+    //mostra il form di registrazione
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         // Se l'utente è già loggato, lo rimandiamo alla home 
@@ -38,10 +38,10 @@ public class RegistrazioneServlet extends HttpServlet
         request.getRequestDispatcher("/WEB-INF/view/common/registrazione.jsp").forward(request, response);
     }
 
-    // 2. l'utente clicca sul pulsante "Registrati"
+    //l'utente invia i dati per reggistrarsi
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        request.setCharacterEncoding("UTF-8"); // Evita problemi con accenti o caratteri strani
+        request.setCharacterEncoding("UTF-8");
 
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
@@ -76,7 +76,7 @@ public class RegistrazioneServlet extends HttpServlet
             nuovoUtente.setCognome(cognome);
             nuovoUtente.setEmail(email);
             
-            // Passiamo la password al bean, UtenteDAO.doSave() effettua la cifratura
+            //passiamo la pass in chiaro, il metodo doSave farà la cifratura
             nuovoUtente.setPassword(password); 
             
             nuovoUtente.setRuolo("USER");
@@ -87,7 +87,7 @@ public class RegistrazioneServlet extends HttpServlet
             //Recuperiamo l'utente appena salvato 
             Utente utenteLoggato = utenteDAO.doRetrieveByEmail(email);
 
-            //login
+            //creiamo la sessione
             HttpSession session = request.getSession();
             session.setAttribute("utente", utenteLoggato);
 

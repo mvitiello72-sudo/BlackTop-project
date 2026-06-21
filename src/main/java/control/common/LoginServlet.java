@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet
         this.utenteDAO = new UtenteDAO();
     }
 
-    // 1. mostra la pag di login
+    //mostra la pag di login
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         HttpSession session = request.getSession();
@@ -39,7 +39,6 @@ public class LoginServlet extends HttpServlet
         request.getRequestDispatcher("/WEB-INF/view/common/login.jsp").forward(request, response);
     }
 
-    // 2. ELABORA IL TENTATIVO DI ACCESSO
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         String email = request.getParameter("email");
@@ -56,10 +55,10 @@ public class LoginServlet extends HttpServlet
         {
             Utente utente = utenteDAO.doRetrieveByEmail(email);
             
-            // 2. CIFRIAMO LA PASSWORD DEL FORM PRIMA DEL CONFRONTO
+            //cifriamo la pass in chiaro che abbiamo scritto
             String passwordFormCifrata = PasswordUtils.toDigest(password);
             
-            // 3. CONFRONTIAMO I DUE HASH
+            //confrontiamo i due hash
             if (utente != null && utente.getPassword().equals(passwordFormCifrata)) 
             {
                 // Credenziali corrette: creiamo o recuperiamo la sessione corrente

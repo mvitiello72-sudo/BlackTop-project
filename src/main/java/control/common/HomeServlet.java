@@ -19,7 +19,6 @@ public class HomeServlet extends HttpServlet
     @Override
     public void init() throws ServletException
     {
-        // Inizializziamo il DAO una sola volta all'avvio della Servlet
         this.p = new ProdottoDAO();
     }
       

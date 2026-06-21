@@ -76,13 +76,12 @@
 	            const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 	            if(!regexEmail.test(emailValue))
 	            	{
-	            		//errore inline
 	            		document.getElementById("email-error").innerText = "Formato email non valido. Controlla la sintassi.";
 	            		formValido = false
 	            		campoConErrore = email;
 	            	}
 	            
-	            //(Minimo 8 caratteri, una maiuscola, una minuscola, un numero)
+	            //Validazione pass (Minimo 8 caratteri, una maiuscola, una minuscola, un numero)
 	            const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
                 if(!regexPassword.test(passwordValue))
                 {

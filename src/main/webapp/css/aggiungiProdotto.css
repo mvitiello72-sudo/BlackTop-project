@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   STRUTTURA CONTENITORE
-   ========================================================================== */
 .main-content {
     max-width: 700px;
     margin: 0 auto;
@@ -18,9 +15,7 @@
     padding-bottom: 12px;
 }
 
-/* ==========================================================================
-   FORM E GRUPPI DI INPUT (Isolato tramite ID univoco)
-   ========================================================================== */
+/* FORM E GRUPPI DI INPUT */
 #formAggiungiProdotto {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -45,7 +40,7 @@
     letter-spacing: 0.5px;
 }
 
-/* Stile comune per input, select e textarea del modulo */
+/* input, select e textarea del modulo */
 #formAggiungiProdotto input[type="text"],
 #formAggiungiProdotto input[type="number"],
 #formAggiungiProdotto select,
@@ -63,7 +58,7 @@
     box-sizing: border-box;
 }
 
-/* Stile specifico per l'input file */
+/* inputut file */
 #formAggiungiProdotto input[type="file"] {
     padding: 8px 0;
     font-size: 14px;
@@ -81,10 +76,7 @@
     min-height: 110px;
 }
 
-/* ==========================================================================
-   CHECKBOX E BOTTONI
-   ========================================================================== */
-/* Allineamento checkbox (Supporto nativo e tramite classe esplicita per sicurezza) */
+/* Allineamento checkbox  */
 #formAggiungiProdotto > div:has(input[type="checkbox"]),
 .form-checkbox-group {
     flex-direction: row !important;
@@ -101,16 +93,15 @@
     flex-shrink: 0; /* Impedisce alla checkbox di rimpicciolirsi se il testo a fianco è lungo */
 }
 
-/* Label abbinata alla checkbox (Rende cliccabile anche il testo) */
 #formAggiungiProdotto div:has(input[type="checkbox"]) label,
 .form-checkbox-group label {
     margin-bottom: 0;
     cursor: pointer;
-    text-transform: none; /* Rende più leggibili i testi lunghi delle opzioni */
+    text-transform: none;
     font-size: 13px;
 }
 
-/* Bottone Salva (Classe univoca per evitare conflitti d'area) */
+/* Bottone Salva */
 .btn-form-submit {
     display: inline-block;
     background-color: var(--color-secondary);
@@ -153,9 +144,6 @@
     text-decoration: underline;
 }
 
-/* ==========================================================================
-   GESTIONE ERRORI VALIDAZIONE JAVASCRIPT
-   ========================================================================== */
 .error-message {
     color: #C62828;
     font-size: 0.8rem;
@@ -167,9 +155,7 @@
 }
 
 
-/* ==========================================================================
-   MEDIA QUERIES (RESPONSIVE) 
-   ========================================================================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -207,8 +193,8 @@
     #formAggiungiProdotto input[type="number"],
     #formAggiungiProdotto select,
     #formAggiungiProdotto textarea {
-        padding: 10px 12px; /* Input leggermente più compatti in altezza */
-        font-size: 15px; /* Impedisce lo zoom forzato automatico su iOS */
+        padding: 10px 12px; 
+        font-size: 15px; 
     }
 
     #formAggiungiProdotto a {

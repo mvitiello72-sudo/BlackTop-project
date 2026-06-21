@@ -25,7 +25,6 @@ public class RimuoviIndirizzoServlet extends HttpServlet
         this.indirizzoDAO = new IndirizzoDAO();
     }
 
-    // Blocchiamo richieste dirette in GET per sicurezza
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.sendRedirect(request.getContextPath() + "/common/profilo");

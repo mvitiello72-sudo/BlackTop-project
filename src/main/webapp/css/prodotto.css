@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   CONTENITORE PRINCIPALE
-   ========================================================================== */
 .main-content {
     max-width: 1200px;
     margin: 40px auto;
@@ -16,9 +13,6 @@
     align-items: flex-start;
 }
 
-/* ==========================================================================
-   SEZIONE SINISTRA: GALLERIA IMMAGINI
-   ========================================================================== */
 .prod-gallery {
     flex: 1.2;
     display: flex;
@@ -72,9 +66,6 @@
     transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   SEZIONE DESTRA: CASSELLA INFORMAZIONI E FORM
-   ========================================================================== */
 .prod-info-box {
     flex: 1;
     display: flex;
@@ -118,9 +109,6 @@
     font-size: 0.95rem;
 }
 
-/* ==========================================================================
-   FORM DI ACQUISTO (TAGLIA, QUANTITÀ, ERRORI)
-   ========================================================================== */
 #add-to-cart-form {
     display: flex;
     flex-direction: column;
@@ -190,9 +178,6 @@
     transform: scale(0.98);
 }
 
-/* ==========================================================================
-   MODALE CONFERMA AGGIUNTA CARRELLO
-   ========================================================================== */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -290,9 +275,6 @@
     background-color: var(--color-bg-card, #f5f5f5);
 }
 
-/* ==========================================================================
-   SCHERMATA ERRORE (PRODOTTO NON TROVATO)
-   ========================================================================== */
 .error-box {
     text-align: center;
     padding: 60px 20px;
@@ -325,9 +307,6 @@
     background-color: var(--color-secondary);
 }
 
-/* ==========================================================================
-   NUOVA SEZIONE: POTREBBERO PIACERTI
-   ========================================================================== */
 .featured-products {
     margin-top: 40px;
     width: 100%;
@@ -420,17 +399,14 @@
 }
 
 
-/* ==============================
-   MEDIA QUERIES (RESPONSIVE)
-   ============================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
     .main-content {
-        margin: 20px auto; /* Riduciamo lo stacco superiore ed inferiore */
+        margin: 20px auto; 
     }
 
-    /* Incolonniamo galleria e blocco informazioni */
     .prod-detail-container {
         flex-direction: column;
         gap: 30px;
@@ -438,10 +414,9 @@
 
     .prod-gallery, .prod-info-box {
         width: 100%;
-        flex: none; /* Annulla i rapporti proporzionali del desktop */
+        flex: none; 
     }
 
-    /* Adattamento testi principali */
     .prod-title {
         font-size: 2rem; 
     }
@@ -450,9 +425,8 @@
         font-size: 1.8rem;
     }
 
-    /* Griglia dei correlati "Potrebbero piacerti" */
     .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* Due colonne su tablet per i correlati */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 20px;
     }
 }
@@ -460,14 +434,13 @@
 /* SMARTPHONE PICCOLI (Sotto i 480px di larghezza) */
 @media screen and (max-width: 480px) {
     .main-image {
-        padding: 10px; /* Recuperiamo spazio */
+        padding: 10px; 
     }
 
     .main-image img {
-        max-height: 320px; /* Evita che l'immagine occupi tutta l'altezza dello smartphone */
+        max-height: 320px; 
     }
 
-    /* Ridimensionamento delle miniature */
     .grid-img img.grid {
         width: 65px;
         height: 65px;
@@ -481,9 +454,8 @@
         font-size: 1.5rem;
     }
 
-    /* Modifichiamo l'allineamento dei campi di input del form */
     #add-to-cart-form {
-        padding: 15px; /* Compattiamo il form box */
+        padding: 15px; 
     }
 
     .btn-add-cart {
@@ -491,15 +463,13 @@
         padding: 12px;
     }
 
-    /* Griglia prodotti correlati a colonna singola su smartphone stretti */
     .products-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 
-    /* Ottimizzazione del popup modale */
     .modal-box {
-        padding: 25px 20px; /* Più spazio per i testi interni nel popup */
+        padding: 25px 20px; 
     }
     
     .modal-box h2 {

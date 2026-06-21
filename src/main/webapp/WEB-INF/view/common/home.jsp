@@ -31,7 +31,7 @@
             <div class="products-grid">
                 
                 <c:choose>
-                    <c:when test="${not empty prodottiEvidenza}"> <!-- se prodottiEvidenza contiene prodotti -->
+                    <c:when test="${not empty prodottiEvidenza}"> <!-- se prodottiEvidenza non è vuoto -->
                     		<c:forEach var="prodotto" items="${prodottiEvidenza}"> <!-- cicla su ogni item di prodottiEvidenza -->
                     			<div class="product-card"> 
                     			  

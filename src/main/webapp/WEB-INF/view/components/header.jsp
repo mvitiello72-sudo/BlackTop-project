@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function()
                 }); 
                 html += "</ul>";
 
-              //dentro a boxSuggerimenti, mette tutto quello che abbiamo costruito in html
+              	//dentro a boxSuggerimenti, mette tutto quello che abbiamo costruito in html
                 boxSuggerimenti.innerHTML = html; 
                 boxSuggerimenti.style.display = "block";
             })

@@ -87,12 +87,10 @@ public class ModificaProdottoServlet extends HttpServlet
                     String appPath = request.getServletContext().getRealPath("");
                     String percorsoDb = img.getPercorsoImmagine();
                     
-                    // Se il percorso sul DB inizia con lo slash '/', lo rimuoviamo per evitare doppi separatori
                     if (percorsoDb.startsWith("/")) {
                         percorsoDb = percorsoDb.substring(1);
                     }
                     
-                    // Convertiamo gli slash web in separatori di sistema (\ o / a seconda dell'OS)
                     String percorsoFisicoImg = percorsoDb.replace("/", File.separator);
                     File fileFisico = new File(appPath + File.separator + percorsoFisicoImg);
                     
@@ -107,7 +105,6 @@ public class ModificaProdottoServlet extends HttpServlet
                         System.out.println("[DELETE] ATTENZIONE: File non trovato sul disco.");
                     }
                     
-                    // Rimozione logica dal Database tramite DAO
                     immagineDAO.doDelete(idImmagine);
                     session.setAttribute("successMessage", "Immagine rimossa correttamente!");
                 }
@@ -146,7 +143,6 @@ public class ModificaProdottoServlet extends HttpServlet
             
             prodottoDAO.doUpdate(p);
 
-            // Gestione del file Multipart (Nuova immagine facoltativa)
             Part filePart = request.getPart("nuovaImmagine"); 
             if (filePart != null && filePart.getSize() > 0)
             {
@@ -166,7 +162,6 @@ public class ModificaProdottoServlet extends HttpServlet
                 filePart.write(pathCompletoFileFisico);
                 
                 Immagine nuovaImg = new Immagine();
-                // Salviamo SENZA lo slash iniziale per uniformità con la costante UPLOAD_DIR_WEB
                 nuovaImg.setPercorsoImmagine(UPLOAD_DIR_WEB + "/" + fileName);
                 nuovaImg.setFkProdotto(idProdotto);
                 

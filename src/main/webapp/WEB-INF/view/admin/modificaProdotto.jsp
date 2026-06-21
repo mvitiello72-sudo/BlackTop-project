@@ -24,6 +24,7 @@
                 <p>Aggiorna le informazioni relative al prodotto selezionato.</p>
             </div>
 
+			<%-- Mostra i messaggi di notifica se presenti, poi li rimuove per evitare che ricompaiano al ricaricamento della pagina --%>
             <c:if test="${not empty successMessage}">
                 <div class="alert alert-success">${successMessage}</div>
                 <% session.removeAttribute("successMessage"); %>
@@ -90,7 +91,6 @@
                     </div>
                 </div>
 
-                <%-- Modificato da form-grid-three a form-grid per ospitare perfettamente i due elementi rimasti --%>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="prezzo">Prezzo (€) *</label>
@@ -148,7 +148,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById("formModificaProdotto");
 
-        // VALIDAZIONE GLOBALE ALL'INVIO DEL FORM 
+        // VALIDAZIONE ALL'INVIO DEL FORM 
         form.addEventListener("submit", function(event) {
             
             // Se l'operazione è scatenata dall'onclick del tasto elimina-immagine, usciamo immediatamente senza validare i testi
@@ -168,7 +168,7 @@
             const prezzo = prezzoCampo.value.trim();
             const stock = stockCampo.value.trim();
 
-            // Reset dei messaggi di errore precedenti
+            // Reset dei messaggi di errore 
             document.getElementById("error-nome").innerText = "";
             document.getElementById("error-squadra").innerText = "";
             document.getElementById("error-prezzo").innerText = "";
@@ -190,7 +190,7 @@
                 valido = false;
             }
 
-            // Validazione campo PREZZO (Inclusa protezione da input corrotti tipo -- o e++)
+            // Validazione campo PREZZO 
             const regexPrezzo = /^[0-9]+([\.][0-9]{1,2})?$/;
             if (prezzoCampo.validity.badInput || prezzo === "") {
                 document.getElementById("error-prezzo").innerText = "Il prezzo è obbligatorio e deve essere un numero valido.";

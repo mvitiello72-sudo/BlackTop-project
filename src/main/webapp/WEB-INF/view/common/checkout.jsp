@@ -123,7 +123,7 @@
                 const errorIndirizzo = document.getElementById("indirizzo-error");
                 const errorPagamento = document.getElementById("pagamento-error");
                 
-                // Reset dei messaggi di errore precedenti
+                // Reset dei messaggi di errore 
                 errorIndirizzo.innerText = "";
                 errorPagamento.innerText = "";
 

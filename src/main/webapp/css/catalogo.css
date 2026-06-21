@@ -11,7 +11,7 @@
 
 /* Sidebar Filtri */
 .filtri-sidebar {
-    flex: 0 0 250px; /* Larghezza fissa per la sidebar su desktop */
+    flex: 0 0 250px; 
     background: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
@@ -97,9 +97,7 @@
 }
 
 
-/* ===============================
-   MEDIA QUERIES (RESPONSIVE)
-   =============================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -110,15 +108,15 @@
     }
 
     .filtri-sidebar {
-        flex: none; /* Rimuove il blocco fisso dei 250px */
-        width: 100%; /* La sezione filtri occupa tutta la larghezza disponibile */
+        flex: none; 
+        width: 100%; 
         display: flex;
         flex-direction: column;
         gap: 15px;
         padding: 1.2rem;
     }
 
-    /* Distribuiamo i gruppi di filtri in orizzontale su tablet per risparmiare spazio verticale */
+    /* Distribuiamo i gruppi di filtri in orizzontale */
     .filtro-disposizione {
         display: flex;
         flex-wrap: wrap;
@@ -129,7 +127,7 @@
     .filtro-gruppo {
         margin-bottom: 0;
         flex: 1;
-        min-width: 150px; /* Impedisce ai filtri di stringersi troppo */
+        min-width: 150px; 
     }
 
     .btn-applica {
@@ -144,7 +142,6 @@
         gap: 1rem;
     }
 
-    /* Rimettiamo i filtri in verticale su schermi minuscoli per evitare sovrapposizioni */
     .filtri-sidebar {
         padding: 1rem;
     }
@@ -154,14 +151,13 @@
         gap: 15px;
     }
 
-    /* Griglia prodotti: forziamo 2 colonne anziché 1 per permettere l'effetto catalogo continuo */
     .products-grid {
         grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; /* Spazio ridotto tra le card su schermi piccoli */
+        gap: 10px; 
     }
 
     .product-card {
-        padding: 0.8rem; /* Riduciamo i margini interni delle card */
+        padding: 0.8rem;
     }
 
     .product-card h3 {
@@ -169,7 +165,7 @@
     }
 
     .btn-detail {
-        width: 100%; /* Il bottone prende tutta la larghezza della card */
+        width: 100%; 
         padding: 0.6rem 0.5rem;
     }
 }

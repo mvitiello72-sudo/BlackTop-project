@@ -76,11 +76,9 @@ public class AggiungiMetodoPagamentoServlet extends HttpServlet
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.err.println("Errore SQL durante il salvataggio del metodo di pagamento: " + e.getMessage());
-                // Gestiamo l'errore SQL senza rompere la navigazione con il sendError 500
                 session.setAttribute("messaggioErrore", "Errore interno del database durante il salvataggio della carta.");
             }
         } else {
-            // Caso in cui i parametri del form arrivino vuoti o nulli alla servlet
             session.setAttribute("messaggioErrore", "Tutti i campi del modulo sono obbligatori.");
         }
         

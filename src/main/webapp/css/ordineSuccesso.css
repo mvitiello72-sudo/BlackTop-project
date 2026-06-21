@@ -67,7 +67,7 @@
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap; /* Impedisce al testo del singolo bottone di andare a capo internamente */
+    white-space: nowrap; 
 }
 
 .btn-primary-success {
@@ -94,9 +94,7 @@
 }
 
 
-/* ==============================
-   MEDIA QUERIES (RESPONSIVE)
-   ============================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -137,18 +135,17 @@
         font-size: 16px;
         padding: 10px 20px;
         margin-bottom: 25px;
-        width: 100%; /* Il box del numero d'ordine diventa un blocco a larghezza intera */
+        width: 100%; 
         box-sizing: border-box;
     }
 
-    /* Trasformiamo il gruppo di bottoni da orizzontale a verticale */
     .actions-group {
         flex-direction: column;
         gap: 12px;
     }
 
     .btn-success-page {
-        width: 100%; /* I bottoni si estendono per tutta la larghezza */
+        width: 100%; 
         padding: 14px 15px;
         font-size: 12px;
         text-align: center;

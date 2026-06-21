@@ -57,10 +57,8 @@ public class CatalogoServlet extends HttpServlet {
                 }
             }
             
-            // Passa la lista (filtrata, cercata o totale) alla JSP
             request.setAttribute("listaProdotti", listaProdotti);
             
-            // Inoltra la richiesta alla pagina JSP
             request.getRequestDispatcher("/WEB-INF/view/common/catalogo.jsp").forward(request, response);
             
         } catch (Exception e) {

@@ -34,7 +34,7 @@ public class Carrello implements Serializable
             if (item.getProdotto().getIdProdotto() == p.getIdProdotto() && item.getTaglia().equals(taglia))
             {
                 item.setQuantita(item.getQuantita() + quantita);
-                item.setProdotto(p); // i dati e le immagini nuove dal DB
+                item.setProdotto(p); 
                 return;
             }
         }      

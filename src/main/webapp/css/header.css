@@ -13,7 +13,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
 }
 
-/* --- 1. BLOCCO SINISTRA --- */
 .nav-left img {
     height: 100px;                        
     width: auto;         
@@ -25,9 +24,8 @@
     transform: scale(1.05);         
 }
 
-/* --- 2. BLOCCO CENTRALE (Ricerca) --- */
 .nav-center {
-    position: relative; /* Essenziale per contenere la tendina dei suggerimenti */
+    position: relative; 
 }
 
 .nav-center form {
@@ -64,7 +62,6 @@
     background-color: #d67d3e;            
 }
 
-/* --- 3. BLOCCO DESTRA --- */
 .nav-right {
     display: flex;
     align-items: center;
@@ -80,7 +77,7 @@
     border-radius: 4px;
     border: 1px solid transparent;          
     text-transform: uppercase;
-    white-space: nowrap; /* Impedisce al testo del bottone (o nome utente) di spezzarsi su due righe */
+    white-space: nowrap; 
 }
 
 .nav-btn:hover {
@@ -100,7 +97,6 @@
     color: var(--color-primary);        
 }
 
-/* --- TENDINA DEI SUGGERIMENTI --- */
 .search-suggestions {
     position: absolute;       
     top: 100%;                
@@ -152,9 +148,7 @@
 }
 
 
-/* ====================
-   MEDIA QUERIES
-   ==================== */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
@@ -170,19 +164,18 @@
 
     .nav-center {
         width: 100%; 
-        order: 3;    /* La ricerca va in fondo così la tendina dei suggerimenti si apre liberamente verso il basso */
+        order: 3;   
     }
 
     .nav-center form {
         width: 100%; 
     }
 
-    /* Gestione dei bottoni che aumentano quando l'utente si logga */
     .nav-right {
         width: 100%;
         justify-content: center; 
         order: 2;
-        flex-wrap: wrap; /* Se i bottoni (Admin, Nome, Esci, Carrello) non ci stanno, vanno a capo */
+        flex-wrap: wrap; 
         gap: 10px;
     }
 
@@ -196,21 +189,20 @@
 @media screen and (max-width: 480px) {
     .navbar {
         gap: 12px;
-        padding: 12px 10px; /* Riduciamo i margini laterali per guadagnare spazio prezioso */
+        padding: 12px 10px; 
     }
 
     .nav-left img {
-        height: 55px; /* Logo ancora più compatto per lasciare spazio visivo */
+        height: 55px; 
     }
 
-    /* Ottimizzazione definitiva per ospitare tutti i bottoni del Login/Admin su schermi piccoli */
     .nav-right {
         gap: 6px;
     }
 
     .nav-btn {
         padding: 6px 10px; 
-        font-size: 11px; /* Dimensione di sicurezza per evitare che i pulsanti si sovrappongano */
+        font-size: 11px; 
         letter-spacing: 0px;
     }
     

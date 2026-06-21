@@ -6,34 +6,32 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 80vh; /* Centra verticalmente lo sfondo */
+    min-height: 80vh;
     padding: 20px;
     text-align: center;
     background-color: var(--color-bg-main);
     box-sizing: border-box;
 }
 
-/* Stile base per il titolo dell'errore (Font Impact/Arial Black dello store) */
 .error-title {
     font-family: var(--font-heading);
     font-size: 3.5rem;
-    color: var(--color-primary); /* Colore scuro di default (es. per il 404) */
+    color: var(--color-primary); 
     margin-bottom: 15px;
     letter-spacing: 1px;
     line-height: 1.1;
 }
 
-/* Variante Arancione per l'errore 500 (Errore del server) */
+/* Arancione per l'errore 500 (Errore del server) */
 .error-title.server-error {
     color: var(--color-secondary); 
 }
 
-/* Variante Rossa per l'errore 403 (Accesso Negato) */
+/* Rosso per l'errore 403 (Accesso Negato) */
 .error-title.access-denied {
-    color: #DC3545; /* Rosso di sicurezza/allerta */
+    color: #DC3545;
 }
 
-/* Descrizione principale del testo */
 .error-message {
     font-size: 1.2rem;
     color: var(--color-text-main);
@@ -43,7 +41,6 @@
     line-height: 1.4;
 }
 
-/* Didascalia secondaria in grigio */
 .error-submessage {
     font-size: 1rem;
     color: var(--color-text-secondary);
@@ -52,7 +49,6 @@
     line-height: 1.5;
 }
 
-/* Il bottone urban/minimal dello store BlackTop */
 .btn-error {
     display: inline-block;
     font-family: var(--font-heading);
@@ -64,11 +60,10 @@
     letter-spacing: 1px;
     border: 2px solid var(--color-primary);
     cursor: pointer;
-    text-decoration: none; /* Sicurezza nel caso in cui venga usato un tag <a> */
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
-/* Hover del bottone che richiama l'arancione BlackTop */
 .btn-error:hover {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
@@ -77,18 +72,15 @@
 }
 
 
-/* ============================
-   MEDIA QUERIES (RESPONSIVE) 
-   ============================ */
+/* MEDIA QUERIES */
 
 /* TABLET & SMARTPHONE (Sotto i 768px di larghezza) */
 @media screen and (max-width: 768px) {
     .error-container {
-        min-height: 70vh; /* Riduce leggermente l'altezza minima  */
+        min-height: 70vh; 
         padding: 30px 20px;
     }
 
-    /* Ridimensionamento del titolo principale (es: "404", "500")*/
     .error-title {
         font-size: 2.8rem;
         margin-bottom: 12px;
@@ -118,10 +110,9 @@
 
     .error-submessage {
         font-size: 0.9rem;
-        margin-bottom: 25px; /* Distanza ridotta dal bottone per compattare il blocco visuale */
+        margin-bottom: 25px; 
     }
 
-    /* Il bottone prende tutta la larghezza dello schermo */
     .btn-error {
         width: 100%;
         padding: 14px 20px;

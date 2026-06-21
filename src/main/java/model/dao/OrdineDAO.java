@@ -28,7 +28,6 @@ public class OrdineDAO
 	    
 	    String sqlDettaglio = "INSERT INTO dettagliOrdine (fk_ordine, fk_prodotto, quantita, prezzo_snapshot) VALUES (?, ?, ?, ?)";
 	    
-	    // SQL MODIFICATO: Scala lo stock E se lo stock diventa <= 0 imposta attivo = 0 (false)
 	    String sqlUpdateStock = "UPDATE prodotto " +
 	                            "SET stock = stock - ?, " +
 	                            "    attivo = IF(stock <= 0, 0, attivo) " +
@@ -39,7 +38,7 @@ public class OrdineDAO
 	        conn = ConnectionPool.getConnection();
 	        conn.setAutoCommit(false); // Inizia la transazione atomica
 
-	        // 1. Inseriamo la testa dell'ordine
+	        //Inseriamo la testa dell'ordine
 	        psOrdine = conn.prepareStatement(sqlOrdine, Statement.RETURN_GENERATED_KEYS);
 	        psOrdine.setDate(1, ordine.getDataOrdine());
 	        psOrdine.setString(2, ordine.getStato());
@@ -61,7 +60,7 @@ public class OrdineDAO
 	        psDettaglio = conn.prepareStatement(sqlDettaglio);
 	        psUpdateStock = conn.prepareStatement(sqlUpdateStock);
 
-	        // 2. Cicliamo il carrello
+	        //Cicliamo il carrello
 	        for(ElementoCarrello item : carrello.getElementi()) 
 	        {
 	            // Batch dettagli ordine
